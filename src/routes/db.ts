@@ -56,13 +56,6 @@ export default {
 			return data;
 		}
 	},
-	parse: {
-		async parseUrl(url: string, id: number) {
-			const { data, error } = await supabase.functions.invoke('parse', {
-				body: { url, id }
-			});
-		}
-	},
 	tts: {
 		async createTts(bookmark) {
 			// remove these calls
