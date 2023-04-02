@@ -1,8 +1,10 @@
 import { writable } from 'svelte/store';
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY, PUBLIC_BASE_URL } from '$env/static/public';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
+import type { Database } from '$types/supabase';
+import type { BookmarkType } from '$types/types';
 
-export const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
+export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
 const userStore = writable();
 
@@ -38,33 +40,33 @@ export default {
 		return supabase.auth.signOut();
 	},
 	bookmarks: {
-		async all() {
+		async get() {
 			const { data } = await supabase.from('bookmarks').select('*');
 
 			return data;
 		},
 
-		async create(bookmark) {
+		async post(bookmark: BookmarkType) {
 			const {
 				data: { user }
 			} = await supabase.auth.getUser();
 			const { data, error } = await supabase.from('bookmarks').insert({
 				...bookmark,
-				user_id: user.id
+				user_id: user?.id
 			});
 
-			return data;
+			return data || [];
 		}
 	},
 	tts: {
-		async createTts(bookmark) {
-			// remove these calls
-			const {
-				data: { user }
-			} = await supabase.auth.getUser();
-			const { data, error } = await supabase.functions.invoke('tts', {
-				body: { user_id: user.id, bookmark_id: bookmark.id, text: bookmark.text }
-			});
-		}
+		// async create(bookmark:BookmarkType) {
+		// 	// remove these calls
+		// 	const {
+		// 		data: { user }
+		// 	} = await supabase.auth.getUser();
+		// 	const { data, error } = await supabase.functions.invoke('tts', {
+		// 		body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
+		// 	});
+		// }
 	}
 };

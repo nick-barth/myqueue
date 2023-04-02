@@ -4,12 +4,19 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				transparent: 'transparent',
-				current: 'currentColor',
-				primary: '#ff9155',
-				background: '#16081a',
-				backgroundSecondary: 'rgb(41 28 44 / var(--tw-bg-opacity))',
-				backgroundSecondaryHover: '#4E2A56'
+				colors: {
+					white: '#ffffff',
+					accent: '#C1EBFF',
+					accent2: '#D8BBFE',
+					primary: '#181818',
+					primary2: '#363636',
+					primary3: '#545454',
+					background: 'F2F2F2',
+					error: '#ef4444'
+				},
+				borderRadius: {
+					primary: '80px'
+				}
 			}
 		}
 	},

@@ -7,7 +7,7 @@
 	async function submit() {
 		await db.signIn(email, password);
 		if (db.user) {
-			goto('/dash');
+			goto('/');
 		}
 	}
 </script>

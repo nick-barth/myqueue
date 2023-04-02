@@ -1,16 +1,12 @@
-<script>
-	export let bookmark;
-	import db from '../../routes/db';
+<script lang="ts">
+	import type { BookmarkType } from '$types/types';
+	export let bookmark: BookmarkType;
 
-	const handlePlay = () => {
-		db.tts.createTts(bookmark);
-		// db.parse.parseUrl(bookmark.url, bookmark.id);
-	};
+	const handlePlay = () => {};
 </script>
 
 <div>
 	<div>
 		{bookmark.url}
-		<button on:click={handlePlay}>Play button</button>
 	</div>
 </div>
