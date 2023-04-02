@@ -9,6 +9,6 @@
 	}
 </script>
 
-<div class="color-slate-700 bg-slate-100">
+<div class="max-w-screen-2xl w-full">
 	<slot />
 </div>

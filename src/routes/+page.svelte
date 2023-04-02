@@ -11,11 +11,9 @@
 </script>
 
 <div>
-	<div>
-		{#if bookmarks && bookmarks.length > 0}
-			{#each bookmarks as bookmark}
-				<Bookmark {bookmark} />
-			{/each}
-		{/if}
-	</div>
+	{#if bookmarks && bookmarks.length > 0}
+		{#each bookmarks as bookmark}
+			<Bookmark {bookmark} />
+		{/each}
+	{/if}
 </div>

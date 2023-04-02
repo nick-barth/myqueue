@@ -1,0 +1,16 @@
+{
+	"name": "My Queue",
+	"short_name": "My Queue",
+	"start_url": "/",
+	"scope": "/",
+	"icons": [
+		{
+			"src": "static/logo128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#fff19f",
+	"background_color": "#fff19f",
+	"display": "standalone"
+}
