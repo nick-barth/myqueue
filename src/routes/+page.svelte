@@ -10,7 +10,7 @@
 	});
 </script>
 
-<div>
+<div class="mt-10">
 	{#if bookmarks && bookmarks.length > 0}
 		{#each bookmarks as bookmark}
 			<Bookmark {bookmark} />
