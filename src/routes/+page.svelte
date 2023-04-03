@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import { onMount } from 'svelte';
-	import db from './db';
+	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
 
 	let bookmarks: BookmarkType[] | null = [];

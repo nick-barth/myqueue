@@ -59,14 +59,20 @@ export default {
 		}
 	},
 	tts: {
-		// async create(bookmark:BookmarkType) {
-		// 	// remove these calls
-		// 	const {
-		// 		data: { user }
-		// 	} = await supabase.auth.getUser();
-		// 	const { data, error } = await supabase.functions.invoke('tts', {
-		// 		body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
-		// 	});
-		// }
+		async create(bookmark: BookmarkType) {
+			const {
+				data: { user }
+			} = await supabase.auth.getUser();
+			const { data, error } = await supabase.functions.invoke('tts', {
+				body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
+			});
+		},
+		async getPublicPath(bookmark: BookmarkType) {
+			if (!bookmark.audio) {
+				return;
+			}
+			const { data } = supabase.storage.from('public-bucket').getPublicUrl(bookmark.audio);
+			console.log(data);
+		}
 	}
 };

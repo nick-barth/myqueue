@@ -2,7 +2,7 @@
 	import Header from '$lib/components/header.svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
-	import db from './db';
+	import db from '$lib/db';
 	let user = db.user;
 
 	if (!$user) {

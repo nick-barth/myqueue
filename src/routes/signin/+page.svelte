@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import db from '../db';
+	import db from '$lib/db';
 	let email: string,
 		password: string,
 		sent = false;

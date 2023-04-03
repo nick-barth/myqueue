@@ -5,7 +5,7 @@ export interface Database {
 		Tables: {
 			bookmarks: {
 				Row: {
-					audo_url: string | null;
+					audio: string | null;
 					authors: string[];
 					content: string | null;
 					created_at: string | null;
@@ -17,7 +17,7 @@ export interface Database {
 					user_id: string | null;
 				};
 				Insert: {
-					audo_url?: string | null;
+					audio?: string | null;
 					authors?: Json | null;
 					content?: string | null;
 					created_at?: string | null;
@@ -29,7 +29,7 @@ export interface Database {
 					user_id?: string | null;
 				};
 				Update: {
-					audo_url?: string | null;
+					audio?: string | null;
 					authors?: Json | null;
 					content?: string | null;
 					created_at?: string | null;

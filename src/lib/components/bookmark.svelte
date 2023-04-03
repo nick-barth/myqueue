@@ -2,6 +2,7 @@
 	import LoadingDots from '$lib/components/loading-dots.svelte';
 	import type { BookmarkType } from '$types/types';
 	export let bookmark: BookmarkType;
+	import db from '$lib/db';
 
 	let meta: string[] = [];
 	meta.push(bookmark.authors.join(', '));
@@ -9,16 +10,40 @@
 	meta.push('8 mins');
 	meta.push('November 18, 2022');
 	$: isGenerating = false;
-	const handlePlay = () => {
-		isGenerating = true;
-		setTimeout(() => {
-			isGenerating = false;
-		}, 7000);
+	const handlePlay = async () => {
+		console.log(bookmark);
+		if (bookmark.audio) {
+			db.tts.getPublicPath(bookmark);
+		} else {
+			if (!bookmark.content) {
+				return;
+			}
+			if (bookmark.content.length > 4500) {
+				console.log('oops thatsa too big');
+			} else {
+				isGenerating = true;
+				const res = await db.tts.create(bookmark);
+				isGenerating = false;
+			}
+		}
+		// isGenerating = true;
+		// setTimeout(() => {
+		// 	isGenerating = false;
+		// }, 7000);
 	};
 </script>
 
 <li class="list-none mb-8">
 	<h2 class="flex font-bold text-xl">
+		{#if bookmark.audio}
+			<figure>
+				<figcaption>Listen to this shit dog:</figcaption>
+				<audio
+					controls
+					src="https://paddechpmdutxepollwl.supabase.co/storage/v1/object/public/audio/{bookmark.audio}"
+				/>
+			</figure>
+		{/if}
 		{#if bookmark.image}
 			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
 				<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />

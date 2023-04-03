@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
-	import db from '../db';
+	import db from '$lib/db';
 	let email: string,
 		password: string,
 		sent = false;
