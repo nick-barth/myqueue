@@ -12,6 +12,7 @@ export interface Database {
 					id: number;
 					image: string | null;
 					title: string | null;
+					domain: string | null;
 					url: string | null;
 					user_id: string | null;
 				};
@@ -23,6 +24,7 @@ export interface Database {
 					id?: number;
 					image?: string | null;
 					title?: string | null;
+					domain?: string | null;
 					url?: string | null;
 					user_id?: string | null;
 				};
@@ -34,6 +36,7 @@ export interface Database {
 					id?: number;
 					image?: string | null;
 					title?: string | null;
+					domain?: string | null;
 					url?: string | null;
 					user_id?: string | null;
 				};
