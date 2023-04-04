@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
 	import { onMount } from 'svelte';
@@ -14,7 +15,7 @@
 		// }
 	});
 
-	const setSelectedBookmark = (bookmark: BookmarkType) => {
+	const setSelectedBookmark = (bookmark: BookmarkType | null) => {
 		console.log(bookmark);
 		selectedBookmark = bookmark;
 	};
@@ -22,7 +23,12 @@
 
 <div class="mt-10">
 	{#if selectedBookmark && selectedBookmark.content}
-		<Player bookmark={selectedBookmark} {setSelectedBookmark} />
+		<div
+			class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-white"
+			transition:fly={{ y: 200, duration: 400 }}
+		>
+			<Player bookmark={selectedBookmark} {setSelectedBookmark} />
+		</div>
 	{/if}
 	{#if bookmarks && bookmarks.length > 0}
 		{#each bookmarks as bookmark}
