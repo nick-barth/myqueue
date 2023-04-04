@@ -1,19 +1,20 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
-	import type { BookmarkType } from '$types/types';
-	export let bookmark: BookmarkType;
+	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
+	import type { BookmarkType } from '$types/types';
 
-	let meta: string[] = [];
-	meta.push(bookmark.authors.join(', '));
-	bookmark.domain && meta.push(bookmark.domain);
-	meta.push('8 mins');
-	meta.push('November 18, 2022');
+	export let bookmark: BookmarkType;
+	export let setSelectedBookmark: (arg1: BookmarkType) => void;
+
+	let meta = combineMeta(bookmark);
 	$: isGenerating = false;
+	$: audioUrl = bookmark.audio;
 	const handlePlay = async () => {
-		console.log(bookmark);
+		console.log('okay?');
 		if (bookmark.audio) {
-			db.tts.getPublicPath(bookmark);
+			console.log('wow');
+			setSelectedBookmark(bookmark);
 		} else {
 			if (!bookmark.content) {
 				return;
@@ -23,6 +24,7 @@
 			} else {
 				isGenerating = true;
 				const res = await db.tts.create(bookmark);
+				audioUrl = res.path;
 				isGenerating = false;
 			}
 		}
@@ -35,15 +37,6 @@
 
 <li class="list-none mb-8">
 	<h2 class="flex font-bold text-xl">
-		{#if bookmark.audio}
-			<figure>
-				<figcaption>Listen to this shit dog:</figcaption>
-				<audio
-					controls
-					src="https://paddechpmdutxepollwl.supabase.co/storage/v1/object/public/audio/{bookmark.audio}"
-				/>
-			</figure>
-		{/if}
 		{#if bookmark.image}
 			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
 				<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />

@@ -43,7 +43,7 @@ export default {
 		async get() {
 			const { data } = await supabase.from('bookmarks').select('*');
 
-			return data;
+			return data || [];
 		},
 
 		async post(bookmark: BookmarkType) {
@@ -66,6 +66,7 @@ export default {
 			const { data, error } = await supabase.functions.invoke('tts', {
 				body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
 			});
+			return data;
 		},
 		async getPublicPath(bookmark: BookmarkType) {
 			if (!bookmark.audio) {
