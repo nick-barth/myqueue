@@ -24,7 +24,7 @@
 <div class="mt-10">
 	{#if selectedBookmark && selectedBookmark.content}
 		<div
-			class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-white"
+			class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-colors-background"
 			transition:fly={{ y: 200, duration: 400 }}
 		>
 			<Player bookmark={selectedBookmark} {setSelectedBookmark} />

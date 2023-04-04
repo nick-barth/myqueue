@@ -1,9 +1,38 @@
 <script lang="ts">
-	import type { BookmarkType } from '$types/types';
 	import { combineMeta } from '$lib/utils/bookmark';
+	import { onMount } from 'svelte';
+	import { intervalToDuration } from 'date-fns';
+
+	import type { BookmarkType } from '$types/types';
 
 	export let bookmark: BookmarkType;
 	export let setSelectedBookmark: (arg1: BookmarkType | null) => void;
+
+	export let audioPlayer: HTMLAudioElement | null = null;
+	let currentTime: number;
+	let duration: number;
+
+	const zeroPad = (num: number | undefined) => String(num).padStart(2, '0');
+
+	const formatToMmss = (seconds: number) => {
+		if (!seconds) {
+			return '00:00';
+		}
+		const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
+		const formatted = `${duration.minutes}:${zeroPad(duration.seconds)}`;
+		return formatted;
+	};
+
+	$: volume = 0;
+	let displayTime: string;
+	let percentLeft: string;
+	$: percentLeft = `${(100 * currentTime) / duration}%`;
+	$: displayTime = formatToMmss(currentTime);
+	$: displayDuration = formatToMmss(duration);
+
+	onMount(async () => {
+		audioPlayer?.play();
+	});
 
 	const meta = combineMeta(bookmark);
 </script>
@@ -49,13 +78,43 @@
 		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
 		</p>
-		<div class="text-sm leading-6 mb-2">
+		<div class="text-sm leading-6 mb-6">
 			{meta.join(' • ')}
 		</div>
+		<div class="w-full">
+			<div class="w-full h-1 bg-slate-300 relative">
+				<div
+					style="left: {percentLeft}"
+					class="absolute h-3 w-3 top-0 rounded-full bg-colors-primary -translate-y-1/3 transition-all ease-out duration-75"
+				/>
+			</div>
+			<div class="w-full justify-between flex text-sm mt-2">
+				<div>{displayTime}</div>
+				<div>{displayDuration}</div>
+			</div>
+		</div>
+		<div class="w-full mt-6 flex items-center justify-center">
+			<button class="bg-colors-primary rounded-full h-16 w-16 flex items-center justify-center"
+				><svg
+					class="pl-1"
+					width="20"
+					height="23"
+					viewBox="0 0 20 23"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path d="M0.046511 22.1935L0 0.557571L20 11.0073L0.046511 22.1935Z" fill="#F4F4F4" />
+				</svg>
+			</button>
+		</div>
+		<figure>
+			<audio
+				bind:volume
+				bind:duration
+				bind:currentTime
+				bind:this={audioPlayer}
+				src="https://paddechpmdutxepollwl.supabase.co/storage/v1/object/public/audio/{bookmark.audio}"
+			/>
+		</figure>
 	</div>
-	<figure>
-		<audio
-			src="https://paddechpmdutxepollwl.supabase.co/storage/v1/object/public/audio/{bookmark.audio}"
-		/>
-	</figure>
 </aside>

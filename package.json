@@ -30,6 +30,7 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.9.0",
-		"@supabase/supabase-js": "^2.12.1"
+		"@supabase/supabase-js": "^2.12.1",
+		"date-fns": "^2.29.3"
 	}
 }
