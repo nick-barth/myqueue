@@ -9,7 +9,7 @@
 
 	let meta = combineMeta(bookmark);
 	$: isGenerating = false;
-	$: audioUrl = bookmark.audio;
+	$: bookmark;
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			setSelectedBookmark(bookmark);
@@ -17,15 +17,14 @@
 			if (!bookmark.content) {
 				return;
 			}
-			if (bookmark.content.length > 4500) {
-				console.log('oops thatsa too big');
-			} else {
-				isGenerating = true;
-				const res = await db.tts.create(bookmark);
-				setSelectedBookmark(bookmark);
-				audioUrl = res.path;
-				isGenerating = false;
-			}
+			isGenerating = true;
+			const res = await db.tts.create(bookmark);
+			bookmark = {
+				...bookmark,
+				audio: res.path
+			};
+			setSelectedBookmark(bookmark);
+			isGenerating = false;
 		}
 		// isGenerating = true;
 		// setTimeout(() => {
@@ -35,7 +34,7 @@
 </script>
 
 <li class="list-none mb-8">
-	{audioUrl}
+	{bookmark.audio}
 	<h2 class="flex font-bold text-xl">
 		{#if bookmark.image}
 			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
