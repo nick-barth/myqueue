@@ -16,9 +16,9 @@
 
 			if ('mediaSession' in navigator) {
 				navigator.mediaSession.metadata = new MediaMetadata({
-					title: 'Never Gonna Give You Up',
-					artist: 'Rick Astley',
-					album: 'Whenever You Need Somebody',
+					title: bookmark.title || undefined,
+					artist: bookmark.authors.length > 0 ? bookmark.authors.join(', ') : undefined,
+					album: 'My Queue',
 					artwork: [
 						{ src: 'https://via.placeholder.com/96', sizes: '96x96', type: 'image/png' },
 						{ src: 'https://via.placeholder.com/128', sizes: '128x128', type: 'image/png' },
