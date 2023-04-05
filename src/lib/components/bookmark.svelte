@@ -34,7 +34,6 @@
 </script>
 
 <li class="list-none mb-8">
-	{bookmark.audio}
 	<h2 class="flex font-bold text-xl">
 		{#if bookmark.image}
 			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
