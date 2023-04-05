@@ -13,24 +13,6 @@
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			setSelectedBookmark(bookmark);
-
-			if ('mediaSession' in navigator) {
-				navigator.mediaSession.metadata = new MediaMetadata({
-					title: bookmark.title || undefined,
-					artist: bookmark.authors.length > 0 ? bookmark.authors.join(', ') : undefined,
-					album: 'My Queue',
-					artwork: [
-						{ src: 'https://via.placeholder.com/96', sizes: '96x96', type: 'image/png' },
-						{ src: 'https://via.placeholder.com/128', sizes: '128x128', type: 'image/png' },
-						{ src: 'https://via.placeholder.com/192', sizes: '192x192', type: 'image/png' },
-						{ src: 'https://via.placeholder.com/256', sizes: '256x256', type: 'image/png' },
-						{ src: 'https://via.placeholder.com/384', sizes: '384x384', type: 'image/png' },
-						{ src: 'https://via.placeholder.com/512', sizes: '512x512', type: 'image/png' }
-					]
-				});
-
-				// TODO: Update playback state.
-			}
 		} else {
 			if (!bookmark.content) {
 				return;
@@ -40,6 +22,7 @@
 			} else {
 				isGenerating = true;
 				const res = await db.tts.create(bookmark);
+				setSelectedBookmark(bookmark);
 				audioUrl = res.path;
 				isGenerating = false;
 			}
@@ -52,6 +35,7 @@
 </script>
 
 <li class="list-none mb-8">
+	{audioUrl}
 	<h2 class="flex font-bold text-xl">
 		{#if bookmark.image}
 			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">

@@ -44,6 +44,22 @@
 		}
 	};
 
+	if ('mediaSession' in navigator) {
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: bookmark.title || undefined,
+			artist: bookmark.authors.length > 0 ? bookmark.authors.join(', ') : undefined,
+			album: 'My Queue',
+			artwork: [
+				{ src: 'https://via.placeholder.com/96', sizes: '96x96', type: 'image/png' },
+				{ src: 'https://via.placeholder.com/128', sizes: '128x128', type: 'image/png' },
+				{ src: 'https://via.placeholder.com/192', sizes: '192x192', type: 'image/png' },
+				{ src: 'https://via.placeholder.com/256', sizes: '256x256', type: 'image/png' },
+				{ src: 'https://via.placeholder.com/384', sizes: '384x384', type: 'image/png' },
+				{ src: 'https://via.placeholder.com/512', sizes: '512x512', type: 'image/png' }
+			]
+		});
+	}
+
 	const meta = combineMeta(bookmark);
 </script>
 
