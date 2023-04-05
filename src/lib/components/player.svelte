@@ -2,8 +2,12 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { onMount } from 'svelte';
 	import { intervalToDuration } from 'date-fns';
+
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import CloseButton from '$lib/icons/close-button.svg?component';
+	import PlayerBackward from '$lib/icons/player-backward.svg?component';
+	import PlayerForward from '$lib/icons/player-forward.svg?component';
+	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
 
 	import type { BookmarkType } from '$types/types';
 
@@ -25,9 +29,9 @@
 		return formatted;
 	};
 
-	$: volume = 0;
 	let displayTime: string;
 	let percentLeft: string;
+
 	$: percentLeft = `${(100 * currentTime) / duration}%`;
 	$: displayTime = formatToMmss(currentTime);
 	$: displayDuration = formatToMmss(duration);
@@ -39,28 +43,32 @@
 	const meta = combineMeta(bookmark);
 </script>
 
-<aside>
+<aside class="flex flex-col h-full justify-between">
 	<div>
-		<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
-		<button class="absolute top-6 right-6" on:click={() => setSelectedBookmark(null)}>
-			<CloseButton />
-		</button>
+		<div>
+			<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
+			<button class="absolute top-6 right-6" on:click={() => setSelectedBookmark(null)}>
+				<CloseButton />
+			</button>
+		</div>
+		<div class="p-6">
+			<h2 class="flex font-bold text-xl">
+				{bookmark.title}
+			</h2>
+			<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
+				{bookmark.content}
+			</p>
+			<div class="text-sm leading-6 mb-6">
+				{meta.join(' • ')}
+			</div>
+		</div>
 	</div>
 	<div class="p-6">
-		<h2 class="flex font-bold text-xl">
-			{bookmark.title}
-		</h2>
-		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
-			{bookmark.content}
-		</p>
-		<div class="text-sm leading-6 mb-6">
-			{meta.join(' • ')}
-		</div>
 		<div class="w-full">
 			<div class="w-full h-1 bg-slate-300 relative">
 				<div
 					style="left: {percentLeft}"
-					class="absolute h-3 w-3 top-0 rounded-full bg-colors-primary -translate-y-1/3 transition-all ease-out duration-75"
+					class="absolute h-3 w-3 top-0 rounded-full bg-primary -translate-y-1/3 transition-all ease-out duration-75"
 				/>
 			</div>
 			<div class="w-full justify-between flex text-sm mt-2">
@@ -68,14 +76,23 @@
 				<div>{displayDuration}</div>
 			</div>
 		</div>
-		<div class="w-full mt-6 flex items-center justify-center">
-			<button class="bg-colors-primary rounded-full h-16 w-16 flex items-center justify-center"
+		<div class="w-full mt-6 flex items-center justify-between">
+			<button class="text-sm"> 1x </button>
+			<button>
+				<PlayerBackward />
+			</button>
+			<button class="bg-primary rounded-full h-16 w-16 flex items-center justify-center"
 				><PlayButton />
+			</button>
+			<button>
+				<PlayerForward />
+			</button>
+			<button>
+				<PlayerRepeat />
 			</button>
 		</div>
 		<figure>
 			<audio
-				bind:volume
 				bind:duration
 				bind:currentTime
 				bind:this={audioPlayer}

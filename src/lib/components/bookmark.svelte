@@ -50,15 +50,13 @@
 	<div class="text-sm leading-6 mb-2">
 		{meta.join(' • ')}
 	</div>
-	<div class="flex self-start gap-2 pb-8 py-6 border-b border-b-colors-background">
-		<button class="flex h-10 bg-colors-background rounded-[80px] items-center py-2 px-4"
-			>Read</button
-		>
+	<div class="flex self-start gap-2 pb-8 py-6 border-b border-b-background">
+		<button class="flex h-10 bg-background rounded-[80px] items-center py-2 px-4">Read</button>
 		<button
 			on:click={handlePlay}
-			class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-colors-accent rounded-[80px] py-2 px-4 items-center {!isGenerating
-				? 'bg-colors-primary text-white'
-				: 'bg-colors-accent2 text-colors-primary max-w-xs'}"
+			class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {!isGenerating
+				? 'bg-primary text-white'
+				: 'bg-accent2 text-primary max-w-xs'}"
 			>{#if !isGenerating}
 				Listen <svg
 					width="13"
