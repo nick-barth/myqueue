@@ -8,8 +8,13 @@ export const combineMeta = (bookmark: BookmarkType) => {
 	if (bookmark.domain) {
 		meta.push(bookmark.domain);
 	}
-	meta.push('8 mins');
-	meta.push('November 18, 2022');
+	if (bookmark.read_time) {
+		const time = Math.ceil(bookmark.read_time / 60);
+		meta.push(time);
+	}
+	if (bookmark.published) {
+		meta.push(bookmark.published);
+	}
 
 	return meta;
 };
