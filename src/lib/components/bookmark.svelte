@@ -11,9 +11,7 @@
 	$: isGenerating = false;
 	$: audioUrl = bookmark.audio;
 	const handlePlay = async () => {
-		console.log('okay?');
 		if (bookmark.audio) {
-			console.log('wow');
 			setSelectedBookmark(bookmark);
 		} else {
 			if (!bookmark.content) {

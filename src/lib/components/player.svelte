@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { combineMeta } from '$lib/utils/bookmark';
+	import { formatToMmss } from '$lib/utils/date-time';
 	import { onMount } from 'svelte';
-	import { intervalToDuration } from 'date-fns';
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import CloseButton from '$lib/icons/close-button.svg?component';
@@ -17,21 +17,10 @@
 	export let audioPlayer: HTMLAudioElement | null = null;
 	let currentTime: number;
 	let duration: number;
-
-	const zeroPad = (num: number | undefined) => String(num).padStart(2, '0');
-
-	const formatToMmss = (seconds: number) => {
-		if (!seconds) {
-			return '00:00';
-		}
-		const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
-		const formatted = `${duration.minutes}:${zeroPad(duration.seconds)}`;
-		return formatted;
-	};
+	let paused: boolean;
 
 	let displayTime: string;
 	let percentLeft: string;
-
 	$: percentLeft = `${(100 * currentTime) / duration}%`;
 	$: displayTime = formatToMmss(currentTime);
 	$: displayDuration = formatToMmss(duration);
@@ -39,6 +28,21 @@
 	onMount(async () => {
 		audioPlayer?.play();
 	});
+
+	const handleBackward = () => {
+		if (currentTime - 15 < 0) {
+			currentTime = 0;
+		} else {
+			currentTime = currentTime - 15;
+		}
+	};
+	const handleForward = () => {
+		if (currentTime + 15 > duration) {
+			currentTime = 0;
+		} else {
+			currentTime = currentTime + 15;
+		}
+	};
 
 	const meta = combineMeta(bookmark);
 </script>
@@ -78,13 +82,25 @@
 		</div>
 		<div class="w-full mt-6 flex items-center justify-between">
 			<button class="text-sm"> 1x </button>
-			<button>
+			<button on:click={handleBackward} title="Skips backwards 15 seconds">
 				<PlayerBackward />
 			</button>
-			<button class="bg-primary rounded-full h-16 w-16 flex items-center justify-center"
-				><PlayButton />
+			<button
+				on:click={() => (paused = !paused)}
+				title="Toggles play"
+				class="bg-primary rounded-full h-16 w-16 flex items-center justify-center"
+			>
+				{#if paused}
+					<div class="pl-1 overflow-visible">
+						<PlayButton />
+					</div>
+				{:else}
+					<div class="pl-1">
+						<PlayButton />
+					</div>
+				{/if}
 			</button>
-			<button>
+			<button on:click={handleForward} title="Skips forwards 15 seconds">
 				<PlayerForward />
 			</button>
 			<button>
@@ -93,6 +109,7 @@
 		</div>
 		<figure>
 			<audio
+				bind:paused
 				bind:duration
 				bind:currentTime
 				bind:this={audioPlayer}

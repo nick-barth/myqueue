@@ -73,7 +73,6 @@ export default {
 				return;
 			}
 			const { data } = supabase.storage.from('public-bucket').getPublicUrl(bookmark.audio);
-			console.log(data);
 		}
 	}
 };

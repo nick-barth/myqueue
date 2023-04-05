@@ -10,13 +10,9 @@
 	let bookmarks: BookmarkType[] = [];
 	onMount(async () => {
 		bookmarks = await db.bookmarks.get();
-		// if (bookmarks && bookmarks.length > 0) {
-		// 	selectedBookmark = bookmarks[0];
-		// }
 	});
 
 	const setSelectedBookmark = (bookmark: BookmarkType | null) => {
-		console.log(bookmark);
 		selectedBookmark = bookmark;
 	};
 </script>
