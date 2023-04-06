@@ -10,7 +10,11 @@
 	}
 </script>
 
-<div class="max-w-screen-2xl w-full px-6 py-3">
+<svelte:head>
+	<title>My Queue</title>
+</svelte:head>
+
+<div class="max-w-screen-2xl w-full">
 	<Header />
 	<slot />
 </div>

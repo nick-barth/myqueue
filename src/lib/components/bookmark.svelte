@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
+	import PlayButton from '$lib/icons/play-button.svg?component';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
@@ -7,9 +8,15 @@
 
 	export let bookmark: BookmarkType;
 
+	let currentlySelected: boolean;
+	selectedBookmark.subscribe((v) => {
+		currentlySelected = v ? v.id === bookmark.id : false;
+	});
+
 	let meta = combineMeta(bookmark);
 	$: isGenerating = false;
 	$: bookmark;
+
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			selectedBookmark.update((v) => bookmark);
@@ -29,41 +36,55 @@
 	};
 </script>
 
-<li class="list-none mb-8">
-	<h2 class="flex font-bold text-xl">
+<li
+	class="list-none transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 {!currentlySelected
+		? 'bg-white'
+		: 'bg-gray950'}"
+>
+	<div class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-6">
 		{#if bookmark.image}
-			<div class="w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
-				<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
-			</div>
+			<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
 		{/if}
-		{bookmark.title}
-	</h2>
-	<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
-		{bookmark.content}
-	</p>
-	<div class="text-sm leading-6 mb-2">
-		{meta.join(' • ')}
 	</div>
-	<div class="flex self-start gap-2 pb-8 py-6 border-b border-b-background">
-		<button class="flex h-10 bg-background rounded-[80px] items-center py-2 px-4">Read</button>
-		<button
-			on:click={handlePlay}
-			class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {!isGenerating
-				? 'bg-primary text-white'
-				: 'bg-accent2 text-primary max-w-xs'}"
-			>{#if !isGenerating}
-				Listen <svg
-					width="13"
-					height="14"
-					viewBox="0 0 13 14"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path d="M0.0290694 13.9959L0 0.473511L12.5 7.00462L0.0290694 13.9959Z" fill="#FFF" />
-				</svg>
-			{:else}
-				Generating <LoadingDots />
+	<div class="w-full flex flex-col">
+		<h2 class="flex font-bold text-xl">
+			{#if bookmark.image}
+				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
+					<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
+				</div>
 			{/if}
-		</button>
+			{bookmark.title}
+		</h2>
+		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
+			{bookmark.content}
+		</p>
+		<div class="text-sm leading-6 mb-2">
+			{meta.join(' • ')}
+		</div>
+		<div
+			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
+		>
+			<div class="flex gap-2">
+				<button
+					class="flex h-10 {currentlySelected
+						? 'bg-white'
+						: 'bg-gray950'} rounded-[80px] items-center py-2 px-4">Read</button
+				>
+				<button
+					on:click={handlePlay}
+					class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {!isGenerating
+						? 'bg-primary text-white'
+						: 'bg-accent2 text-primary max-w-xs'}"
+					>{#if !isGenerating}
+						<div class="flex items-center gap-2">
+							Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+						</div>
+					{:else}
+						Generating <LoadingDots />
+					{/if}
+				</button>
+			</div>
+			<div>8 mins</div>
+		</div>
 	</div>
 </li>

@@ -66,8 +66,13 @@
 <aside class="flex flex-col h-full justify-between">
 	<div>
 		<div>
-			<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
-			<button class="absolute top-6 right-6" on:click={() => selectedBookmark.update((v) => null)}>
+			{#if bookmark.image}
+				<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
+			{/if}
+			<button
+				class="absolute md:hidden top-6 right-6"
+				on:click={() => selectedBookmark.update((v) => null)}
+			>
 				<CloseButton />
 			</button>
 		</div>

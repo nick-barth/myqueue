@@ -19,18 +19,30 @@
 	});
 </script>
 
-<div class="mt-10">
+<div class="flex md:mr-[385px]">
 	{#if currentBookmark && currentBookmark.content}
-		<div
-			class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-background"
-			transition:fly={{ y: 200, duration: 400 }}
-		>
-			<Player bookmark={currentBookmark} />
+		<div class="md:hidden">
+			<div
+				class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-background"
+				transition:fly={{ y: 200, duration: 400 }}
+			>
+				<Player bookmark={currentBookmark} />
+			</div>
+		</div>
+		<div class="hidden md:flex">
+			<div
+				class="max-w-[355px] fixed right-0 bottom-0 top-0 bg-background"
+				transition:fly={{ y: 200, duration: 400 }}
+			>
+				<Player bookmark={currentBookmark} />
+			</div>
 		</div>
 	{/if}
-	{#if bookmarks && bookmarks.length > 0}
-		{#each bookmarks as bookmark}
-			<Bookmark {bookmark} />
-		{/each}
-	{/if}
+	<div class="max-w-4xl m-auto">
+		{#if bookmarks && bookmarks.length > 0}
+			{#each bookmarks as bookmark}
+				<Bookmark {bookmark} />
+			{/each}
+		{/if}
+	</div>
 </div>
