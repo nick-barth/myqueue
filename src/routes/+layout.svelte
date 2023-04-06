@@ -15,6 +15,8 @@
 </svelte:head>
 
 <div class="w-full">
-	<Header />
+	<div class="sticky top-0 bg-white">
+		<Header />
+	</div>
 	<slot />
 </div>

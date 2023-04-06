@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
+	import UrlAdder from '$lib/components/url-adder.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
 	import { selectedBookmark } from '$lib/store.js';
@@ -39,6 +40,7 @@
 		</div>
 	{/if}
 	<div class="max-w-4xl m-auto px-4 md:p-0">
+		<UrlAdder />
 		{#if bookmarks && bookmarks.length > 0}
 			{#each bookmarks as bookmark}
 				<Bookmark {bookmark} />
