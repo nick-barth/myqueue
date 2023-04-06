@@ -2,6 +2,7 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { formatToMmss } from '$lib/utils/date-time';
 	import { onMount } from 'svelte';
+	import { selectedBookmark } from '$lib/store.js';
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import CloseButton from '$lib/icons/close-button.svg?component';
@@ -12,7 +13,6 @@
 	import type { BookmarkType } from '$types/types';
 
 	export let bookmark: BookmarkType;
-	export let setSelectedBookmark: (arg1: BookmarkType | null) => void;
 
 	export let audioPlayer: HTMLAudioElement | null = null;
 	let currentTime: number;
@@ -67,7 +67,7 @@
 	<div>
 		<div>
 			<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
-			<button class="absolute top-6 right-6" on:click={() => setSelectedBookmark(null)}>
+			<button class="absolute top-6 right-6" on:click={() => selectedBookmark.update((v) => null)}>
 				<CloseButton />
 			</button>
 		</div>

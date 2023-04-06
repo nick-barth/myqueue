@@ -2,33 +2,35 @@
 	import { fly } from 'svelte/transition';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
+	import { selectedBookmark } from '$lib/store.js';
 	import { onMount } from 'svelte';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	let selectedBookmark: BookmarkType | null;
-	$: selectedBookmark = null;
 	let bookmarks: BookmarkType[] = [];
+
+	let currentBookmark: BookmarkType | null;
+
+	selectedBookmark.subscribe((value) => {
+		currentBookmark = value;
+	});
+
 	onMount(async () => {
 		bookmarks = await db.bookmarks.get();
 	});
-
-	const setSelectedBookmark = (bookmark: BookmarkType | null) => {
-		selectedBookmark = bookmark;
-	};
 </script>
 
 <div class="mt-10">
-	{#if selectedBookmark && selectedBookmark.content}
+	{#if currentBookmark && currentBookmark.content}
 		<div
 			class="fixed w-full h-full top-0 left-0 right-0 bottom-0 bg-background"
 			transition:fly={{ y: 200, duration: 400 }}
 		>
-			<Player bookmark={selectedBookmark} {setSelectedBookmark} />
+			<Player bookmark={currentBookmark} />
 		</div>
 	{/if}
 	{#if bookmarks && bookmarks.length > 0}
 		{#each bookmarks as bookmark}
-			<Bookmark {bookmark} {setSelectedBookmark} />
+			<Bookmark {bookmark} />
 		{/each}
 	{/if}
 </div>

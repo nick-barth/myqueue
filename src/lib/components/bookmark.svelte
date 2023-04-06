@@ -3,16 +3,16 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
+	import { selectedBookmark } from '$lib/store.js';
 
 	export let bookmark: BookmarkType;
-	export let setSelectedBookmark: (arg1: BookmarkType) => void;
 
 	let meta = combineMeta(bookmark);
 	$: isGenerating = false;
 	$: bookmark;
 	const handlePlay = async () => {
 		if (bookmark.audio) {
-			setSelectedBookmark(bookmark);
+			selectedBookmark.update((v) => bookmark);
 		} else {
 			if (!bookmark.content) {
 				return;
@@ -23,13 +23,9 @@
 				...bookmark,
 				audio: res.path
 			};
-			setSelectedBookmark(bookmark);
+			selectedBookmark.update((v) => bookmark);
 			isGenerating = false;
 		}
-		// isGenerating = true;
-		// setTimeout(() => {
-		// 	isGenerating = false;
-		// }, 7000);
 	};
 </script>
 
