@@ -14,7 +14,7 @@
 	<title>My Queue</title>
 </svelte:head>
 
-<div class="max-w-screen-2xl w-full">
+<div class="w-full">
 	<Header />
 	<slot />
 </div>

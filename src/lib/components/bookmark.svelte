@@ -55,7 +55,7 @@
 			{/if}
 			{bookmark.title}
 		</h2>
-		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
+		<p class="md:line-clamp-2 line-clamp-4 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
 		</p>
 		<div class="text-sm leading-6 mb-2">

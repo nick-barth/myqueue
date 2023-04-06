@@ -10,7 +10,7 @@ module.exports = {
 				primary: '#181818',
 				primary2: '#363636',
 				primary3: '#545454',
-				background: '#F2F2F2',
+				background: '#F4F4F4',
 				error: '#ef4444',
 
 				//gray

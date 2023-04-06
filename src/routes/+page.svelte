@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	{/if}
-	<div class="max-w-4xl m-auto">
+	<div class="max-w-4xl m-auto px-4 md:p-0">
 		{#if bookmarks && bookmarks.length > 0}
 			{#each bookmarks as bookmark}
 				<Bookmark {bookmark} />
