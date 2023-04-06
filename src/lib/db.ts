@@ -1,12 +1,10 @@
-import { writable } from 'svelte/store';
 import { createClient } from '@supabase/supabase-js';
+import { userStore, bookmarkStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
 
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
-
-const userStore = writable();
 
 supabase.auth.getSession().then(({ data }) => {
 	userStore.set(data.session?.user);
@@ -21,9 +19,6 @@ supabase.auth.onAuthStateChange((event, session) => {
 });
 
 export default {
-	get user() {
-		return userStore;
-	},
 	signUp(email: string, password: string) {
 		return supabase.auth.signUp({
 			email: email,
@@ -42,20 +37,20 @@ export default {
 	bookmarks: {
 		async get() {
 			const { data } = await supabase.from('bookmarks').select('*');
-
-			return data || [];
+			bookmarkStore.set(data);
 		},
-
-		async post(bookmark: BookmarkType) {
+		async post(url: string) {
 			const {
 				data: { user }
 			} = await supabase.auth.getUser();
-			const { data, error } = await supabase.from('bookmarks').insert({
-				...bookmark,
-				user_id: user?.id
+			const { data, error } = await supabase.functions.invoke('parse', {
+				body: { user_id: user?.id, url }
 			});
 
-			return data || [];
+			bookmarkStore.update((v) => {
+				const currentValue = v ? v : [];
+				return [data[0], ...currentValue];
+			});
 		}
 	},
 	tts: {

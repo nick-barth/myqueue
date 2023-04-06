@@ -2,10 +2,14 @@
 	import Header from '$lib/components/header.svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
-	import db from '$lib/db';
-	let user = db.user;
+	import { userStore } from '$lib/store';
 
-	if (!$user) {
+	let user;
+	userStore.subscribe((v) => {
+		user = v;
+	});
+
+	if (!user) {
 		goto('/signin');
 	}
 </script>
