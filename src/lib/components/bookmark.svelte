@@ -13,7 +13,9 @@
 		currentlySelected = v ? v.id === bookmark.id : false;
 	});
 
-	let meta = combineMeta(bookmark);
+	let meta = combineMeta(bookmark, {
+		noReadingTime: true
+	});
 	$: isGenerating = false;
 	$: bookmark;
 
@@ -84,7 +86,11 @@
 					{/if}
 				</button>
 			</div>
-			<div>8 mins</div>
+			<div class="text-sm">
+				{#if bookmark.read_time}
+					{Math.floor(bookmark.read_time / 60)} mins
+				{/if}
+			</div>
 		</div>
 	</div>
 </li>

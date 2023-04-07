@@ -36,7 +36,10 @@ export default {
 	},
 	bookmarks: {
 		async get() {
-			const { data } = await supabase.from('bookmarks').select('*');
+			const { data } = await supabase
+				.from('bookmarks')
+				.select('*')
+				.order('created_at', { ascending: false });
 			bookmarkStore.set(data);
 		},
 		async post(url: string) {

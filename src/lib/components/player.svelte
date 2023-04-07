@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { formatToMmss } from '$lib/utils/date-time';
-	import { onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { selectedBookmark } from '$lib/store.js';
+	import { fade } from 'svelte/transition';
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
+	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import CloseButton from '$lib/icons/close-button.svg?component';
 	import PlayerBackward from '$lib/icons/player-backward.svg?component';
 	import PlayerForward from '$lib/icons/player-forward.svg?component';
@@ -25,10 +27,6 @@
 	$: displayTime = formatToMmss(currentTime);
 	$: displayDuration = formatToMmss(duration);
 
-	onMount(async () => {
-		audioPlayer?.play();
-	});
-
 	const handleBackward = () => {
 		if (currentTime - 15 < 0) {
 			currentTime = 0;
@@ -43,6 +41,20 @@
 			currentTime = currentTime + 15;
 		}
 	};
+
+	const handleTogglePlay = () => {
+		if (paused) {
+			paused = false;
+		} else {
+			paused = true;
+		}
+	};
+
+	const unsubscribe = selectedBookmark.subscribe((value) => {
+		audioPlayer?.play();
+	});
+
+	onDestroy(unsubscribe);
 
 	if ('mediaSession' in navigator) {
 		navigator.mediaSession.metadata = new MediaMetadata({
@@ -107,17 +119,17 @@
 				<PlayerBackward />
 			</button>
 			<button
-				on:click={() => (paused = !paused)}
+				on:click={handleTogglePlay}
 				title="Toggles play"
-				class="bg-primary rounded-full h-16 w-16 flex items-center justify-center"
+				class="bg-primary rounded-full h-16 w-16 flex items-center justify-center text-white"
 			>
 				{#if paused}
-					<div class="pl-1 overflow-visible">
+					<div in:fade={{ duration: 100 }} class="h-6 w-6">
 						<PlayButton />
 					</div>
 				{:else}
-					<div class="pl-1">
-						<PlayButton />
+					<div in:fade={{ duration: 100 }} class="h-6 w-6">
+						<PauseButton />
 					</div>
 				{/if}
 			</button>
@@ -130,6 +142,7 @@
 		</div>
 		<figure>
 			<audio
+				autoplay
 				bind:paused
 				bind:duration
 				bind:currentTime

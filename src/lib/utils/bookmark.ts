@@ -2,7 +2,12 @@ import type { BookmarkType } from '$types/types';
 
 import { format, parseISO } from 'date-fns';
 
-export const combineMeta = (bookmark: BookmarkType) => {
+export const combineMeta = (
+	bookmark: BookmarkType,
+	options?: {
+		noReadingTime: boolean;
+	}
+) => {
 	let meta = [];
 	if (bookmark.authors.length > 0) {
 		meta.push(bookmark.authors.join(', '));
@@ -10,7 +15,7 @@ export const combineMeta = (bookmark: BookmarkType) => {
 	if (bookmark.domain) {
 		meta.push(bookmark.domain);
 	}
-	if (bookmark.read_time) {
+	if (bookmark.read_time && !options?.noReadingTime) {
 		const time = Math.floor(bookmark.read_time / 60);
 		meta.push(`${time} mins`);
 	}
