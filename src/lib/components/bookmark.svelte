@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
 	import PlayButton from '$lib/icons/play-button.svg?component';
+	import ContextMenu from '$lib/components/context-menu.svelte';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
@@ -18,6 +19,10 @@
 	});
 	$: isGenerating = false;
 	$: bookmark;
+
+	const handleRemove = async () => {
+		console.log('wow');
+	};
 
 	const handlePlay = async () => {
 		if (bookmark.audio) {
@@ -86,7 +91,12 @@
 					{/if}
 				</button>
 			</div>
-			<div class="text-sm">
+			<div class="text-sm flex items-center gap-2">
+				<ContextMenu
+					><div class="bg-white border border-gray-200 rounded-lg py-2">
+						<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
+					</div></ContextMenu
+				>
 				{#if bookmark.read_time}
 					{Math.floor(bookmark.read_time / 60)} mins
 				{/if}
