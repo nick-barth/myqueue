@@ -6,21 +6,6 @@ import type { BookmarkType } from '$types/types';
 
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
-supabase.auth.getSession().then(({ data }) => {
-	if (data.session?.user) {
-		userStore.set(data.session.user);
-	}
-});
-
-supabase.auth.onAuthStateChange((event, session) => {
-	if (event == 'SIGNED_IN' && session?.user) {
-		console.log('satan');
-		userStore.set(session.user);
-	} else if (event == 'SIGNED_OUT') {
-		userStore.set(null);
-	}
-});
-
 export default {
 	async signInWithGoogle() {
 		const res = await supabase.auth.signInWithOAuth({

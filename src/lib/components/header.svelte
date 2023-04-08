@@ -12,11 +12,8 @@
 		user = v;
 	});
 
-	console.log(user);
-
 	const handleLogout = async () => {
 		await db.signOut();
-		goto('/auth/signin');
 	};
 </script>
 

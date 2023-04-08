@@ -5,18 +5,31 @@
 	import { userStore } from '$lib/store';
 	import { page } from '$app/stores';
 	import type { UserType } from '$types/types';
+	import { onMount } from 'svelte';
+	import { supabase } from '$lib/db';
 
 	let user: UserType | null = null;
 	userStore.subscribe((v) => {
 		user = v;
 	});
 
-	if (!user && !$page.url.pathname.includes('/auth/')) {
-		goto('/auth/signin');
-	}
-	if (user && $page.url.pathname.includes('/auth/')) {
-		goto('/');
-	}
+	onMount(() => {
+		supabase.auth.getSession().then(({ data }) => {
+			if (data.session?.user) {
+				userStore.set(data.session.user);
+			}
+		});
+
+		supabase.auth.onAuthStateChange((event, session) => {
+			if (event == 'SIGNED_IN' && session?.user) {
+				userStore.set(session.user);
+				goto('/');
+			} else if (event == 'SIGNED_OUT') {
+				userStore.set(null);
+				goto('/auth/signin');
+			}
+		});
+	});
 </script>
 
 <svelte:head>
