@@ -24,7 +24,7 @@
 	</div>
 	{#if user}
 		<ContextMenu>
-			<button slot="icon" class="overflow-hidden rounded-full h-10 w-10">
+			<div slot="icon" class="overflow-hidden rounded-full h-10 w-10">
 				{#if user?.user_metadata.avatar_url}
 					<img
 						class="flex items-center justify-center h-10 w-10"
@@ -35,7 +35,7 @@
 				{#if !user?.user_metadata.avatar_url}
 					fuic
 				{/if}
-			</button>
+			</div>
 			<div class="bg-white border border-gray-200 rounded-lg py-2">
 				<button on:click={handleLogout} class="hover:bg-background px-4 py-2">Logout</button>
 			</div>

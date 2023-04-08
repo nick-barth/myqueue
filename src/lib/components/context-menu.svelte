@@ -13,7 +13,11 @@
 	}
 </script>
 
-<button on:click={() => (isOpen = true)} use:clickOutside={handleClickOutside}>
+<button
+	class="relative h-full"
+	on:click={() => (isOpen = true)}
+	use:clickOutside={handleClickOutside}
+>
 	{#if $$slots.icon}
 		<slot name="icon" />
 	{:else}
@@ -24,7 +28,10 @@
 		</div>
 	{/if}
 	{#if isOpen}
-		<div transition:fly={{ y: -10, duration: 200 }} class="absolute">
+		<div
+			transition:fly={{ y: -10, duration: 200 }}
+			class="absolute -bottom-1 right-2 translate-y-full"
+		>
 			<slot />
 		</div>
 	{/if}
