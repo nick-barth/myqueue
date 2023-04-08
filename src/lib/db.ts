@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type AuthChangeEvent } from '@supabase/supabase-js';
 import { userStore, bookmarkStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
@@ -7,11 +7,13 @@ import type { BookmarkType } from '$types/types';
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
 supabase.auth.getSession().then(({ data }) => {
-	userStore.set(data.session?.user);
+	if (data.session?.user) {
+		userStore.set(data.session.user);
+	}
 });
 
 supabase.auth.onAuthStateChange((event, session) => {
-	if (event == 'SIGNED_IN' && session) {
+	if (event == 'SIGNED_IN' && session?.user) {
 		userStore.set(session.user);
 	} else if (event == 'SIGNED_OUT') {
 		userStore.set(null);
@@ -19,11 +21,19 @@ supabase.auth.onAuthStateChange((event, session) => {
 });
 
 export default {
-	signUp(email: string, password: string) {
-		return supabase.auth.signUp({
+	async signInWithGoogle() {
+		const res = await supabase.auth.signInWithOAuth({
+			provider: 'google'
+		});
+
+		return res;
+	},
+	async signUp(email: string, password: string) {
+		const res = await supabase.auth.signUp({
 			email: email,
 			password: password
 		});
+		return res;
 	},
 	async signIn(email: string, password: string) {
 		const { data, error } = await supabase.auth.signInWithPassword({
@@ -31,8 +41,8 @@ export default {
 			password
 		});
 	},
-	signOut() {
-		return supabase.auth.signOut();
+	async signOut() {
+		const res = await supabase.auth.signOut();
 	},
 	bookmarks: {
 		async get() {
@@ -41,6 +51,16 @@ export default {
 				.select('*')
 				.order('created_at', { ascending: false });
 			bookmarkStore.set(data);
+		},
+		async remove(id: number) {
+			const res = await supabase.from('bookmarks').delete().eq('id', id);
+			bookmarkStore.update((v) => {
+				if (!v) {
+					return [];
+				}
+				const filteredBookmarks = v?.filter((b) => b.id !== id);
+				return filteredBookmarks;
+			});
 		},
 		async post(url: string) {
 			const {

@@ -6,10 +6,11 @@
 		sent = false;
 	async function submit() {
 		await db.signIn(email, password);
-		if (db.user) {
-			goto('/');
-		}
 	}
+
+	const handleGoogleLogin = async () => {
+		const res = await db.signInWithGoogle();
+	};
 </script>
 
 <div class="">
@@ -25,5 +26,6 @@
 				<span>Signup</span>
 			</button>
 		</form>
+		<button on:click={handleGoogleLogin}>GOogle button </button>
 	</div>
 </div>

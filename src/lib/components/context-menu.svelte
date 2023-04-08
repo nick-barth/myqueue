@@ -14,14 +14,15 @@
 </script>
 
 <button
-	on:click={() => (isOpen = !isOpen)}
-	class="h-6 w-6"
-	use:clickOutside
-	on:click_outside={handleClickOutside}
+	on:click={() => (isOpen = true)}
+	class=" transition-colors hover:bg-background rounded-full p-2"
+	use:clickOutside={handleClickOutside}
 >
-	<KebabMenu />
+	<div class="h-6 w-6">
+		<KebabMenu />
+	</div>
 	{#if isOpen}
-		<div in:fly={{ y: -5 }} out:fly={{ y: -5 }} class="absolute">
+		<div transition:fly={{ y: -10, duration: 200 }} class="absolute">
 			<slot />
 		</div>
 	{/if}

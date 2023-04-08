@@ -8,6 +8,9 @@
 		await db.signUp(email, password);
 		sent = true;
 	}
+	const handleGoogleLogin = async () => {
+		const res = await db.signInWithGoogle();
+	};
 </script>
 
 <div class="">
@@ -23,5 +26,6 @@
 				<span>Signup</span>
 			</button>
 		</form>
+		<button on:click={handleGoogleLogin}>GOogle button </button>
 	</div>
 </div>

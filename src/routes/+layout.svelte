@@ -3,14 +3,19 @@
 	import { goto } from '$app/navigation';
 	import '../app.css';
 	import { userStore } from '$lib/store';
+	import { page } from '$app/stores';
+	import type { UserType } from '$types/types';
 
-	let user;
+	let user: UserType | null = null;
 	userStore.subscribe((v) => {
 		user = v;
 	});
 
-	if (!user) {
-		goto('/signin');
+	if (!user && !$page.url.pathname.includes('/auth/')) {
+		goto('/auth/signin');
+	}
+	if (user && $page.url.pathname.includes('/auth/')) {
+		goto('/');
 	}
 </script>
 
@@ -19,8 +24,10 @@
 </svelte:head>
 
 <div class="w-full">
-	<div class="sticky top-0 bg-white">
-		<Header />
-	</div>
+	{#if user}
+		<div class="sticky top-0 bg-white">
+			<Header />
+		</div>
+	{/if}
 	<slot />
 </div>

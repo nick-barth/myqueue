@@ -1,16 +1,17 @@
-/** type this */
-export function clickOutside(node: any) {
-	const handleClick = (event: any) => {
-		if (node && !node.contains(event.target) && !event.defaultPrevented) {
-			node.dispatchEvent(new CustomEvent('click_outside', node));
+export function clickOutside(node: HTMLElement, onEventFunction: () => void) {
+	const handleClick = (event: Event) => {
+		var path = event.composedPath();
+
+		if (!path.includes(node)) {
+			onEventFunction();
 		}
 	};
 
-	document.addEventListener('click', handleClick, true);
+	document.addEventListener('click', handleClick);
 
 	return {
 		destroy() {
-			document.removeEventListener('click', handleClick, true);
+			document.removeEventListener('click', handleClick);
 		}
 	};
 }

@@ -21,7 +21,7 @@
 	$: bookmark;
 
 	const handleRemove = async () => {
-		console.log('wow');
+		db.bookmarks.remove(bookmark.id);
 	};
 
 	const handlePlay = async () => {
