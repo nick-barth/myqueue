@@ -14,6 +14,7 @@ supabase.auth.getSession().then(({ data }) => {
 
 supabase.auth.onAuthStateChange((event, session) => {
 	if (event == 'SIGNED_IN' && session?.user) {
+		console.log('satan');
 		userStore.set(session.user);
 	} else if (event == 'SIGNED_OUT') {
 		userStore.set(null);
@@ -23,7 +24,10 @@ supabase.auth.onAuthStateChange((event, session) => {
 export default {
 	async signInWithGoogle() {
 		const res = await supabase.auth.signInWithOAuth({
-			provider: 'google'
+			provider: 'google',
+			options: {
+				redirectTo: '/'
+			}
 		});
 
 		return res;

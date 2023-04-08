@@ -12,6 +12,8 @@
 		user = v;
 	});
 
+	console.log(user);
+
 	const handleLogout = async () => {
 		await db.signOut();
 		goto('/auth/signin');
@@ -33,7 +35,9 @@
 					/>
 				{/if}
 				{#if !user?.user_metadata.avatar_url}
-					fuic
+					<div class="uppercase h-10 w-10 bg-background flex justify-center items-center">
+						{user.email?.charAt(0)}
+					</div>
 				{/if}
 			</div>
 			<div class="bg-white border border-gray-200 rounded-lg py-2">

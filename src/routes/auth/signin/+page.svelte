@@ -4,12 +4,15 @@
 	let email: string,
 		password: string,
 		sent = false;
+
 	async function submit() {
-		await db.signIn(email, password);
+		const res = await db.signIn(email, password);
+		goto('/');
 	}
 
 	const handleGoogleLogin = async () => {
 		const res = await db.signInWithGoogle();
+		console.log(res);
 	};
 </script>
 
