@@ -85,12 +85,6 @@ export default {
 				body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
 			});
 			return data;
-		},
-		async getPublicPath(bookmark: BookmarkType) {
-			if (!bookmark.audio) {
-				return;
-			}
-			const { data } = supabase.storage.from('public-bucket').getPublicUrl(bookmark.audio);
 		}
 	}
 };

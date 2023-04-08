@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LogoWithText from '$lib/icons/logo-with-text.svg?component';
+	import ContextMenu from '$lib/components/context-menu.svelte';
 
 	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';
@@ -22,17 +23,22 @@
 		<LogoWithText />
 	</div>
 	{#if user}
-		<button on:click={handleLogout} class="overflow-hidden rounded-full h-10 w-10">
-			{#if user?.user_metadata.avatar_url}
-				<img
-					class="flex items-center justify-center h-10 w-10"
-					src={user.user_metadata.avatar_url}
-					alt="User's profile"
-				/>
-			{/if}
-			{#if !user?.user_metadata.avatar_url}
-				fuic
-			{/if}
-		</button>
+		<ContextMenu>
+			<button slot="icon" class="overflow-hidden rounded-full h-10 w-10">
+				{#if user?.user_metadata.avatar_url}
+					<img
+						class="flex items-center justify-center h-10 w-10"
+						src={user.user_metadata.avatar_url}
+						alt="User's profile"
+					/>
+				{/if}
+				{#if !user?.user_metadata.avatar_url}
+					fuic
+				{/if}
+			</button>
+			<div class="bg-white border border-gray-200 rounded-lg py-2">
+				<button on:click={handleLogout} class="hover:bg-background px-4 py-2">Logout</button>
+			</div>
+		</ContextMenu>
 	{/if}
 </header>

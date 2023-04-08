@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { formatToMmss } from '$lib/utils/date-time';
 	import { onDestroy } from 'svelte';
@@ -147,7 +148,7 @@
 				bind:duration
 				bind:currentTime
 				bind:this={audioPlayer}
-				src="https://paddechpmdutxepollwl.supabase.co/storage/v1/object/public/audio/{bookmark.audio}"
+				src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
 			/>
 		</figure>
 	</div>
