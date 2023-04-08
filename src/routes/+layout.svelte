@@ -16,7 +16,10 @@
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			if (data.session?.user) {
+				goto('/');
 				userStore.set(data.session.user);
+			} else {
+				goto('/auth/signin');
 			}
 		});
 

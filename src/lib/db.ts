@@ -9,10 +9,7 @@ export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPAB
 export default {
 	async signInWithGoogle() {
 		const res = await supabase.auth.signInWithOAuth({
-			provider: 'google',
-			options: {
-				redirectTo: '/'
-			}
+			provider: 'google'
 		});
 
 		return res;

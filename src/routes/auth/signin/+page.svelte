@@ -12,7 +12,6 @@
 
 	const handleGoogleLogin = async () => {
 		const res = await db.signInWithGoogle();
-		console.log(res);
 	};
 </script>
 
