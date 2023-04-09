@@ -6,6 +6,7 @@
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
 	import { selectedBookmark, bookmarkStore } from '$lib/store.js';
+	import { userStore } from '$lib/store.js';
 	import { onMount } from 'svelte';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
@@ -38,15 +39,16 @@
 			<Player bookmark={currentBookmark} />
 		</aside>
 	{/if}
-
-	<div class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
-		<UrlAdder />
-		{#if bookmarks && bookmarks.length > 0}
-			{#each bookmarks as bookmark (bookmark.id)}
-				<div animate:flip={{ duration: 300 }} in:fade={{ duration: 300 }}>
-					<Bookmark {bookmark} />
-				</div>
-			{/each}
-		{/if}
-	</div>
+	{#if $userStore}
+		<div class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
+			<UrlAdder />
+			{#if bookmarks && bookmarks.length > 0}
+				{#each bookmarks as bookmark (bookmark.id)}
+					<div animate:flip={{ duration: 300 }} in:fade={{ duration: 300 }}>
+						<Bookmark {bookmark} />
+					</div>
+				{/each}
+			{/if}
+		</div>
+	{/if}
 </div>

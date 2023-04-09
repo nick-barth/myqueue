@@ -36,11 +36,24 @@
 			}
 			isGenerating = true;
 			const res = await db.tts.create(bookmark);
-			bookmark = {
-				...bookmark,
-				audio: res.path
-			};
-			selectedBookmark.update((v) => bookmark);
+
+			if (res.error) {
+				addToast({
+					content: 'Oops, that did not work, maybe we cannnot read the article',
+					type: 'error'
+				});
+			} else {
+				bookmark = {
+					...bookmark,
+					audio: res.data.path
+				};
+				selectedBookmark.update((v) => bookmark);
+				addToast({
+					content: 'Audio successfully synthesized',
+					type: 'error'
+				});
+			}
+
 			isGenerating = false;
 		}
 	};

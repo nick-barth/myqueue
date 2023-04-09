@@ -1,18 +1,33 @@
 <script lang="ts">
 	import Sparkle from '$lib/icons/sparkle.svg?component';
-	import Page from '../../routes/+page.svelte';
+	import { addToast } from '$lib/store';
 	import db from '$lib/db';
 
 	let url: string;
 	let isLoading: boolean;
+
 	$: isLoading;
 
 	const handleSubmit = async () => {
 		if (isLoading) {
 			return;
 		}
+
 		isLoading = true;
-		await db.bookmarks.post(url);
+		const res = await db.bookmarks.post(url);
+
+		if (res.error) {
+			addToast({
+				content: 'Oops, that did not work, maybe we cannnot read the article',
+				type: 'error'
+			});
+		} else {
+			addToast({
+				content: 'Successfully added to queue',
+				type: 'error'
+			});
+		}
+
 		isLoading = false;
 		url = '';
 	};
@@ -32,10 +47,69 @@
 			bind:value={url}
 			placeholder="Paste a URL"
 			class="w-full h-12 pl-6 border rounded-primary border-gray800 pr-24 outline-none"
-		/><button
-			type="submit"
-			class="bg-accent2 top-1 absolute right-1 h-10 rounded-primary flex-shrink-0 px-3 text-sm font-semibold flex items-center gap-1"
-			>Save & listen <div class="h-6 w-6"><Sparkle /></div>
-		</button>
+		/>
+		<div
+			class="absolute top-1 right-1 transition-all duration-300 {isLoading
+				? 'min-w-[calc(100%-8px)]'
+				: 'min-w-0'}"
+		>
+			<button
+				type="submit"
+				disabled={isLoading}
+				class="{isLoading
+					? 'gradient-animation'
+					: 'bg-accent2'} transition-all duration-150 rounded-primary h-10 flex gap-2 items-center justify-center px-4 w-full"
+				>{#if !isLoading}
+					Save & listen
+				{:else}
+					Generating audio story
+				{/if}
+				<div class="h-6 w-6"><Sparkle /></div>
+			</button>
+		</div>
 	</form>
 </div>
+
+<style>
+	@-webkit-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@-moz-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	.gradient-animation {
+		background: linear-gradient(90deg, #c1ebff, #d8bbfe);
+		background-size: 400% 400%;
+
+		-webkit-animation: gradient 1.5s ease infinite;
+		-moz-animation: gradient 1.5s ease infinite;
+		animation: gradient 1.5s ease infinite;
+	}
+</style>

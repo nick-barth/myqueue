@@ -26,7 +26,6 @@
 				goto('/');
 				userStore.set(data.session.user);
 			} else {
-				console.log(!$page.url.pathname.includes('/auth/'));
 				if (!$page.url.pathname.includes('/auth/')) {
 					goto('/auth/signin');
 				}

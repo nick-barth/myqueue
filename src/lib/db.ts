@@ -61,6 +61,7 @@ export default {
 				const currentValue = v ? v : [];
 				return [data[0], ...currentValue];
 			});
+			return { data, error };
 		}
 	},
 	tts: {
@@ -71,7 +72,7 @@ export default {
 			const { data, error } = await supabase.functions.invoke('tts', {
 				body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
 			});
-			return data;
+			return { data, error };
 		}
 	}
 };
