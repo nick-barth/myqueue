@@ -14,7 +14,7 @@
 
 	let error: string;
 
-	const { form, isValid } = createForm({
+	const { form, isValid, touched } = createForm({
 		extend: validator({ schema }),
 		onSubmit: async (values) => {
 			const res = await db.signIn(values.email, values.password);
@@ -59,8 +59,22 @@
 			placeholder="Password"
 			required
 		/>
+		<p class="px-4 text-xs">
+			By creating your account, you agree to My Queue's <a
+				class="underline"
+				target="_blank"
+				href="https://myqueue.so/tos"
+			>
+				Terms of Service
+			</a>
+			and
+			<a class="underline" target="_blank" href="https://myqueue.so/privacy-policy"
+				>Privacy policy</a
+			>
+		</p>
+
 		<button
-			disabled={!$isValid}
+			disabled={$touched && !$isValid}
 			class=" disabled:bg-gray800 transition-colors h-12 gap-2 w-full flex justify-center items-center text-white font-semibold rounded-primary bg-primary"
 		>
 			<span>Create my free account</span>

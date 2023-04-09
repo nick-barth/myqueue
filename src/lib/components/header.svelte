@@ -7,11 +7,6 @@
 	import db from '$lib/db';
 	import { goto } from '$app/navigation';
 
-	let user: UserType | null;
-	userStore.subscribe((v) => {
-		user = v;
-	});
-
 	const handleLogout = async () => {
 		await db.signOut();
 	};
