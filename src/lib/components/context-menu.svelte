@@ -2,6 +2,11 @@
 	import { fly } from 'svelte/transition';
 	import KebabMenu from '$lib/icons/kebab-menu.svg?component';
 	import { clickOutside } from '$lib/directives/clickAway';
+	import type { SvelteComponentTyped } from 'svelte/internal';
+
+	type C = $$Generic<typeof SvelteComponentTyped<any, any, any>>;
+
+	export let icon: C | null = null;
 
 	let isOpen: boolean;
 
@@ -23,7 +28,7 @@
 	{:else}
 		<div class=" transition-colors hover:bg-background rounded-full p-2">
 			<div class="h-6 w-6">
-				<KebabMenu />
+				{#if icon} <svelte:component this={icon} /> {:else}<KebabMenu />{/if}
 			</div>
 		</div>
 	{/if}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
 	import PlayButton from '$lib/icons/play-button.svg?component';
+	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
@@ -40,6 +41,20 @@
 			selectedBookmark.update((v) => bookmark);
 			isGenerating = false;
 		}
+	};
+
+	const handleCopyLink = async () => {
+		if (!bookmark.url) {
+			return;
+		}
+		navigator.clipboard.writeText(bookmark.url).then(
+			function () {
+				console.log('Async: Copying to clipboard was successful!');
+			},
+			function (err) {
+				console.error('Async: Could not copy text: ', err);
+			}
+		);
 	};
 </script>
 
@@ -92,11 +107,21 @@
 				</button>
 			</div>
 			<div class="text-sm flex items-center gap-2">
-				<ContextMenu
-					><div class="bg-white border border-gray-200 rounded-lg py-2">
+				<ContextMenu>
+					<div class="bg-white border border-gray-200 rounded-lg py-2">
 						<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
-					</div></ContextMenu
-				>
+					</div>
+				</ContextMenu>
+				<ContextMenu icon={Share}>
+					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
+						<button
+							on:click={handleCopyLink}
+							class="hover:bg-background px-4 flex py-2 flex-nowrap"
+						>
+							Copy link
+						</button>
+					</div>
+				</ContextMenu>
 				{#if bookmark.read_time}
 					{Math.floor(bookmark.read_time / 60)} mins
 				{/if}
