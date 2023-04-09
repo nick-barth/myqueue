@@ -28,7 +28,7 @@
 <div class="flex md:mr-[385px]">
 	{#if currentBookmark && currentBookmark.content}
 		<div
-			class="md:max-w-[355px] fixed w-full h-full top-0 left-0 md:top-auto md:left-auto right-0 bottom-0 bg-background"
+			class="md:max-w-[355px] fixed w-full h-full top-0 left-0 md:top-auto md:left-auto right-0 bottom-0 bg-accent"
 			transition:fly={{ y: 200, duration: 400 }}
 		>
 			<Player bookmark={currentBookmark} />

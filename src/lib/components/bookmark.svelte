@@ -50,7 +50,7 @@
 >
 	<div class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-6">
 		{#if bookmark.image}
-			<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
+			<img class="object-cover object-center" src={bookmark.image} alt="Related to the article" />
 		{/if}
 	</div>
 	<div class="w-full flex flex-col">
@@ -73,8 +73,8 @@
 		>
 			<div class="flex gap-2">
 				<button
-					class="flex h-10 {currentlySelected
-						? 'bg-white'
+					class="flex h-10 transition-colors {currentlySelected
+						? 'bg-gray800'
 						: 'bg-gray950'} rounded-[80px] items-center py-2 px-4">Read</button
 				>
 				<button

@@ -103,7 +103,7 @@
 	</div>
 	<div class="p-6">
 		<div class="w-full">
-			<div class="w-full h-1 bg-slate-300 relative">
+			<div class="w-full h-1 bg-gray-400 relative">
 				<div
 					style="left: {percentLeft}"
 					class="absolute h-3 w-3 top-0 rounded-full bg-primary -translate-y-1/3 transition-all ease-out duration-75"
@@ -122,7 +122,7 @@
 			<button
 				on:click={handleTogglePlay}
 				title="Toggles play"
-				class="bg-primary rounded-full h-16 w-16 flex items-center justify-center text-white"
+				class="bg-primary rounded-full h-16 w-16 flex items-center justify-center text-accent"
 			>
 				{#if paused}
 					<div in:fade={{ duration: 100 }} class="h-6 w-6">

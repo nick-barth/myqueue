@@ -3,6 +3,9 @@ module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			screens: {
+				md: '942px'
+			},
 			colors: {
 				white: '#ffffff',
 				accent: '#C1EBFF',
