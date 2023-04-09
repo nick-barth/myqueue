@@ -7,13 +7,18 @@
 	import db from '$lib/db';
 	import { goto } from '$app/navigation';
 
+	let user: UserType | null;
+	userStore.subscribe((v) => {
+		user = v;
+	});
+
 	const handleLogout = async () => {
 		await db.signOut();
 	};
 </script>
 
-<header class="p-4 md:px-6 md:p-6 w-full justify-center flex">
-	<div class="w-full">
+<header class="p-4 md:px-6 md:p-6 w-full justify-between flex">
+	<div class="w-28">
 		<LogoWithText />
 	</div>
 	{#if user}

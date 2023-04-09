@@ -13,12 +13,20 @@
 		user = v;
 	});
 
+	$: if (!user && !$page.url.pathname.includes('/auth/')) {
+		console.log(
+			'we are running in the browser, not signed in, and not on the sign in page, we are going to the sign in page'
+		);
+		goto('/auth/signin');
+	}
+
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			if (data.session?.user) {
 				goto('/');
 				userStore.set(data.session.user);
 			} else {
+				console.log(!$page.url.pathname.includes('/auth/'));
 				if (!$page.url.pathname.includes('/auth/')) {
 					goto('/auth/signin');
 				}
