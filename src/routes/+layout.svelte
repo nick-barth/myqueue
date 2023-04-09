@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/header.svelte';
+	import Toasts from '$lib/components/toasts.svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
 	import { userStore } from '$lib/store';
@@ -40,6 +41,9 @@
 </svelte:head>
 
 <div class="w-full">
+	<div class="relative z-50">
+		<Toasts />
+	</div>
 	{#if user}
 		<div class="sticky top-0 bg-white">
 			<Header />

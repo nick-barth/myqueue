@@ -3,6 +3,8 @@
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
+	import { addToast } from '$lib/store';
+
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
@@ -49,7 +51,7 @@
 		}
 		navigator.clipboard.writeText(bookmark.url).then(
 			function () {
-				console.log('Async: Copying to clipboard was successful!');
+				addToast({ content: 'Link copied to clipboard', type: 'success' });
 			},
 			function (err) {
 				console.error('Async: Could not copy text: ', err);
@@ -80,9 +82,9 @@
 		<p class="md:line-clamp-2 line-clamp-4 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
 		</p>
-		<div class="text-sm leading-6 mb-2">
+		<aside class="text-sm leading-6 mb-2">
 			{meta.join(' • ')}
-		</div>
+		</aside>
 		<div
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>
