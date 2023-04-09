@@ -39,7 +39,7 @@
 		<span class="h-6 w-6">
 			<GoogleG />
 		</span>
-		Continue with Google
+		Sign up with google
 	</button>
 
 	<span class="flex self-center my-4 text-sm"> OR </span>
@@ -63,7 +63,7 @@
 			disabled={!$isValid}
 			class=" disabled:bg-gray800 transition-colors h-12 gap-2 w-full flex justify-center items-center text-white font-semibold rounded-primary bg-primary"
 		>
-			<span>Sign in</span>
+			<span>Create my free account</span>
 		</button>
 		{#if error}
 			<div class="flex text-red-500 justify-center">

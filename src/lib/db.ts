@@ -22,10 +22,11 @@ export default {
 		return res;
 	},
 	async signIn(email: string, password: string) {
-		const { data, error } = await supabase.auth.signInWithPassword({
+		const res = await supabase.auth.signInWithPassword({
 			email,
 			password
 		});
+		return res;
 	},
 	async signOut() {
 		const res = await supabase.auth.signOut();

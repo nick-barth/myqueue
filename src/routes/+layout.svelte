@@ -19,7 +19,9 @@
 				goto('/');
 				userStore.set(data.session.user);
 			} else {
-				goto('/auth/signin');
+				if (!$page.url.pathname.includes('/auth/')) {
+					goto('/auth/signin');
+				}
 			}
 		});
 
