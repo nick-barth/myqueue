@@ -25,13 +25,13 @@
 	};
 </script>
 
-<div class="w-full max-w-4xl m-auto mr-[385px] px-8 mb-6">
+<div class="w-full max-w-4xl m-auto mr-[385px] md:px-8 mb-6">
 	<form on:submit={handleSubmit} class="flex flex-row w-full relative">
 		<input
 			on:paste={handlePaste}
 			bind:value={url}
 			placeholder="Paste a URL"
-			class="w-full h-12 pl-6 border-2 rounded-primary border-gray800 pr-24"
+			class="w-full h-12 pl-6 border rounded-primary border-gray800 pr-24 outline-none"
 		/><button
 			type="submit"
 			class="bg-accent2 top-1 absolute right-1 h-10 rounded-primary flex-shrink-0 px-3 text-sm font-semibold flex items-center gap-1"

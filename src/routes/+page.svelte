@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import Toasts from '$lib/components/toasts.svelte';
 	import UrlAdder from '$lib/components/url-adder.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
@@ -26,15 +27,19 @@
 </script>
 
 <div class="flex md:mr-[385px]">
+	<div class="relative z-30">
+		<Toasts />
+	</div>
 	{#if currentBookmark && currentBookmark.content}
-		<div
-			class="md:max-w-[355px] fixed w-full h-full top-0 left-0 md:top-auto md:left-auto right-0 bottom-0 bg-accent"
+		<aside
+			class="md:max-w-[355px] fixed z-50 w-full h-full top-0 left-0 md:top-auto md:left-auto right-0 bottom-0 bg-accent"
 			transition:fly={{ y: 200, duration: 400 }}
 		>
 			<Player bookmark={currentBookmark} />
-		</div>
+		</aside>
 	{/if}
-	<div class="max-w-4xl m-auto px-4 md:p-0">
+
+	<div class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
 		<UrlAdder />
 		{#if bookmarks && bookmarks.length > 0}
 			{#each bookmarks as bookmark (bookmark.id)}

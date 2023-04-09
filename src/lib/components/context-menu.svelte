@@ -7,6 +7,7 @@
 	type C = $$Generic<typeof SvelteComponentTyped<any, any, any>>;
 
 	export let icon: C | null = null;
+	export let position: 'left' | 'right' = 'left';
 
 	let isOpen: boolean;
 
@@ -26,7 +27,7 @@
 	{#if $$slots.icon}
 		<slot name="icon" />
 	{:else}
-		<div class=" transition-colors hover:bg-background rounded-full p-2">
+		<div class=" transition-colors hover:bg-gray800 rounded-full p-2">
 			<div class="h-6 w-6">
 				{#if icon} <svelte:component this={icon} /> {:else}<KebabMenu />{/if}
 			</div>
@@ -35,7 +36,7 @@
 	{#if isOpen}
 		<div
 			transition:fly={{ y: -10, duration: 200 }}
-			class="absolute -bottom-1 right-2 translate-y-full"
+			class="absolute -bottom-1 {position === 'left' ? 'left-2' : 'right-2'} translate-y-full"
 		>
 			<slot />
 		</div>
