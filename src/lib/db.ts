@@ -70,7 +70,7 @@ export default {
 				data: { user }
 			} = await supabase.auth.getUser();
 			const { data, error } = await supabase.functions.invoke('tts', {
-				body: { user_id: user?.id, bookmark_id: bookmark.id, text: bookmark.content }
+				body: bookmark
 			});
 			return { data, error };
 		}
