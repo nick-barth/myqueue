@@ -16,6 +16,7 @@ export interface Database {
 					read_time: number | null;
 					title: string | null;
 					url: string | null;
+					language: string | null;
 					user_id: string | null;
 				};
 				Insert: {
@@ -30,6 +31,7 @@ export interface Database {
 					read_time?: number | null;
 					title?: string | null;
 					url?: string | null;
+					language: string | null;
 					user_id?: string | null;
 				};
 				Update: {
@@ -44,6 +46,7 @@ export interface Database {
 					read_time?: number | null;
 					title?: string | null;
 					url?: string | null;
+					language: string | null;
 					user_id?: string | null;
 				};
 			};

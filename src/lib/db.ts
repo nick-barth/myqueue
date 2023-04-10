@@ -1,4 +1,5 @@
 import { createClient, type AuthChangeEvent } from '@supabase/supabase-js';
+import { get } from 'svelte/store';
 import { userStore, bookmarkStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
@@ -50,9 +51,7 @@ export default {
 			});
 		},
 		async post(url: string) {
-			const {
-				data: { user }
-			} = await supabase.auth.getUser();
+			const user = get(userStore);
 			const { data, error } = await supabase.functions.invoke('parse', {
 				body: { user_id: user?.id, url }
 			});
@@ -66,11 +65,14 @@ export default {
 	},
 	tts: {
 		async create(bookmark: BookmarkType) {
-			const {
-				data: { user }
-			} = await supabase.auth.getUser();
+			const user = get(userStore);
 			const { data, error } = await supabase.functions.invoke('tts', {
-				body: bookmark
+				body: {
+					user_id: user?.id,
+					bookmark_id: bookmark.id,
+					text: bookmark.content,
+					language: bookmark.language
+				}
 			});
 			return { data, error };
 		}
