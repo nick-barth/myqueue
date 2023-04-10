@@ -67,12 +67,7 @@ export default {
 		async create(bookmark: BookmarkType) {
 			const user = get(userStore);
 			const { data, error } = await supabase.functions.invoke('tts', {
-				body: {
-					user_id: user?.id,
-					bookmark_id: bookmark.id,
-					text: bookmark.content,
-					language: bookmark.language
-				}
+				body: bookmark
 			});
 			return { data, error };
 		}
