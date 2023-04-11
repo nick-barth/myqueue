@@ -3,6 +3,10 @@ module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			fontFamily: {
+				domine: ['"Domine"', 'serif'],
+				source: ['"Source Sans Pro"', 'sans-serif']
+			},
 			screens: {
 				md: '942px'
 			},

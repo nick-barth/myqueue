@@ -3,16 +3,20 @@
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
-	import { addToast } from '$lib/store';
 
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { currentStore } from '$lib/store.js';
+	import { currentStore, addToast, readingStore } from '$lib/store';
 
 	export let bookmark: BookmarkType;
 
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
+
+	const handleRead = () => {
+		currentStore.update((v) => bookmark);
+		readingStore.update((v) => true);
+	};
 
 	let meta = combineMeta(bookmark, {
 		noReadingTime: true
@@ -100,6 +104,7 @@
 		>
 			<div class="flex gap-2">
 				<button
+					on:click={handleRead}
 					class="flex h-10 transition-colors {currentlySelected
 						? 'bg-gray800'
 						: 'bg-gray950'} rounded-[80px] items-center py-2 px-4">Read</button

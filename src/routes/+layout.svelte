@@ -43,6 +43,12 @@
 
 <svelte:head>
 	<title>My Queue</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap"
+		rel="stylesheet"
+	/>
 </svelte:head>
 
 <div class="w-full">

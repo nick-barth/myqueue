@@ -6,7 +6,7 @@
 	import UrlAdder from '$lib/components/url-adder.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Player from '$lib/components/player.svelte';
-	import { currentStore, bookmarkStore, readingStore } from '$lib/store.js';
+	import { currentStore, bookmarkStore, readingStore } from '$lib/store';
 	import { userStore } from '$lib/store.js';
 	import { onMount } from 'svelte';
 	import db from '$lib/db';
@@ -29,10 +29,12 @@
 		</aside>
 	{/if}
 	{#if $userStore}
-		{#if $readingStore && $currentStore}
-			<Reader />
-		{:else}
-			<div class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
+		<section class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
+			{#if $readingStore && $currentStore}
+				<div in:fade={{ duration: 300 }}>
+					<Reader bookmark={$currentStore} />
+				</div>
+			{:else}
 				<UrlAdder />
 				{#if $bookmarkStore && $bookmarkStore.length > 0}
 					{#each $bookmarkStore as bookmark (bookmark.id)}
@@ -41,7 +43,7 @@
 						</div>
 					{/each}
 				{/if}
-			</div>
-		{/if}
+			{/if}
+		</section>
 	{/if}
 </div>

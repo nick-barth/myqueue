@@ -2,7 +2,7 @@
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { formatToMmss } from '$lib/utils/date-time';
-	import { currentStore } from '$lib/store.js';
+	import { currentStore } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
