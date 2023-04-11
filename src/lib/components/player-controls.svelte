@@ -4,11 +4,12 @@
 	export let duration: number;
 	export let currentTime: number;
 	export let setNewTime: (arg1: number) => void = () => {};
+	let bar: HTMLDivElement;
 	let lastMouseDown: number;
 
 	function handleClick(e: MouseEvent) {
 		const clientX = e.clientX;
-		const { left, right } = this.getBoundingClientRect();
+		const { left, right } = bar.getBoundingClientRect();
 		const newTime = (duration * (clientX - left)) / (right - left);
 		setNewTime(newTime);
 	}
@@ -18,7 +19,7 @@
 		if (e.type !== 'touchmove' && !(e.buttons & 1)) return;
 
 		const clientX = e.clientX;
-		const { left, right } = this.getBoundingClientRect();
+		const { left, right } = bar.getBoundingClientRect();
 		const newTime = (duration * (clientX - left)) / (right - left);
 		setNewTime(newTime);
 	}
@@ -35,6 +36,7 @@
 <div class="w-full">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
+		bind:this={bar}
 		on:click={handleClick}
 		on:mousemove={handleMove}
 		on:mousedown={handleMousedown}
