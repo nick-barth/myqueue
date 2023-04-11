@@ -2,8 +2,7 @@
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import { formatToMmss } from '$lib/utils/date-time';
-	import { onDestroy } from 'svelte';
-	import { selectedBookmark } from '$lib/store.js';
+	import { currentStore } from '$lib/store.js';
 	import { fade } from 'svelte/transition';
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
@@ -51,12 +50,6 @@
 		}
 	};
 
-	const unsubscribe = selectedBookmark.subscribe((value) => {
-		audioPlayer?.play();
-	});
-
-	onDestroy(unsubscribe);
-
 	if ('mediaSession' in navigator) {
 		navigator.mediaSession.metadata = new MediaMetadata({
 			title: bookmark.title || undefined,
@@ -84,7 +77,7 @@
 			{/if}
 			<button
 				class="absolute md:hidden top-6 right-6"
-				on:click={() => selectedBookmark.update((v) => null)}
+				on:click={() => currentStore.update((v) => null)}
 			>
 				<CloseButton />
 			</button>

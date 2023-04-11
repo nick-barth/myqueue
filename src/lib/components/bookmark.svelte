@@ -8,14 +8,11 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { selectedBookmark } from '$lib/store.js';
+	import { currentStore } from '$lib/store.js';
 
 	export let bookmark: BookmarkType;
 
-	let currentlySelected: boolean;
-	selectedBookmark.subscribe((v) => {
-		currentlySelected = v ? v.id === bookmark.id : false;
-	});
+	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
 
 	let meta = combineMeta(bookmark, {
 		noReadingTime: true
@@ -29,7 +26,7 @@
 
 	const handlePlay = async () => {
 		if (bookmark.audio) {
-			selectedBookmark.update((v) => bookmark);
+			currentStore.update((v) => bookmark);
 		} else {
 			if (!bookmark.content) {
 				return;
@@ -47,7 +44,7 @@
 					...bookmark,
 					audio: res.data.path
 				};
-				selectedBookmark.update((v) => bookmark);
+				currentStore.update((v) => bookmark);
 				addToast({
 					content: 'Audio successfully synthesized',
 					type: 'error'

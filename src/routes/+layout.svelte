@@ -14,9 +14,6 @@
 	});
 
 	$: if (!user && !$page.url.pathname.includes('/auth/')) {
-		console.log(
-			'we are running in the browser, not signed in, and not on the sign in page, we are going to the sign in page'
-		);
 		goto('/auth/signin');
 	}
 
