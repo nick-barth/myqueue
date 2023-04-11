@@ -51,11 +51,4 @@
 	/>
 </svelte:head>
 
-<div class="w-full">
-	{#if user}
-		<div class="sticky top-0 bg-white md:mr-[385px] z-50">
-			<Header />
-		</div>
-	{/if}
-	<slot />
-</div>
+<slot />

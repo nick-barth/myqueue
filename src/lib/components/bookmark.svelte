@@ -8,6 +8,7 @@
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
 	import { currentStore, addToast, readingStore } from '$lib/store';
+	import { goto } from '$app/navigation';
 
 	export let bookmark: BookmarkType;
 
@@ -16,6 +17,7 @@
 	const handleRead = () => {
 		currentStore.update((v) => bookmark);
 		readingStore.update((v) => true);
+		goto('/read');
 	};
 
 	let meta = combineMeta(bookmark, {

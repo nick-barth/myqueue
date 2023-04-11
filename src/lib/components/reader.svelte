@@ -1,17 +1,25 @@
 <script lang="ts">
-	import { currentStore, readingStore } from '$lib/store';
+	import { readingStore, currentStore } from '$lib/store';
 	import Arrow from '$lib/icons/arrow.svg?component';
 	import { combineMeta } from '$lib/utils/bookmark';
 	import type { BookmarkType } from '$types/types';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let bookmark: BookmarkType;
 
 	const handleBack = () => {
+		currentStore.update((e) => null);
 		readingStore.update((e) => false);
+		goto('/');
 	};
 
 	let meta = combineMeta(bookmark, {
 		noReadingTime: true
+	});
+
+	onMount(() => {
+		document.body.scrollIntoView();
 	});
 </script>
 
