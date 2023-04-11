@@ -20,7 +20,7 @@
 	</div>
 	<section class="flex flex-col justify-center items-center mb-16">
 		<div class="w-44 mb-6" title="My queue logo"><LogoWithText /></div>
-		<h2 class="font-bold text-2xl">Listen to your favorite articles</h2>
+		<h2 class="font-bold text-2xl font-domine">Listen to your favorite articles</h2>
 	</section>
 	<slot />
 </div>

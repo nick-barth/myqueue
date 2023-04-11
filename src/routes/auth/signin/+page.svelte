@@ -33,7 +33,7 @@
 
 <section class="max-w-[448px] w-full flex m-auto justify-center flex-col">
 	<button
-		class="h-12 gap-2 w-full flex justify-center items-center text-primary font-semibold rounded-primary bg-background"
+		class="h-12 gap-2 w-full flex justify-center items-center text-primary font-semibold rounded-primary border border-primary"
 		on:click={handleGoogleLogin}
 	>
 		<span class="h-6 w-6">
@@ -46,14 +46,14 @@
 
 	<form class="flex gap-4 flex-col" use:form>
 		<input
-			class="h-12 gap-2 outline-none pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray800"
+			class="h-12 gap-2 outline-none pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-background bg-background"
 			name="email"
 			type="email"
 			placeholder="Email"
 			required
 		/>
 		<input
-			class="h-12 gap-2 outline-none pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray800"
+			class="h-12 gap-2 outline-none pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-background bg-background"
 			name="password"
 			type="password"
 			placeholder="Password"

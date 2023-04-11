@@ -85,7 +85,7 @@
 		{/if}
 	</div>
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-xl">
+		<h2 class="flex font-bold text-xl font-domine">
 			{#if bookmark.image}
 				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
 					<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
