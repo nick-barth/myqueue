@@ -142,7 +142,8 @@
 					</div>
 				</ContextMenu>
 				{#if bookmark.read_time}
-					{Math.floor(bookmark.read_time / 60)} mins
+					{Math.floor(bookmark.read_time / 60)}
+					{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
 				{/if}
 			</div>
 		</div>

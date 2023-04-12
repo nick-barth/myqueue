@@ -17,7 +17,8 @@ export const combineMeta = (
 	}
 	if (bookmark.read_time && !options?.noReadingTime) {
 		const time = Math.floor(bookmark.read_time / 60);
-		meta.push(`${time} mins`);
+		const unit = time > 1 ? 'mins' : 'min';
+		meta.push(`${time} ${unit}`);
 	}
 	if (bookmark.published) {
 		const publishDate = parseISO('2022-06-01T14:42:52+00:00');
