@@ -8,12 +8,12 @@
 	<div class="w-full flex justify-end items-center gap-2 pr-8 mt-8">
 		{#if $page.url.pathname.includes('signup')}
 			<p class="text-sm">I already have an account</p>
-			<a href="/auth/signin" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
+			<a href="/signin" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
 				>Sign in</a
 			>
 		{:else}
 			<p class="text-sm">I don't have an account</p>
-			<a href="/auth/signup" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
+			<a href="/signup" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
 				>Sign up</a
 			>
 		{/if}

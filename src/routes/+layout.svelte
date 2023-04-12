@@ -13,8 +13,8 @@
 		user = v;
 	});
 
-	$: if (!user && !$page.url.pathname.includes('/auth/')) {
-		goto('/auth/signin');
+	$: if (!user && !$page.url.pathname.includes('/sign')) {
+		goto('/signin');
 	}
 
 	onMount(() => {
@@ -23,8 +23,8 @@
 				goto('/');
 				userStore.set(data.session.user);
 			} else {
-				if (!$page.url.pathname.includes('/auth/')) {
-					goto('/auth/signin');
+				if (!$page.url.pathname.includes('/sign')) {
+					goto('/signin');
 				}
 			}
 		});
@@ -35,7 +35,7 @@
 				goto('/');
 			} else if (event == 'SIGNED_OUT') {
 				userStore.set(null);
-				goto('/auth/signin');
+				goto('/signin');
 			}
 		});
 	});
