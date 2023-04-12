@@ -126,7 +126,7 @@
 					{/if}
 				</button>
 			</div>
-			<div class="text-sm flex items-center gap-2">
+			<div class="text-sm flex items-center">
 				<ContextMenu>
 					<div class="bg-white border border-gray-200 rounded-lg py-2">
 						<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
@@ -143,8 +143,10 @@
 					</div>
 				</ContextMenu>
 				{#if bookmark.read_time}
-					{Math.floor(bookmark.read_time / 60)}
-					{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
+					<div class="pl-1">
+						{Math.floor(bookmark.read_time / 60)}
+						{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
+					</div>
 				{/if}
 			</div>
 		</div>

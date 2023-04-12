@@ -22,7 +22,9 @@
 	let duration: number;
 	let volume: number;
 	let paused: boolean;
-	let playbackRate: number;
+	let playbackRate: number = 1;
+
+	let currentSpeedLabel: string = '1x';
 
 	const handleBackward = () => {
 		if (currentTime - 15 < 0) {
@@ -43,6 +45,19 @@
 		currentTime = newTime;
 	};
 
+	const handlePlayBackClick = () => {
+		if (playbackRate === 1) {
+			playbackRate = 1.25;
+			currentSpeedLabel = '1.25x';
+		} else if (playbackRate === 1.25) {
+			playbackRate = 1.5;
+			currentSpeedLabel = '1.5x';
+		} else if (playbackRate === 1.5) {
+			playbackRate = 1;
+			currentSpeedLabel = '1x';
+		}
+	};
+
 	const handleTogglePlay = () => {
 		if (paused) {
 			paused = false;
@@ -50,22 +65,6 @@
 			paused = true;
 		}
 	};
-
-	if ('mediaSession' in navigator) {
-		navigator.mediaSession.metadata = new MediaMetadata({
-			title: bookmark.title || undefined,
-			artist: bookmark.authors.length > 0 ? bookmark.authors.join(', ') : undefined,
-			album: 'My Queue',
-			artwork: [
-				{ src: 'https://via.placeholder.com/96', sizes: '96x96', type: 'image/png' },
-				{ src: 'https://via.placeholder.com/128', sizes: '128x128', type: 'image/png' },
-				{ src: 'https://via.placeholder.com/192', sizes: '192x192', type: 'image/png' },
-				{ src: 'https://via.placeholder.com/256', sizes: '256x256', type: 'image/png' },
-				{ src: 'https://via.placeholder.com/384', sizes: '384x384', type: 'image/png' },
-				{ src: 'https://via.placeholder.com/512', sizes: '512x512', type: 'image/png' }
-			]
-		});
-	}
 
 	$: {
 		if (prevSrc !== bookmark.audio) {
@@ -112,7 +111,7 @@
 		<div class="p-6">
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 			<div class="w-full mt-6 flex items-center justify-between">
-				<button class="text-sm"> 1x </button>
+				<button on:click={handlePlayBackClick} class="text-sm"> {currentSpeedLabel} </button>
 				<button on:click={handleBackward} title="Skips backwards 15 seconds">
 					<PlayerBackward />
 				</button>
