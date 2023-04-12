@@ -21,7 +21,7 @@
 	let currentTime: number;
 	let duration: number;
 	let volume: number;
-	let paused: boolean;
+	let paused: boolean = true;
 	let playbackRate: number = 1;
 
 	let currentSpeedLabel: string = '1x';
@@ -76,7 +76,6 @@
 				}
 			}, 0);
 		}
-		prevSrc = bookmark.audio || '';
 	}
 
 	const meta = combineMeta(bookmark);
