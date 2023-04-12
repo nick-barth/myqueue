@@ -1,6 +1,6 @@
 import { createClient, type AuthChangeEvent } from '@supabase/supabase-js';
 import { get } from 'svelte/store';
-import { userStore, bookmarkStore } from '$lib/store';
+import { userStore, bookmarkStore, currentStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
@@ -39,6 +39,9 @@ export default {
 				.select('*')
 				.order('created_at', { ascending: false });
 			bookmarkStore.set(data);
+			if (data && data.length > 0) {
+				currentStore.update((v) => data[0]);
+			}
 		},
 		async remove(id: number) {
 			const res = await supabase.from('bookmarks').delete().eq('id', id);

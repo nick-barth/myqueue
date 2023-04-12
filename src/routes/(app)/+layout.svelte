@@ -5,6 +5,8 @@
 	import Toasts from '$lib/components/toasts.svelte';
 	import type { UserType } from '$types/types';
 	import Player from '$lib/components/player.svelte';
+	import { onMount } from 'svelte';
+	import db from '$lib/db';
 
 	let user: UserType | null = null;
 	userStore.subscribe((v) => {
@@ -15,6 +17,10 @@
 
 	let innerWidth: number;
 	$: hidePlayer = !!(innerWidth < 943 && $readingStore);
+
+	onMount(async () => {
+		await db.bookmarks.get();
+	});
 </script>
 
 <svelte:window bind:innerWidth />

@@ -6,10 +6,6 @@
 	import { bookmarkStore } from '$lib/store';
 	import { onMount } from 'svelte';
 	import db from '$lib/db';
-
-	onMount(async () => {
-		await db.bookmarks.get();
-	});
 </script>
 
 <section class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">

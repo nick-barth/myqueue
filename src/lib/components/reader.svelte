@@ -9,7 +9,6 @@
 	export let bookmark: BookmarkType;
 
 	const handleBack = () => {
-		currentStore.update((e) => null);
 		readingStore.update((e) => false);
 		goto('/');
 	};

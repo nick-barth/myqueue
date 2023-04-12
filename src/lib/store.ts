@@ -6,6 +6,7 @@ export const currentStore = writable<BookmarkType | null>(null);
 export const readingStore = writable<boolean>(false);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
+export const audioStore = writable<HTMLAudioElement | null>(null);
 
 interface ToastType {
 	id?: number;

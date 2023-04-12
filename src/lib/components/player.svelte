@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
-	import { formatToMmss } from '$lib/utils/date-time';
-	import { currentStore } from '$lib/store';
+	import { currentStore, audioStore } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
 	import PlayerControls from '$lib/components/player-controls.svelte';
@@ -18,13 +17,12 @@
 
 	export let bookmark: BookmarkType;
 
-	export let audioPlayer: HTMLAudioElement | null = null;
+	let prevSrc: string;
 	let currentTime: number;
 	let duration: number;
+	let volume: number;
 	let paused: boolean;
-
-	let displayTime: string;
-	let percentLeft: string;
+	let playbackRate: number;
 
 	const handleBackward = () => {
 		if (currentTime - 15 < 0) {
@@ -67,6 +65,19 @@
 				{ src: 'https://via.placeholder.com/512', sizes: '512x512', type: 'image/png' }
 			]
 		});
+	}
+
+	$: {
+		if (prevSrc !== bookmark.audio) {
+			setTimeout(() => {
+				if (paused) {
+					$audioStore?.pause();
+				} else {
+					$audioStore?.play();
+				}
+			}, 0);
+		}
+		prevSrc = bookmark.audio || '';
 	}
 
 	const meta = combineMeta(bookmark);
@@ -130,14 +141,14 @@
 		</div>
 	</div>
 	<div class="flex-col h-full justify-between flex md:hidden">mobile player</div>
-	<figure>
-		<audio
-			autoplay
-			bind:paused
-			bind:duration
-			bind:currentTime
-			bind:this={audioPlayer}
-			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
-		/>
-	</figure>
+	<audio
+		class="hidden"
+		bind:volume
+		bind:duration
+		bind:currentTime
+		bind:paused
+		bind:playbackRate
+		bind:this={$audioStore}
+		src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+	/>
 </aside>
