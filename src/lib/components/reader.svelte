@@ -22,7 +22,7 @@
 	});
 </script>
 
-<section class="flex w-full items-center flex-col mb-16">
+<section class="flex w-full items-center flex-col mb-16 px-4 md:px-0">
 	<div class="max-w-2xl">
 		<button
 			class="flex gap-1 items-center font-bold bg-gray900 rounded-[80px] py-2 px-4 mb-10"

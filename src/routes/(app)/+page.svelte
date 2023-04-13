@@ -8,7 +8,7 @@
 	import db from '$lib/db';
 </script>
 
-<section class="w-full md:max-w-4xl m-auto px-4 md:p-0 relative z-10">
+<section class="w-full md:max-w-4xl m-auto md:p-0 relative z-10">
 	<UrlAdder />
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
 		{#each $bookmarkStore as bookmark (bookmark.id)}

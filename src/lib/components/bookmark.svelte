@@ -16,7 +16,6 @@
 
 	const handleRead = () => {
 		currentStore.update((v) => bookmark);
-		readingStore.update((v) => true);
 		goto('/read');
 	};
 
@@ -78,7 +77,7 @@
 </script>
 
 <li
-	class="list-none transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 {!currentlySelected
+	class="list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 {!currentlySelected
 		? 'bg-white'
 		: 'bg-gray950'}"
 >
@@ -88,7 +87,7 @@
 		{/if}
 	</div>
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-xl font-domine">
+		<h2 class="flex font-bold text-lg font-domine mb-4">
 			{#if bookmark.image}
 				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
 					<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
@@ -96,12 +95,12 @@
 			{/if}
 			{bookmark.title}
 		</h2>
-		<p class="md:line-clamp-2 line-clamp-4 my-2 leading-7 overflow-hidden">
-			{bookmark.content}
-		</p>
 		<aside class="text-sm leading-6 mb-2">
 			{meta.join(' • ')}
 		</aside>
+		<p class="line-clamp-2 my-2 leading-7 overflow-hidden">
+			{bookmark.content}
+		</p>
 		<div
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>

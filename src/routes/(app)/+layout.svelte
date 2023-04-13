@@ -25,7 +25,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="w-full">
+<div class="w-full pb-32 md:pb-0">
 	<div class="sticky top-0 bg-white md:mr-[385px] z-50">
 		<Header />
 	</div>

@@ -110,7 +110,7 @@
 		<div class="p-6">
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 			<div class="w-full mt-6 flex items-center justify-between">
-				<button on:click={handlePlayBackClick} class="text-sm"> {currentSpeedLabel} </button>
+				<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
 				<button on:click={handleBackward} title="Skips backwards 15 seconds">
 					<PlayerBackward />
 				</button>
@@ -138,7 +138,38 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex-col h-full justify-between flex md:hidden">mobile player</div>
+	<div class="flex h-36 flex-col p-4 md:hidden justify-between">
+		<div class="flex">
+			<div class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4">
+				{#if bookmark.image}
+					<img
+						class="object-cover object-center"
+						src={bookmark.image}
+						alt="Related to the article"
+					/>
+				{/if}
+			</div>
+			<h2 class="flex h-12 font-semibold line-clamp-2 overflow-hidden">
+				{bookmark.title}
+			</h2>
+			<button
+				on:click={handleTogglePlay}
+				title="Toggles play"
+				class="bg-primary self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent"
+			>
+				{#if paused}
+					<div in:fade={{ duration: 100 }} class="h-4 w-4">
+						<PlayButton />
+					</div>
+				{:else}
+					<div in:fade={{ duration: 100 }} class="h-4 w-4">
+						<PauseButton />
+					</div>
+				{/if}
+			</button>
+		</div>
+		<PlayerControls {currentTime} {duration} {setNewTime} />
+	</div>
 	<audio
 		class="hidden"
 		bind:volume
