@@ -10,3 +10,14 @@
 		box-sizing: border-box;
 	}
 }
+
+.read div h2 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 12px;
+	margin-bottom: 6px;
+}
+
+.read div p {
+	margin-bottom: 12px;
+}

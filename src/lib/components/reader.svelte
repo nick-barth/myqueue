@@ -30,6 +30,6 @@
 		>
 		<p class="text-primary2 mb-4">{meta.join(' • ')}</p>
 		<h1 class="text-4xl font-bold mb-8 font-domine">{bookmark.title}</h1>
-		<article class="text-lg leading-7">{bookmark.content}</article>
+		<article class="read text-lg leading-7">{@html bookmark.reader}</article>
 	</div>
 </section>

@@ -18,6 +18,7 @@ export interface Database {
 					url: string | null;
 					language: string | null;
 					user_id: string | null;
+					reader: string | null;
 				};
 				Insert: {
 					audio?: string | null;
@@ -33,6 +34,7 @@ export interface Database {
 					url?: string | null;
 					language: string | null;
 					user_id?: string | null;
+					reader: string | null;
 				};
 				Update: {
 					audio?: string | null;

@@ -26,7 +26,7 @@
 	$: bookmark;
 
 	const handleRemove = async () => {
-		db.bookmarks.remove(bookmark.id);
+		db.bookmarks.remove(bookmark);
 	};
 
 	const handlePlay = async () => {
@@ -81,11 +81,12 @@
 		? 'bg-white'
 		: 'bg-gray950'}"
 >
-	<div class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-6">
-		{#if bookmark.image}
-			<img class="object-cover object-center" src={bookmark.image} alt="Related to the article" />
-		{/if}
-	</div>
+	{#if bookmark.image}
+		<div
+			style={`background-image: url(${bookmark.image})`}
+			class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-4 bg-cover"
+		/>
+	{/if}
 	<div class="w-full flex flex-col">
 		<h2 class="flex font-bold text-lg font-domine mb-4">
 			{#if bookmark.image}
