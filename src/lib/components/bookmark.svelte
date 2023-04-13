@@ -7,7 +7,7 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { currentStore, addToast, readingStore, audioStore } from '$lib/store';
+	import { currentStore, addToast, audioStore } from '$lib/store';
 	import { goto } from '$app/navigation';
 
 	export let bookmark: BookmarkType;

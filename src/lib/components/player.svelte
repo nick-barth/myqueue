@@ -140,15 +140,12 @@
 	</div>
 	<div class="flex h-36 flex-col p-4 md:hidden justify-between">
 		<div class="flex">
-			<div class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4">
-				{#if bookmark.image}
-					<img
-						class="object-cover object-center"
-						src={bookmark.image}
-						alt="Related to the article"
-					/>
-				{/if}
-			</div>
+			{#if bookmark.image}
+				<div
+					style={`background-image: url(${bookmark.image})`}
+					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover"
+				/>
+			{/if}
 			<h2 class="flex h-12 font-semibold line-clamp-2 overflow-hidden">
 				{bookmark.title}
 			</h2>
