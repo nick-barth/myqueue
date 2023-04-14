@@ -14,7 +14,6 @@
 	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
 
 	import type { BookmarkType } from '$types/types';
-	import Page from '../../routes/(app)/+page.svelte';
 
 	export let bookmark: BookmarkType;
 

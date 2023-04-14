@@ -34,6 +34,34 @@
 		db.bookmarks.remove(bookmark);
 	};
 
+	export const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
+		if (!bookmark.url) {
+			return;
+		}
+		if (type === 'clipboard') {
+			navigator.clipboard.writeText(bookmark.url).then(
+				function () {
+					addToast({ content: 'Link copied to clipboard', type: 'success' });
+				},
+				function (err) {
+					console.error('Async: Could not copy text: ', err);
+				}
+			);
+		}
+		if (type === 'twitter') {
+			const link = `https://twitter.com/intent/tweet?url=${bookmark.url}`;
+			window.open(link, '_blank')?.focus();
+		}
+		if (type === 'facebook') {
+			const link = `https://www.facebook.com/sharer/sharer.php?u=${bookmark.url}`;
+			window.open(link, '_blank')?.focus();
+		}
+		if (type === 'linkedin') {
+			const link = `https://www.linkedin.com/shareArticle?mini=true&url=${bookmark.url}`;
+			window.open(link, '_blank')?.focus();
+		}
+	};
+
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			if (currentlyPlaying) {
@@ -68,20 +96,6 @@
 
 			isGenerating = false;
 		}
-	};
-
-	const handleCopyLink = async () => {
-		if (!bookmark.url) {
-			return;
-		}
-		navigator.clipboard.writeText(bookmark.url).then(
-			function () {
-				addToast({ content: 'Link copied to clipboard', type: 'success' });
-			},
-			function (err) {
-				console.error('Async: Could not copy text: ', err);
-			}
-		);
 	};
 </script>
 
@@ -149,10 +163,28 @@
 				<ContextMenu icon={Share}>
 					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
 						<button
-							on:click={handleCopyLink}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap"
+							on:click={() => handleCopyLink('clipboard')}
+							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
 						>
 							Copy link
+						</button>
+						<button
+							on:click={() => handleCopyLink('twitter')}
+							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+						>
+							Share on Twitter
+						</button>
+						<button
+							on:click={() => handleCopyLink('facebook')}
+							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+						>
+							Share on Facebook
+						</button>
+						<button
+							on:click={() => handleCopyLink('linkedin')}
+							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+						>
+							Share on LinkedIn
 						</button>
 					</div>
 				</ContextMenu>
