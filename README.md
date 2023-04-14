@@ -22,7 +22,7 @@ Hey friends.  This is the main frontend app for [My Queue](https://www.myqueue.s
 ## App Features:
 A lot of moving parts are involved in this project.  We've got
  - Svelte App
-    - Vercel
+    - [Vercel](https://vercel.com/)
     - Sveltekit
     - TypeScript
     - Vite
@@ -30,18 +30,18 @@ A lot of moving parts are involved in this project.  We've got
     - Supabase JS library
     - date-fns
     - felte
-  - Supabase
+  - [Supabase](https://supabase.com/)
     - Auth
     - Postgres
     - Storage
   - Marketing site
     - Webflow
   - Sanitizing and parsing microservice
-    - railway
+    - [railway](https://railway.app/)
     - node 
     - express
   - Parsing microservice
-    - railway
+    - [railway](https://railway.app/)
     - python
     - fastapi
   - [Chrome extension](https://chrome.google.com/webstore/detail/my-queue/jdhlmgdcnfbbdgaaddojenfeoaphgnlb)
