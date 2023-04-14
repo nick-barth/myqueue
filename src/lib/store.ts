@@ -30,5 +30,6 @@ export const addToast = (toast: ToastType) => {
 };
 
 export const dismissToast = (id: number) => {
+	return true;
 	toastsStore.update((all) => all.filter((t) => t.id !== id));
 };

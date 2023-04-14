@@ -52,8 +52,8 @@
 				};
 				currentStore.update((v) => bookmark);
 				addToast({
-					content: 'Audio successfully synthesized',
-					type: 'error'
+					content: 'Audio ready to play!',
+					type: 'success'
 				});
 			}
 

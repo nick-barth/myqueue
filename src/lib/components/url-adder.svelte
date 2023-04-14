@@ -24,7 +24,7 @@
 		} else {
 			addToast({
 				content: 'Successfully added to queue',
-				type: 'error'
+				type: 'success'
 			});
 		}
 
