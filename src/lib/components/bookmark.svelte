@@ -13,6 +13,8 @@
 
 	export let bookmark: BookmarkType;
 
+	let prevSrc: string = '';
+
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
 
 	const handleRead = () => {
@@ -68,7 +70,10 @@
 				handleTogglePlay();
 			} else {
 				currentStore.update((v) => bookmark);
-				handleTogglePlay();
+				// waits for audio to load maybe?
+				setTimeout(() => {
+					$audioStore?.play();
+				}, 40);
 			}
 		} else {
 			if (!bookmark.content) {
@@ -114,7 +119,10 @@
 		<h2 class="flex font-bold text-lg font-domine mb-4">
 			{#if bookmark.image}
 				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
-					<img class="min-h-full min-w-full" src={bookmark.image} alt="Related to the article" />
+					<div
+						style={`background-image: url(${bookmark.image})`}
+						class="flex h-16 w-16 overflow-hidden flex-shrink-0 mr-4 bg-cover"
+					/>
 				</div>
 			{/if}
 			{bookmark.title}
