@@ -2,7 +2,7 @@
 	import LogoWithText from '$lib/icons/logo-with-text.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 
-	import { userStore, limitsStore } from '$lib/store';
+	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';
 	import db from '$lib/db';
 	import { goto } from '$app/navigation';
@@ -21,15 +21,6 @@
 	<div class="w-28">
 		<LogoWithText />
 	</div>
-	{#if $limitsStore}
-		<div
-			class="bg-accent2 absolute max-w-2xl p-2 text-sm rounded-sm top-0 left-1/2 -translate-x-1/2"
-		>
-			Dope! We really appreciate you playing around with your Queue! However servers cost money and
-			we're broke, so we currently have a limit on amount of audio you can have generated. If you're
-			super into the product, pop us a message, and we'll remove your limit.
-		</div>
-	{/if}
 	<ContextMenu position="right">
 		<div slot="icon" class="overflow-hidden rounded-full h-10 w-10">
 			{#if user?.user_metadata.avatar_url}

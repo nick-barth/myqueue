@@ -20,7 +20,6 @@
 
 	onMount(async () => {
 		await db.bookmarks.get();
-		db.tts.getList();
 	});
 </script>
 
@@ -38,7 +37,7 @@
 	</div>
 	{#if $currentStore && $currentStore.content && !hidePlayer}
 		<aside
-			class="md:max-w-[355px] fixed z-50 md:w-full md:h-full bottom-0 md:top-auto md:left-auto md:right-0 md:bottom-0 bg-accent"
+			class="md:max-w-[355px] fixed z-50 w-full md:h-full bottom-0 md:top-auto md:left-auto md:right-0 md:bottom-0 bg-accent"
 			transition:fly={{ y: 200, duration: 300 }}
 		>
 			<Player bookmark={$currentStore} />

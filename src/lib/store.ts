@@ -4,10 +4,10 @@ import { writable } from 'svelte/store';
 export const bookmarkStore = writable<BookmarkType[] | null>();
 export const currentStore = writable<BookmarkType | null>(null);
 export const readingStore = writable<boolean>(false);
+export const pausedStore = writable<boolean>(false);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
-export const limitsStore = writable<boolean>(false);
 
 interface ToastType {
 	id?: number;

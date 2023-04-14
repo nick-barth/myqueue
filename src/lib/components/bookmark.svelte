@@ -1,13 +1,14 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
 	import PlayButton from '$lib/icons/play-button.svg?component';
+	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { currentStore, addToast, audioStore } from '$lib/store';
+	import { currentStore, addToast, audioStore, pausedStore } from '$lib/store';
 	import { goto } from '$app/navigation';
 
 	export let bookmark: BookmarkType;
@@ -18,6 +19,10 @@
 		currentStore.update((v) => bookmark);
 		goto('/read');
 	};
+
+	let currentlyPlaying = false;
+
+	$: currentlyPlaying = currentlySelected && !$pausedStore;
 
 	let meta = combineMeta(bookmark, {
 		noReadingTime: true
@@ -31,8 +36,13 @@
 
 	const handlePlay = async () => {
 		if (bookmark.audio) {
-			currentStore.update((v) => bookmark);
-			$audioStore?.play();
+			if (currentlyPlaying) {
+				console.log('wow');
+				$audioStore?.pause();
+			} else {
+				currentStore.update((v) => bookmark);
+				$audioStore?.play();
+			}
 		} else {
 			if (!bookmark.content) {
 				return;
@@ -114,12 +124,17 @@
 				>
 				<button
 					on:click={handlePlay}
-					class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {!isGenerating
-						? 'bg-primary text-white'
-						: 'bg-accent2 text-primary max-w-xs'}"
+					class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {isGenerating ||
+					currentlyPlaying
+						? 'bg-accent2 gradient-animation text-primary max-w-xs'
+						: 'bg-primary text-white'}"
 					>{#if !isGenerating}
 						<div class="flex items-center gap-2">
-							Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+							{#if currentlyPlaying}
+								Playing <div class="h-3 w-3 overflow-hidden"><PauseButton /></div>
+							{:else}
+								Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+							{/if}
 						</div>
 					{:else}
 						Generating <LoadingDots />
@@ -152,3 +167,47 @@
 		</div>
 	</div>
 </li>
+
+<style>
+	@-webkit-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@-moz-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	.gradient-animation {
+		background: linear-gradient(90deg, #c1ebff, #d8bbfe);
+		background-size: 400% 400%;
+
+		-webkit-animation: gradient 1.5s ease infinite;
+		-moz-animation: gradient 1.5s ease infinite;
+		animation: gradient 1.5s ease infinite;
+	}
+</style>

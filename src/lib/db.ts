@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { get } from 'svelte/store';
-import { userStore, bookmarkStore, currentStore, addToast, limitsStore } from '$lib/store';
+import { userStore, bookmarkStore, currentStore, addToast } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
@@ -40,7 +40,8 @@ export default {
 				.order('created_at', { ascending: false });
 			bookmarkStore.set(data);
 			if (data && data.length > 0) {
-				currentStore.update((v) => data[0]);
+				const found = data.find((element) => element.audio);
+				found && currentStore.update((v) => found);
 			}
 		},
 		async remove(bookmark: BookmarkType) {
@@ -79,24 +80,20 @@ export default {
 		}
 	},
 	tts: {
-		async getList() {
-			const user = get(userStore);
-			if (!user) {
-				return;
-			}
-			const { data, error } = await supabase.storage.from('audio').list(user.id, {
-				limit: 100,
-				offset: 0
-			});
-			if (data && data.length > 4) {
-				limitsStore.update((v) => true);
-			}
-			return { data, error };
-		},
 		async create(bookmark: BookmarkType) {
 			const { data, error } = await supabase.functions.invoke('tts', {
 				body: bookmark
 			});
+
+			if (data === 'TOO_MANY_FILES') {
+				addToast({
+					timeout: 20000,
+					type: 'info',
+					content:
+						'Dope! We really appreciate you playing around with your Queue! However servers cost money and we are broke, so we currently have a limit on amount of audio you can have generated. If you are super into the product, pop us a message, and we will remove your limit.'
+				});
+				return { error: data };
+			}
 			return { data, error };
 		}
 	}

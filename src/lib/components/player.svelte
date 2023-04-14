@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
-	import { currentStore, audioStore } from '$lib/store';
+	import { currentStore, audioStore, pausedStore } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
 	import PlayerControls from '$lib/components/player-controls.svelte';
@@ -21,7 +21,6 @@
 	let currentTime: number;
 	let duration: number;
 	let volume: number;
-	let paused: boolean = true;
 	let playbackRate: number = 1;
 
 	let currentSpeedLabel: string = '1x';
@@ -59,17 +58,17 @@
 	};
 
 	const handleTogglePlay = () => {
-		if (paused) {
-			paused = false;
+		if ($pausedStore) {
+			$pausedStore = false;
 		} else {
-			paused = true;
+			$pausedStore = true;
 		}
 	};
 
 	$: {
 		if (prevSrc !== bookmark.audio) {
 			setTimeout(() => {
-				if (paused) {
+				if ($pausedStore) {
 					$audioStore?.pause();
 				} else {
 					$audioStore?.play();
@@ -120,7 +119,7 @@
 					title="Toggles play"
 					class="bg-primary rounded-full h-16 w-16 flex items-center justify-center text-accent"
 				>
-					{#if paused}
+					{#if $pausedStore}
 						<div in:fade={{ duration: 100 }} class="h-6 w-6">
 							<PlayButton />
 						</div>
@@ -147,7 +146,7 @@
 					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover"
 				/>
 			{/if}
-			<h2 class="flex h-12 font-semibold line-clamp-2 overflow-hidden">
+			<h2 class="flex h-12 font-semibold line-clamp-2 w-full overflow-hidden">
 				{bookmark.title}
 			</h2>
 			<button
@@ -155,7 +154,7 @@
 				title="Toggles play"
 				class="bg-primary self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent"
 			>
-				{#if paused}
+				{#if $pausedStore}
 					<div in:fade={{ duration: 100 }} class="h-4 w-4">
 						<PlayButton />
 					</div>
@@ -174,7 +173,7 @@
 			bind:volume
 			bind:duration
 			bind:currentTime
-			bind:paused
+			bind:paused={$pausedStore}
 			bind:playbackRate
 			bind:this={$audioStore}
 			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
