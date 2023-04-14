@@ -1,13 +1,21 @@
 import type { BookmarkType, UserType } from '$types/types';
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 export const bookmarkStore = writable<BookmarkType[] | null>();
 export const currentStore = writable<BookmarkType | null>(null);
 export const readingStore = writable<boolean>(false);
-export const pausedStore = writable<boolean>(false);
+export const pausedStore = writable<boolean>(true);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
+
+export const handleTogglePlay = () => {
+	if (get(pausedStore)) {
+		pausedStore.update((v) => false);
+	} else {
+		pausedStore.update((v) => true);
+	}
+};
 
 interface ToastType {
 	id?: number;

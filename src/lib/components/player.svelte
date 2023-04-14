@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
-	import { currentStore, audioStore, pausedStore } from '$lib/store';
+	import { currentStore, audioStore, pausedStore, handleTogglePlay } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
 	import PlayerControls from '$lib/components/player-controls.svelte';
@@ -14,10 +14,10 @@
 	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
 
 	import type { BookmarkType } from '$types/types';
+	import Page from '../../routes/(app)/+page.svelte';
 
 	export let bookmark: BookmarkType;
 
-	let prevSrc: string;
 	let currentTime: number;
 	let duration: number;
 	let volume: number;
@@ -56,26 +56,6 @@
 			currentSpeedLabel = '1x';
 		}
 	};
-
-	const handleTogglePlay = () => {
-		if ($pausedStore) {
-			$pausedStore = false;
-		} else {
-			$pausedStore = true;
-		}
-	};
-
-	$: {
-		if (prevSrc !== bookmark.audio) {
-			setTimeout(() => {
-				if ($pausedStore) {
-					$audioStore?.pause();
-				} else {
-					$audioStore?.play();
-				}
-			}, 0);
-		}
-	}
 
 	let meta: string[];
 	$: meta = combineMeta(bookmark);
@@ -169,14 +149,15 @@
 	</div>
 	{#if bookmark.audio}
 		<audio
+			autoplay={false}
 			class="hidden"
 			bind:volume
 			bind:duration
 			bind:currentTime
 			bind:paused={$pausedStore}
 			bind:playbackRate
-			bind:this={$audioStore}
 			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+			bind:this={$audioStore}
 		/>
 	{/if}
 </aside>

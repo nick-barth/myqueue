@@ -8,7 +8,7 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { currentStore, addToast, audioStore, pausedStore } from '$lib/store';
+	import { currentStore, addToast, audioStore, pausedStore, handleTogglePlay } from '$lib/store';
 	import { goto } from '$app/navigation';
 
 	export let bookmark: BookmarkType;
@@ -37,11 +37,10 @@
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			if (currentlyPlaying) {
-				console.log('wow');
-				$audioStore?.pause();
+				handleTogglePlay();
 			} else {
 				currentStore.update((v) => bookmark);
-				$audioStore?.play();
+				handleTogglePlay();
 			}
 		} else {
 			if (!bookmark.content) {
