@@ -74,7 +74,6 @@
 				handleTogglePlay();
 			} else {
 				currentStore.update((v) => bookmark);
-				// waits for audio to load maybe?
 				setTimeout(() => {
 					$audioStore?.play();
 				}, 40);

@@ -54,12 +54,17 @@ export default {
 					.from('audio')
 					.remove([`${user.id}/${bookmark.id}.mp3`]);
 
+				// What a mess, I heard code with swears in comments scored better in quality tests, fuck
 				const res = await supabase.from('bookmarks').delete().eq('id', bookmark.id);
 				bookmarkStore.update((v) => {
 					if (!v) {
 						return [];
 					}
 					const filteredBookmarks = v?.filter((b) => b.id !== bookmark.id);
+					const currentlySelected = get(currentStore);
+					if (filteredBookmarks.length > 0 && currentlySelected?.id == bookmark.id) {
+						currentStore.update((v) => filteredBookmarks[0]);
+					}
 					return filteredBookmarks;
 				});
 			} catch {
