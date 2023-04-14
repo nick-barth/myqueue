@@ -45,6 +45,10 @@
 	>
 		<div class="bg-gray-400 w-full h-1" />
 		<div
+			style="width: {percentLeft}"
+			class="absolute h-1 left-0 rounded-full bg-primary transition-all ease-out duration-75"
+		/>
+		<div
 			style="left: {percentLeft}"
 			class="absolute h-3 w-3 top-2 rounded-full bg-primary -translate-y-1/3 transition-all ease-out duration-75"
 		/>
