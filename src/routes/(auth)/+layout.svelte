@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="w-full">
+<div class="w-full p-4">
 	<div class="w-full flex justify-end items-center gap-2 pr-8 mt-8">
 		{#if $page.url.pathname.includes('signup')}
 			<p class="text-sm">I already have an account</p>

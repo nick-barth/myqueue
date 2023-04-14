@@ -23,6 +23,16 @@
 			"src": "static/logo128.png",
 			"sizes": "128x128",
 			"type": "image/png"
+		},
+		{
+			"src": "static/logo128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "static/logo192.png",
+			"sizes": "128x128",
+			"type": "image/png"
 		}
 	],
 	"theme_color": "#fff19f",
