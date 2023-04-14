@@ -6,7 +6,7 @@ Listen to your content!  I'm constantly bookmarking articles and reading them on
 ### Svelte Hackathon
 Hey friends.  This is the main app for [My Queue](https://www.myqueue.so/), it's written with the big help of SvelteKit.  I was just learning Svelte when I started this project, and I think I've made plenty of mistakes.  If anyone has any pointers on how to handle my stores or auth gating, let me know!  I really ended up enjoying Svelte, so thanks for putting together this Hackathon and giving me some inspiration.
 
-App Features:
+## App Features:
    - 📰 Scrape any article!  Our scrapper is a work in progress, but we're quite happy with the results we've been able to achieve in a limited time.  Give it a try.  Let us know if it doesn't perform to expectation.
    - 🎧 Listen to any article.  Currently we're using Google Text-To-Speech to translate your articles into any language supported by google.
    - 🐱‍👓 Read any article.  We've started work on our custom reader, we're continuing to improve looks and functionality.
