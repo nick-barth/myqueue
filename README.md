@@ -1,5 +1,9 @@
 # My Queue App
 
+
+
+
+
 ### My Queue
 Listen to your content!  I'm constantly bookmarking articles and reading them on the train home from work, with My Queue, I can now save them to My Queue and listen to them playlist style on the way home.
 
@@ -40,6 +44,6 @@ A lot of moving parts are involved in this project.  We've got
     - railway
     - python
     - fastapi
-  - Chrome extension
+  - [Chrome extension](https://chrome.google.com/webstore/detail/my-queue/jdhlmgdcnfbbdgaaddojenfeoaphgnlb)
     - react
     - tailwind
