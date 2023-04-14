@@ -20,6 +20,7 @@
 
 	onMount(async () => {
 		await db.bookmarks.get();
+		db.tts.getList();
 	});
 </script>
 

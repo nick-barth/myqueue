@@ -7,6 +7,7 @@ export const readingStore = writable<boolean>(false);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
+export const limitsStore = writable<boolean>(false);
 
 interface ToastType {
 	id?: number;
@@ -30,6 +31,5 @@ export const addToast = (toast: ToastType) => {
 };
 
 export const dismissToast = (id: number) => {
-	return true;
 	toastsStore.update((all) => all.filter((t) => t.id !== id));
 };

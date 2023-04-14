@@ -78,7 +78,8 @@
 		}
 	}
 
-	const meta = combineMeta(bookmark);
+	let meta: string[];
+	$: meta = combineMeta(bookmark);
 </script>
 
 <aside class="h-full">
@@ -167,14 +168,16 @@
 		</div>
 		<PlayerControls {currentTime} {duration} {setNewTime} />
 	</div>
-	<audio
-		class="hidden"
-		bind:volume
-		bind:duration
-		bind:currentTime
-		bind:paused
-		bind:playbackRate
-		bind:this={$audioStore}
-		src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
-	/>
+	{#if bookmark.audio}
+		<audio
+			class="hidden"
+			bind:volume
+			bind:duration
+			bind:currentTime
+			bind:paused
+			bind:playbackRate
+			bind:this={$audioStore}
+			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+		/>
+	{/if}
 </aside>

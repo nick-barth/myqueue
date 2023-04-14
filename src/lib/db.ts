@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { get } from 'svelte/store';
-import { userStore, bookmarkStore, currentStore, addToast } from '$lib/store';
+import { userStore, bookmarkStore, currentStore, addToast, limitsStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
@@ -79,8 +79,21 @@ export default {
 		}
 	},
 	tts: {
-		async create(bookmark: BookmarkType) {
+		async getList() {
 			const user = get(userStore);
+			if (!user) {
+				return;
+			}
+			const { data, error } = await supabase.storage.from('audio').list(user.id, {
+				limit: 100,
+				offset: 0
+			});
+			if (data && data.length > 4) {
+				limitsStore.update((v) => true);
+			}
+			return { data, error };
+		},
+		async create(bookmark: BookmarkType) {
 			const { data, error } = await supabase.functions.invoke('tts', {
 				body: bookmark
 			});
