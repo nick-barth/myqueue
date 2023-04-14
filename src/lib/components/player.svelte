@@ -58,6 +58,45 @@
 
 	let meta: string[];
 	$: meta = combineMeta(bookmark);
+
+	if ('mediaSession' in navigator) {
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: bookmark.title || 'My Queue',
+			artist: bookmark.domain || 'My Queue',
+			artwork: [
+				{
+					src: bookmark.image || '',
+					sizes: '96x96',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '128x128',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '192x192',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '256x256',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '384x384',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '512x512',
+					type: 'image/png'
+				}
+			]
+		});
+	}
 </script>
 
 <aside class="h-full">
