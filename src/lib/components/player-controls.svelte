@@ -4,6 +4,7 @@
 	export let duration: number;
 	export let currentTime: number;
 	export let setNewTime: (arg1: number) => void = () => {};
+
 	let bar: HTMLDivElement;
 	let lastMouseDown: number;
 

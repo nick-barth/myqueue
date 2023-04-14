@@ -1,6 +1,9 @@
 import type { BookmarkType, UserType } from '$types/types';
 import { writable, get } from 'svelte/store';
 
+// This file is disgusting I apologize to those who must witness
+// Hackathon things
+
 export const bookmarkStore = writable<BookmarkType[] | null>();
 export const currentStore = writable<BookmarkType | null>(null);
 export const readingStore = writable<boolean>(false);

@@ -13,25 +13,23 @@
 
 	export let bookmark: BookmarkType;
 
+	let currentlyPlaying = false;
+	let meta = combineMeta(bookmark, {
+		noReadingTime: true
+	});
+
+	$: currentlyPlaying = currentlySelected && !$pausedStore;
+	$: isGenerating = false;
+	$: bookmark;
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
+
+	const handleRemove = async () => {
+		db.bookmarks.remove(bookmark);
+	};
 
 	const handleRead = () => {
 		currentStore.update((v) => bookmark);
 		goto('/read');
-	};
-
-	let currentlyPlaying = false;
-
-	$: currentlyPlaying = currentlySelected && !$pausedStore;
-
-	let meta = combineMeta(bookmark, {
-		noReadingTime: true
-	});
-	$: isGenerating = false;
-	$: bookmark;
-
-	const handleRemove = async () => {
-		db.bookmarks.remove(bookmark);
 	};
 
 	export const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {

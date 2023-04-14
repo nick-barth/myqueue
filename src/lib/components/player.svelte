@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 	import { combineMeta } from '$lib/utils/bookmark';
-	import { currentStore, audioStore, pausedStore, handleTogglePlay } from '$lib/store';
+	import {
+		currentStore,
+		audioStore,
+		pausedStore,
+		handleTogglePlay,
+		bookmarkStore
+	} from '$lib/store';
 	import { fade } from 'svelte/transition';
 
 	import PlayerControls from '$lib/components/player-controls.svelte';
@@ -21,8 +27,22 @@
 	let duration: number;
 	let volume: number;
 	let playbackRate: number = 1;
-
 	let currentSpeedLabel: string = '1x';
+	let infinitePlay: string = true;
+
+	const handleEnded = () => {
+		if ($bookmarkStore && $bookmarkStore?.length > 1) {
+			const currentPosition = $bookmarkStore?.findIndex((b) => b.id === bookmark.id);
+			const remaining = [...$bookmarkStore].slice(currentPosition + 1);
+			const nextPlayable = remaining.find((b) => b.audio);
+			if (nextPlayable) {
+				setTimeout(() => {
+					currentStore.update((v) => nextPlayable);
+					handleTogglePlay();
+				}, 2500);
+			}
+		}
+	};
 
 	const handleBackward = () => {
 		if (currentTime - 15 < 0) {
@@ -150,7 +170,7 @@
 				<button on:click={handleForward} title="Skips forwards 15 seconds">
 					<PlayerForward />
 				</button>
-				<button>
+				<button on:click={() => (infinitePlay = !infinitePlay)}>
 					<PlayerRepeat />
 				</button>
 			</div>
@@ -194,6 +214,7 @@
 			bind:currentTime
 			bind:paused={$pausedStore}
 			bind:playbackRate
+			on:ended={handleEnded}
 			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
 			bind:this={$audioStore}
 		/>
