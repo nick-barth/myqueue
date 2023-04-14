@@ -114,7 +114,7 @@
 				</button>
 			</div>
 			<div class="p-6">
-				<h2 class="flex font-bold text-xl font-domine">
+				<h2 class="flex font-bold text-2xl font-domine">
 					{bookmark.title}
 				</h2>
 				<p class="line-clamp-4 my-2 leading-7 overflow-hidden">

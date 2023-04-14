@@ -13,8 +13,6 @@
 
 	export let bookmark: BookmarkType;
 
-	let prevSrc: string = '';
-
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
 
 	const handleRead = () => {
@@ -116,7 +114,7 @@
 		/>
 	{/if}
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-lg font-domine mb-4">
+		<h2 class="flex font-bold text-xl md:text-2xl font-domine mb-4">
 			{#if bookmark.image}
 				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
 					<div
