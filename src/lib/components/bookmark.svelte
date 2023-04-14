@@ -8,8 +8,16 @@
 	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import { currentStore, addToast, audioStore, pausedStore, handleTogglePlay } from '$lib/store';
+	import {
+		currentStore,
+		addToast,
+		audioStore,
+		pausedStore,
+		handleTogglePlay,
+		bookmarkStore
+	} from '$lib/store';
 	import { goto } from '$app/navigation';
+	import { get } from 'svelte/store';
 
 	export let bookmark: BookmarkType;
 
@@ -88,6 +96,13 @@
 					...bookmark,
 					audio: res.data.path
 				};
+				const bookmarks = get(bookmarkStore);
+				if (bookmarks && bookmarks.length > 0) {
+					var foundIndex = bookmarks.findIndex((x) => x.id == bookmark.id);
+					const updatedBookmarkStore = [...bookmarks];
+					updatedBookmarkStore[foundIndex] = bookmark;
+					bookmarkStore.update((v) => updatedBookmarkStore);
+				}
 				currentStore.update((v) => bookmark);
 				addToast({
 					content: 'Audio ready to play!',

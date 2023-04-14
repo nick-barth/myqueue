@@ -122,7 +122,10 @@
 		<div>
 			<div>
 				{#if bookmark.image}
-					<img class="min-w-full max-h-56" src={bookmark.image} alt="Related to the article" />
+					<div
+						style={`background-image: url(${bookmark.image})`}
+						class="hidden md:flex h-[355px] w-full overflow-hidden flex-shrink-0 mr-4 bg-cover"
+					/>
 				{/if}
 				<button
 					class="absolute md:hidden top-6 right-6"
@@ -132,15 +135,9 @@
 				</button>
 			</div>
 			<div class="p-6">
-				<h2 class="flex font-bold text-2xl font-domine">
+				<h2 class="flex font-bold text-3xl font-domine text-center">
 					{bookmark.title}
 				</h2>
-				<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
-					{bookmark.content}
-				</p>
-				<div class="text-sm leading-6 mb-6">
-					{meta.join(' • ')}
-				</div>
 			</div>
 		</div>
 		<div class="p-6">
