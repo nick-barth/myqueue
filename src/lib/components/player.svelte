@@ -28,18 +28,16 @@
 	let volume: number;
 	let playbackRate: number = 1;
 	let currentSpeedLabel: string = '1x';
-	let infinitePlay: string = true;
+	let infinitePlay: boolean = true;
 
 	const handleEnded = () => {
 		if ($bookmarkStore && $bookmarkStore?.length > 1) {
 			const currentPosition = $bookmarkStore?.findIndex((b) => b.id === bookmark.id);
 			const remaining = [...$bookmarkStore].slice(currentPosition + 1);
 			const nextPlayable = remaining.find((b) => b.audio);
-			if (nextPlayable) {
-				setTimeout(() => {
-					currentStore.update((v) => nextPlayable);
-					handleTogglePlay();
-				}, 2500);
+			if (nextPlayable && infinitePlay) {
+				currentStore.update((v) => nextPlayable);
+				handleTogglePlay();
 			}
 		}
 	};
@@ -170,7 +168,10 @@
 				<button on:click={handleForward} title="Skips forwards 15 seconds">
 					<PlayerForward />
 				</button>
-				<button on:click={() => (infinitePlay = !infinitePlay)}>
+				<button
+					class="h-4 w-4 {infinitePlay ? 'text-primary' : 'text-gray-500'}"
+					on:click={() => (infinitePlay = !infinitePlay)}
+				>
 					<PlayerRepeat />
 				</button>
 			</div>
