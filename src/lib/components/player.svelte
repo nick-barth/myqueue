@@ -124,6 +124,8 @@
 				{#if bookmark.image}
 					<div
 						style={`background-image: url(${bookmark.image})`}
+						role="img"
+						aria-label="article cover"
 						class="hidden md:flex h-[355px] w-full overflow-hidden flex-shrink-0 mr-4 bg-cover"
 					/>
 				{/if}
@@ -179,6 +181,8 @@
 			{#if bookmark.image}
 				<div
 					style={`background-image: url(${bookmark.image})`}
+					role="img"
+					aria-label="article cover"
 					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover"
 				/>
 			{/if}
