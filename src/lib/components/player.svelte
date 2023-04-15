@@ -126,7 +126,7 @@
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
 						aria-label="article cover"
-						class="hidden md:flex h-[355px] w-full overflow-hidden flex-shrink-0 mr-4 bg-cover"
+						class="hidden md:flex h-[355px] w-full overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
 					/>
 				{/if}
 				<button
@@ -152,7 +152,7 @@
 				<button
 					on:click={handleTogglePlay}
 					title="Toggles play"
-					class="bg-primary rounded-full h-16 w-16 flex items-center justify-center text-accent"
+					class="bg-primary hover:bg-gray200 rounded-full h-16 w-16 flex items-center justify-center text-accent"
 				>
 					{#if $pausedStore}
 						<div in:fade={{ duration: 100 }} class="h-6 w-6">
@@ -183,7 +183,7 @@
 					style={`background-image: url(${bookmark.image})`}
 					role="img"
 					aria-label="article cover"
-					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover"
+					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover bg-center"
 				/>
 			{/if}
 			<h2 class="flex h-12 font-semibold line-clamp-2 w-full overflow-hidden">
@@ -192,7 +192,7 @@
 			<button
 				on:click={handleTogglePlay}
 				title="Toggles play"
-				class="bg-primary self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent"
+				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent"
 			>
 				{#if $pausedStore}
 					<div in:fade={{ duration: 100 }} class="h-4 w-4">

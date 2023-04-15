@@ -1,0 +1,79 @@
+<script lang="ts">
+	export let isPartyMode: boolean = false;
+	export let size: 'sm' | 'md' = 'md';
+	export let classes: string = '';
+	export let handleClick: () => void = () => {};
+	export let type: 'button' | 'submit' = 'button';
+	export let variant: 'primary' | 'secondary' = 'primary';
+	export let isDisabled: boolean = false;
+
+	const colours = {
+		primary: 'bg-primary hover:bg-gray200 text-white',
+		secondary: 'bg-background hover:bg-gray800 text-primary'
+	};
+	const sizes = {
+		md: 'h-12 w-full',
+		sm: 'h-10 w-auto'
+	};
+</script>
+
+<button
+	{type}
+	disabled={isDisabled}
+	on:click={handleClick}
+	class=" 
+        {colours[variant]} 
+        {sizes[size]}
+        transition-all duration-150
+        rounded-primary flex gap-2 items-center justify-center px-4 font-semibold
+        disabled:bg-gray800
+        {classes}
+        {isPartyMode && 'gradient-animation '}
+        "
+>
+	<slot />
+</button>
+
+<style>
+	@-webkit-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@-moz-keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+	.gradient-animation {
+		background: linear-gradient(90deg, #c1ebff, #d8bbfe);
+		background-size: 400% 400%;
+
+		-webkit-animation: gradient 1.5s ease infinite;
+		-moz-animation: gradient 1.5s ease infinite;
+		animation: gradient 1.5s ease infinite;
+	}
+</style>

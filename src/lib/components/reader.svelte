@@ -5,6 +5,7 @@
 	import type { BookmarkType } from '$types/types';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import Button from '$lib/components/button.svelte';
 
 	export let bookmark: BookmarkType;
 
@@ -24,9 +25,8 @@
 
 <section class="flex w-full items-center flex-col mb-16 px-4 md:px-0">
 	<div class="max-w-2xl">
-		<button
-			class="flex gap-1 items-center font-bold bg-background rounded-[80px] py-2 px-4 mb-10"
-			on:click={handleBack}><span class="h-3 w-3"><Arrow /></span>Back</button
+		<Button variant="secondary" size="sm" classes="mb-8" handleClick={handleBack}
+			><span class="h-3 w-3"><Arrow /></span>Back</Button
 		>
 		<p class="text-primary2 mb-4">{meta.join(' • ')}</p>
 		<h1 class="text-4xl font-bold mb-8 font-domine">{bookmark.title}</h1>

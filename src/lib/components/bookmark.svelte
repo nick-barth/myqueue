@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LoadingDots from '$lib/components/loading-dots.svelte';
+	import Button from '$lib/components/button.svelte';
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
@@ -124,7 +125,7 @@
 			style={`background-image: url(${bookmark.image})`}
 			role="img"
 			aria-label="article cover"
-			class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-4 bg-cover"
+			class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
 		/>
 	{/if}
 	<div class="w-full flex flex-col">
@@ -135,7 +136,7 @@
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
 						aria-label="article cover"
-						class="flex h-16 w-16 overflow-hidden flex-shrink-0 mr-4 bg-cover"
+						class="flex h-16 w-16 overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
 					/>
 				</div>
 			{/if}
@@ -151,18 +152,19 @@
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>
 			<div class="flex gap-2">
-				<button
-					on:click={handleRead}
-					class="flex h-10 transition-colors {currentlySelected
-						? 'bg-gray800'
-						: 'bg-gray950'} rounded-[80px] items-center py-2 px-4">Read</button
+				<Button
+					size="sm"
+					variant="secondary"
+					handleClick={handleRead}
+					classes={currentlySelected ? 'bg-gray800' : 'bg-gray950'}
 				>
-				<button
-					on:click={handlePlay}
-					class=" transition-all ease-in-out max-w-[96px] duration-300 flex gap-2 h-10 bg-accent rounded-[80px] py-2 px-4 items-center {isGenerating ||
-					currentlyPlaying
-						? 'bg-accent2 gradient-animation text-primary max-w-xs'
-						: 'bg-primary text-white'}"
+					Read
+				</Button>
+				<Button
+					size="sm"
+					handleClick={handlePlay}
+					classes="max-w-[96px]"
+					isPartyMode={isGenerating || currentlyPlaying}
 					>{#if !isGenerating}
 						<div class="flex items-center gap-2">
 							{#if currentlyPlaying}
@@ -174,7 +176,7 @@
 					{:else}
 						Generating <LoadingDots />
 					{/if}
-				</button>
+				</Button>
 			</div>
 			<div class="text-sm flex items-center">
 				<ContextMenu>
@@ -220,47 +222,3 @@
 		</div>
 	</div>
 </li>
-
-<style>
-	@-webkit-keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-	@-moz-keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-	.gradient-animation {
-		background: linear-gradient(90deg, #c1ebff, #d8bbfe);
-		background-size: 400% 400%;
-
-		-webkit-animation: gradient 1.5s ease infinite;
-		-moz-animation: gradient 1.5s ease infinite;
-		animation: gradient 1.5s ease infinite;
-	}
-</style>

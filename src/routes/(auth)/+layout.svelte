@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { userStore } from '$lib/store';
+	import Button from '$lib/components/button.svelte';
 	import LogoWithText from '$lib/icons/logo-with-text.svg?component';
 	import { page } from '$app/stores';
 </script>
@@ -8,14 +9,14 @@
 	<div class="w-full flex justify-end items-center gap-2 pr-8 mt-8">
 		{#if $page.url.pathname.includes('signup')}
 			<p class="text-sm">I already have an account</p>
-			<a href="/signin" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
-				>Sign in</a
-			>
+			<Button size="sm" variant="secondary" classes="w-auto">
+				<a href="/signin">Sign in</a>
+			</Button>
 		{:else}
 			<p class="text-sm">I don't have an account</p>
-			<a href="/signup" class="bg-background py-2 px-4 font-semibold text-sm rounded-primary"
-				>Sign up</a
-			>
+			<Button size="sm" variant="secondary" classes="w-auto">
+				<a href="/signup">Sign up</a>
+			</Button>
 		{/if}
 	</div>
 	<section class="flex flex-col justify-center items-center mb-16">
