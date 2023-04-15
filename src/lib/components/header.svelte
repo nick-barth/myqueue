@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LogoWithText from '$lib/icons/logo-with-text.svg?component';
+	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 
 	import { userStore } from '$lib/store';
@@ -36,8 +37,18 @@
 				</div>
 			{/if}
 		</div>
-		<div class="bg-white border border-gray-200 rounded-lg py-2">
-			<button on:click={handleLogout} class="hover:bg-background px-4 py-2">Logout</button>
+		<div class="bg-white border border-gray-200 rounded-lg py-2 justify-items-start text-left">
+			<a
+				href="https://www.myqueue.so/support"
+				target="_blank"
+				class="hover:bg-background px-4 py-2 flex align-center items-center"
+			>
+				Support
+				<div class=" h-4 w-4">
+					<ArrowDiag />
+				</div>
+			</a>
+			<button on:click={handleLogout} class="hover:bg-background w-full px-4 py-2">Logout</button>
 		</div>
 	</ContextMenu>
 </header>
