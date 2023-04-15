@@ -13,17 +13,20 @@
 		password: zod.string().nonempty().min(6)
 	});
 
+	let isLoading: boolean = false;
 	let error: string;
 
 	const { form, isValid } = createForm({
 		extend: validator({ schema }),
 		onSubmit: async (values) => {
+			isLoading = true;
 			const res = await db.signIn(values.email, values.password);
 			if (res.error) {
 				error = 'Invalid credentials';
 			} else {
 				goto('/');
 			}
+			isLoading = false;
 		}
 	});
 
@@ -60,7 +63,7 @@
 			placeholder="Password"
 			required
 		/>
-		<Button type="submit" isDisabled={!$isValid}>Sign in</Button>
+		<Button {isLoading} type="submit" isDisabled={!$isValid}>Sign in</Button>
 		{#if error}
 			<div class="flex text-red-500 justify-center">
 				{error}
