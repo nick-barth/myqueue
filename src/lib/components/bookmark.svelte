@@ -160,11 +160,7 @@
 				>
 					Read
 				</Button>
-				<Button
-					size="sm"
-					handleClick={handlePlay}
-					classes="max-w-[96px]"
-					isPartyMode={isGenerating || currentlyPlaying}
+				<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}
 					>{#if !isGenerating}
 						<div class="flex items-center gap-2">
 							{#if currentlyPlaying}
