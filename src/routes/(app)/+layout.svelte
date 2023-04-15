@@ -25,22 +25,24 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="w-full pb-32 md:pb-0">
-	<div class="sticky top-0 bg-white md:mr-[385px] z-50">
-		<Header />
-	</div>
-	<div class="flex md:mr-[385px] flex-col">
-		<div class="relative z-30">
-			<Toasts />
+{#if user}
+	<div class="w-full pb-32 md:pb-0">
+		<div class="sticky top-0 bg-white md:mr-[385px] z-50">
+			<Header />
 		</div>
-		<slot />
+		<div class="flex md:mr-[385px] flex-col">
+			<div class="relative z-30">
+				<Toasts />
+			</div>
+			<slot />
+		</div>
+		{#if $currentStore && $currentStore.content && !hidePlayer}
+			<aside
+				class="md:max-w-[355px] fixed z-50 w-full md:h-full bottom-0 md:top-auto md:left-auto md:right-0 md:bottom-0 bg-accent"
+				transition:fly={{ y: 200, duration: 300 }}
+			>
+				<Player bookmark={$currentStore} />
+			</aside>
+		{/if}
 	</div>
-	{#if $currentStore && $currentStore.content && !hidePlayer}
-		<aside
-			class="md:max-w-[355px] fixed z-50 w-full md:h-full bottom-0 md:top-auto md:left-auto md:right-0 md:bottom-0 bg-accent"
-			transition:fly={{ y: 200, duration: 300 }}
-		>
-			<Player bookmark={$currentStore} />
-		</aside>
-	{/if}
-</div>
+{/if}

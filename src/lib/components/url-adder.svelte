@@ -1,12 +1,26 @@
 <script lang="ts">
 	import Sparkle from '$lib/icons/sparkle.svg?component';
-	import { addToast } from '$lib/store';
+	import { addToast, userStore, bookmarkStore } from '$lib/store';
+	import { findTimeDifference } from '$lib/utils/date-time';
 	import db from '$lib/db';
+	import { onMount } from 'svelte';
 
 	let url: string;
 	let isLoading: boolean;
+	let timeDiff: number;
 
 	$: isLoading;
+
+	onMount(async () => {
+		if ($userStore && (!$bookmarkStore || $bookmarkStore.length === 0)) {
+			timeDiff = findTimeDifference($userStore.created_at);
+			if (timeDiff < 2) {
+				url =
+					'https://medium.com/hireproof/big-twitch-energy-how-live-streaming-made-me-a-better-developer-ae61e09c8c48';
+				handlePaste();
+			}
+		}
+	});
 
 	const handleSubmit = async () => {
 		if (isLoading) {
