@@ -1,4 +1,7 @@
 <script lang="ts">
+	import LoadingDots from '$lib/components/loading-dots.svelte';
+
+	export let isLoading: boolean = false;
 	export let isPartyMode: boolean = false;
 	export let size: 'sm' | 'md' = 'md';
 	export let classes: string = '';
@@ -32,6 +35,9 @@
         "
 >
 	<slot />
+	{#if isLoading}
+		<LoadingDots />
+	{/if}
 </button>
 
 <style>

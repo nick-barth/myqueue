@@ -8,6 +8,7 @@
 	import { validator } from '@felte/validator-zod';
 	import * as zod from 'zod';
 
+	let isLoading = false;
 	let hasSignedUp = false;
 
 	const schema = zod.object({
@@ -20,12 +21,14 @@
 	const { form, isValid, touched } = createForm({
 		extend: validator({ schema }),
 		onSubmit: async (values) => {
+			isLoading = true;
 			const res = await db.signUp(values.email, values.password);
 			if (res.error) {
 				error = 'Invalid credentials';
 			} else {
 				hasSignedUp = true;
 			}
+			isLoading = false;
 		}
 	});
 
@@ -77,7 +80,9 @@
 				>
 			</p>
 
-			<Button isDisabled={$touched && !$isValid} type="submit">Create my free account</Button>
+			<Button {isLoading} isDisabled={$touched && !$isValid} type="submit"
+				>Create my free account</Button
+			>
 			{#if error}
 				<div class="flex text-red-500 justify-center">
 					{error}
