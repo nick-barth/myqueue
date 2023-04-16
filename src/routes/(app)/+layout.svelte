@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import db from '$lib/db';
 
+	let isLoading = true;
 	let user: UserType | null = null;
 	userStore.subscribe((v) => {
 		user = v;
@@ -20,6 +21,7 @@
 
 	onMount(async () => {
 		await db.bookmarks.get();
+		isLoading = false;
 	});
 </script>
 
@@ -34,7 +36,9 @@
 			<div class="relative z-30">
 				<Toasts />
 			</div>
-			<slot />
+			{#if !isLoading}
+				<slot />
+			{/if}
 		</div>
 		{#if $currentStore && $currentStore.content && !hidePlayer}
 			<aside

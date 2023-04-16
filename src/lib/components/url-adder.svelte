@@ -12,6 +12,7 @@
 	$: isLoading;
 
 	onMount(async () => {
+		console.log($bookmarkStore);
 		if ($userStore && (!$bookmarkStore || $bookmarkStore.length === 0)) {
 			timeDiff = findTimeDifference($userStore.created_at);
 			if (timeDiff < 2) {
