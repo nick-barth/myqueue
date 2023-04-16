@@ -31,6 +31,7 @@
 	$: isGenerating = false;
 	$: bookmark;
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
+	$: canDelete = $bookmarkStore && $bookmarkStore.length > 1;
 
 	const handleRemove = async () => {
 		db.bookmarks.remove(bookmark);
@@ -175,11 +176,13 @@
 				</Button>
 			</div>
 			<div class="text-sm flex items-center">
-				<ContextMenu>
-					<div class="bg-white border border-gray-200 rounded-lg py-2">
-						<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
-					</div>
-				</ContextMenu>
+				{#if canDelete}
+					<ContextMenu>
+						<div class="bg-white border border-gray-200 rounded-lg py-2">
+							<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
+						</div>
+					</ContextMenu>
+				{/if}
 				<ContextMenu icon={Share}>
 					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
 						<button

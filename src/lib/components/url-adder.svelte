@@ -1,50 +1,35 @@
 <script lang="ts">
 	import Sparkle from '$lib/icons/sparkle.svg?component';
-	import { addToast, userStore, bookmarkStore } from '$lib/store';
-	import { findTimeDifference } from '$lib/utils/date-time';
+	import { addToast } from '$lib/store';
 	import db from '$lib/db';
-	import { onMount } from 'svelte';
 
 	let url: string;
 	let isLoading: boolean;
-	let timeDiff: number;
 
 	$: isLoading;
-
-	onMount(async () => {
-		console.log($bookmarkStore);
-		if ($userStore && (!$bookmarkStore || $bookmarkStore.length === 0)) {
-			timeDiff = findTimeDifference($userStore.created_at);
-			if (timeDiff < 2) {
-				url =
-					'https://medium.com/@playmyqueue/welcome-to-my-queue-save-articles-you-want-to-read-to-your-personal-queue-and-listen-to-them-on-187ab93abf2a';
-				handlePaste();
-			}
-		}
-	});
 
 	const handleSubmit = async () => {
 		if (isLoading) {
 			return;
 		}
-
 		isLoading = true;
-		const res = await db.bookmarks.post(url);
 
-		if (res.error) {
-			addToast({
-				content: 'Oops, that did not work, maybe we cannnot read the article',
-				type: 'error'
-			});
-		} else {
+		try {
+			const res = await db.bookmarks.post(url);
+
 			addToast({
 				content: 'Successfully added to queue',
 				type: 'success'
 			});
+		} catch (err) {
+			addToast({
+				content: 'Oops, that did not work, maybe we cannnot read the article',
+				type: 'error'
+			});
+		} finally {
+			isLoading = false;
+			url = '';
 		}
-
-		isLoading = false;
-		url = '';
 	};
 
 	const handlePaste = () => {

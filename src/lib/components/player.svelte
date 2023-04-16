@@ -217,7 +217,9 @@
 			bind:paused={$pausedStore}
 			bind:playbackRate
 			on:ended={handleEnded}
-			src={`${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+			src={bookmark.audio.includes('/public_audio/')
+				? bookmark.audio
+				: `${PUBLIC_STORAGE_URL}${bookmark.audio}`}
 			bind:this={$audioStore}
 		/>
 	{/if}

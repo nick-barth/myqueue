@@ -1,5 +1,6 @@
 import type { BookmarkType, UserType } from '$types/types';
 import { writable, get } from 'svelte/store';
+import Welcome from './welcome.json';
 
 // This file is disgusting I apologize to those who must witness
 // Hackathon things
@@ -11,6 +12,12 @@ export const pausedStore = writable<boolean>(true);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
+
+bookmarkStore.subscribe((value) => {
+	if (value && value.length === 0) {
+		bookmarkStore.update((v) => [Welcome]);
+	}
+});
 
 export const handleTogglePlay = () => {
 	if (get(pausedStore)) {
