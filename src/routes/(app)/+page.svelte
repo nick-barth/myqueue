@@ -16,5 +16,7 @@
 				<Bookmark {bookmark} />
 			</div>
 		{/each}
+	{:else}
+		<div>Have you read this? Or this? Or this? All very interesting, give em a try.</div>
 	{/if}
 </section>
