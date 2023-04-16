@@ -91,8 +91,8 @@
 		</form>
 	{:else}
 		<div class="flex text-center">
-			Hey! Thanks for signing up, but you've got to verify your email address. We sent you an email,
-			give it a clicky click.
+			Hey! Thank you for signing up, but first you have to verify your email address. We sent you an
+			email, click on the link to start listening.
 		</div>
 	{/if}
 </section>
