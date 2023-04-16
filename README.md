@@ -19,7 +19,7 @@ Hey friends.  This is the main frontend app for [My Queue](https://www.myqueue.s
  
  
 
-## App Features:
+## Stuff used:
 A lot of moving parts are involved in this project.  We've got
  - Svelte App
     - [Vercel](https://vercel.com/)
