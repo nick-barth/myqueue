@@ -16,7 +16,7 @@
 			timeDiff = findTimeDifference($userStore.created_at);
 			if (timeDiff < 2) {
 				url =
-					'https://medium.com/hireproof/big-twitch-energy-how-live-streaming-made-me-a-better-developer-ae61e09c8c48';
+					'https://medium.com/@playmyqueue/welcome-to-my-queue-save-articles-you-want-to-read-to-your-personal-queue-and-listen-to-them-on-187ab93abf2a';
 				handlePaste();
 			}
 		}
