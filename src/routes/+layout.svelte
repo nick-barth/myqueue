@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
 	import { userStore } from '$lib/store';
@@ -7,6 +6,11 @@
 	import type { UserType } from '$types/types';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/db';
+	import { PUBLIC_MIXPANEL_KEY } from '$env/static/public';
+
+	import mixpanel from 'mixpanel-browser';
+
+	mixpanel.init(PUBLIC_MIXPANEL_KEY, { debug: true });
 
 	let user: UserType | null = null;
 	userStore.subscribe((v) => {
@@ -22,6 +26,7 @@
 			if (data.session?.user) {
 				goto('/');
 				userStore.set(data.session.user);
+				mixpanel.identify(data.session.user.id);
 			} else {
 				if (!$page.url.pathname.includes('/sign')) {
 					goto('/signin');
