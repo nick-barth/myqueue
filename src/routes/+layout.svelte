@@ -27,6 +27,7 @@
 				goto('/');
 				userStore.set(data.session.user);
 				mixpanel.identify(data.session.user.id);
+				mixpanel.people.set({ $email: data.session.user.email });
 			} else {
 				if (!$page.url.pathname.includes('/sign')) {
 					goto('/signin');
