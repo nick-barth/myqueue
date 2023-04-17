@@ -1,7 +1,6 @@
+⚠️ NOTICE DANGER ⚠️   Using GAuth with this branch will redirect you to the live deployment.  Please use email + password signup.
+
 # My Queue App
-
-
-
 
 
 ### My Queue
