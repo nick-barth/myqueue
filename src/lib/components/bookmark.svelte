@@ -19,6 +19,7 @@
 	} from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
+	import mixpanel from 'mixpanel-browser';
 
 	export let bookmark: BookmarkType;
 
@@ -88,11 +89,13 @@
 			const res = await db.tts.create(bookmark);
 
 			if (res.error) {
+				mixpanel.track('generated error', { response: res.error });
 				addToast({
 					content: 'Oops, that did not work, maybe we cannnot read the article',
 					type: 'error'
 				});
 			} else {
+				mixpanel.track('generated succesfully', { response: res.data });
 				bookmark = {
 					...bookmark,
 					audio: res.data.path

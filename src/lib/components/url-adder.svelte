@@ -2,6 +2,7 @@
 	import Sparkle from '$lib/icons/sparkle.svg?component';
 	import { addToast } from '$lib/store';
 	import db from '$lib/db';
+	import mixpanel from 'mixpanel-browser';
 
 	let url: string;
 	let isLoading: boolean;
@@ -17,11 +18,13 @@
 		try {
 			const res = await db.bookmarks.post(url);
 
+			mixpanel.track('url added succesfully', { response: res });
 			addToast({
 				content: 'Successfully added to queue',
 				type: 'success'
 			});
 		} catch (err) {
+			mixpanel.track('url failed', { response: err });
 			addToast({
 				content: 'Oops, that did not work, maybe we cannnot read the article',
 				type: 'error'
