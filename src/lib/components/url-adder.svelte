@@ -24,7 +24,7 @@
 				type: 'success'
 			});
 		} catch (err) {
-			mixpanel.track('url failed', { response: err });
+			mixpanel.track('url failed', { url: url });
 			addToast({
 				content: 'Oops, that did not work, maybe we cannnot read the article',
 				type: 'error'
