@@ -89,7 +89,7 @@
 			const res = await db.tts.create(bookmark);
 
 			if (res.error) {
-				mixpanel.track('generated error', { response: res.error });
+				mixpanel.track('generated error', { bookmark: bookmark });
 				addToast({
 					content: 'Oops, that did not work, maybe we cannnot read the article',
 					type: 'error'
