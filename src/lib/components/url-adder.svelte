@@ -4,15 +4,28 @@
 	import db from '$lib/db';
 	import mixpanel from 'mixpanel-browser';
 
+	let error: string | null;
 	let url: string;
 	let isLoading: boolean;
 
+	$: error;
 	$: isLoading;
 
 	const handleSubmit = async () => {
 		if (isLoading) {
 			return;
 		}
+
+		let urlToAdd;
+
+		try {
+			urlToAdd = new URL(url);
+		} catch (_) {
+			error = 'Please use a valid URL';
+			return false;
+		}
+		error = null;
+
 		mixpanel.track('url submitted', { url });
 		isLoading = true;
 
@@ -72,6 +85,13 @@
 			</button>
 		</div>
 	</form>
+	{#if error}
+		<div class="flex justify-center w-full items-center">
+			<p class=" text-red-500 font-bold">
+				{error}
+			</p>
+		</div>
+	{/if}
 </div>
 
 <style>
