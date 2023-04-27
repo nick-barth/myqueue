@@ -6,7 +6,7 @@
 	import type { UserType } from '$types/types';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/db';
-	import { PUBLIC_MIXPANEL_KEY } from '$env/static/public';
+	import { PUBLIC_MIXPANEL_KEY, PUBLIC_TITLE } from '$env/static/public';
 
 	import mixpanel from 'mixpanel-browser';
 
@@ -48,7 +48,7 @@
 </script>
 
 <svelte:head>
-	<title>My Queue</title>
+	<title>{PUBLIC_TITLE}</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
 	<link

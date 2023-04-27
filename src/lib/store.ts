@@ -14,6 +14,7 @@ export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
 
 bookmarkStore.subscribe((value) => {
+	console.log(value);
 	if (value && value.length === 0) {
 		bookmarkStore.update((v) => [Welcome]);
 	}
