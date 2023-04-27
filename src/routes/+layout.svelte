@@ -10,7 +10,7 @@
 
 	import mixpanel from 'mixpanel-browser';
 
-	mixpanel.init(PUBLIC_MIXPANEL_KEY, { debug: true });
+	mixpanel.init(PUBLIC_MIXPANEL_KEY);
 
 	let user: UserType | null = null;
 	userStore.subscribe((v) => {
