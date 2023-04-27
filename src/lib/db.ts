@@ -95,7 +95,7 @@ export default {
 					timeout: 20000,
 					type: 'info',
 					content:
-						'Dope! We really appreciate you playing around with your Queue! However servers cost money and we are broke, so we currently have a limit on amount of audio you can have generated. If you are super into the product, pop us a message, and we will remove your limit.'
+						'It’s fantastic to see you’re expanding your queue. However, servers and generating audio content cost money and there is currently a limitation of generated audio with your free plan. We will soon offer upgrades, but until then you have to delete a story before you can add a new one.'
 				});
 				return { error: data };
 			}
