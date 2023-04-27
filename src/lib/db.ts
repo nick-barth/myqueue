@@ -4,6 +4,7 @@ import { userStore, bookmarkStore, currentStore, addToast } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
+import mixpanel from 'mixpanel-browser';
 
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
@@ -91,6 +92,7 @@ export default {
 			});
 
 			if (data === 'TOO_MANY_FILES') {
+				mixpanel.track('full of generated files');
 				addToast({
 					timeout: 20000,
 					type: 'info',
