@@ -28,7 +28,13 @@
 		<Button variant="secondary" size="sm" classes="mb-8" handleClick={handleBack}
 			><span class="h-3 w-3"><Arrow /></span>Back</Button
 		>
-		<p class="text-primary2 mb-4">{meta.join(' • ')}</p>
+		<p class="text-primary2 mb-4">
+			{#if bookmark.domain}
+				<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
+			{/if}
+			•
+			{meta.join(' • ')}
+		</p>
 		<h1 class="text-4xl font-bold mb-8 font-domine">{bookmark.title}</h1>
 		<article class="read text-lg leading-7">{@html bookmark.reader}</article>
 	</div>

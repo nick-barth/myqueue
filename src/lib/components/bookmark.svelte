@@ -147,6 +147,10 @@
 			{bookmark.title}
 		</h2>
 		<aside class="text-sm leading-6 mb-2">
+			{#if bookmark.domain}
+				<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
+			{/if}
+			•
 			{meta.join(' • ')}
 		</aside>
 		<p class="line-clamp-2 my-2 leading-7 overflow-hidden">
