@@ -32,8 +32,10 @@
 			{#if bookmark.domain}
 				<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
 			{/if}
-			•
-			{meta.join(' • ')}
+			{#if meta.length > 0}
+				•
+				{meta.join(' • ')}
+			{/if}
 		</p>
 		<h1 class="text-4xl font-bold mb-8 font-domine">{bookmark.title}</h1>
 		<article class="read text-lg leading-7">{@html bookmark.reader}</article>

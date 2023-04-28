@@ -150,8 +150,10 @@
 			{#if bookmark.domain}
 				<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
 			{/if}
-			•
-			{meta.join(' • ')}
+			{#if meta.length > 0}
+				•
+				{meta.join(' • ')}
+			{/if}
 		</aside>
 		<p class="line-clamp-2 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
