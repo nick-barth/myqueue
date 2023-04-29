@@ -5,8 +5,8 @@
 	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
+	import BookmarkMeta from '$lib/components/bookmark-meta.svelte';
 
-	import { combineMeta } from '$lib/utils/bookmark';
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
 	import {
@@ -24,9 +24,6 @@
 	export let bookmark: BookmarkType;
 
 	let currentlyPlaying = false;
-	let meta = combineMeta(bookmark, {
-		noReadingTime: true
-	});
 
 	$: currentlyPlaying = currentlySelected && !$pausedStore;
 	$: isGenerating = false;
@@ -146,15 +143,7 @@
 			{/if}
 			{bookmark.title}
 		</h2>
-		<aside class="text-sm leading-6 mb-2">
-			{#if bookmark.domain}
-				<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
-			{/if}
-			{#if meta.length > 0}
-				•
-				{meta.join(' • ')}
-			{/if}
-		</aside>
+		<BookmarkMeta {bookmark} noReadingTime={true} />
 		<p class="line-clamp-2 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
 		</p>

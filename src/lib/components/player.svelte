@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
-	import { combineMeta } from '$lib/utils/bookmark';
 	import {
 		currentStore,
 		audioStore,
@@ -73,9 +72,6 @@
 			currentSpeedLabel = '1x';
 		}
 	};
-
-	let meta: string[];
-	$: meta = combineMeta(bookmark);
 
 	if ('mediaSession' in navigator) {
 		navigator.mediaSession.metadata = new MediaMetadata({
