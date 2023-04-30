@@ -6,7 +6,7 @@ import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
 import mixpanel from 'mixpanel-browser';
 
-export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
+export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY, {});
 
 export default {
 	async signInWithGoogle() {

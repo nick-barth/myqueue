@@ -57,4 +57,6 @@
 	/>
 </svelte:head>
 
-<slot />
+<div class="mt-12 md:mt-4">
+	<slot />
+</div>

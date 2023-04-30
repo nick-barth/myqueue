@@ -37,7 +37,7 @@
 	};
 </script>
 
-<section class="max-w-[448px] w-full flex m-auto justify-center flex-col">
+<section class="w-full flex m-auto justify-center flex-col">
 	{#if !hasSignedUp}
 		<button
 			class="h-12 gap-2 w-full flex justify-center items-center text-primary font-semibold rounded-primary border border-primary"
