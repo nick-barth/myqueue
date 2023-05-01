@@ -1,6 +1,7 @@
 import type { BookmarkType, UserType } from '$types/types';
 import { writable, get } from 'svelte/store';
 import Welcome from './welcome.json';
+import mixpanel from 'mixpanel-browser';
 
 // This file is disgusting I apologize to those who must witness
 // Hackathon things
@@ -23,6 +24,7 @@ export const handleTogglePlay = () => {
 	if (get(pausedStore)) {
 		pausedStore.update((v) => false);
 	} else {
+		mixpanel.track('play audio');
 		pausedStore.update((v) => true);
 	}
 };
