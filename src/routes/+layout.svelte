@@ -17,14 +17,9 @@
 		user = v;
 	});
 
-	$: if (!user && !$page.url.pathname.includes('/sign')) {
-		goto('/signin');
-	}
-
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			if (data.session?.user) {
-				goto('/');
 				userStore.set(data.session.user);
 				mixpanel.identify(data.session.user.id);
 				mixpanel.people.set({ $email: data.session.user.email });

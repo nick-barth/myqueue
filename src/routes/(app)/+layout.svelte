@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
 	import { fly } from 'svelte/transition';
 	import { currentStore, userStore, readingStore } from '$lib/store';
 	import Toasts from '$lib/components/toasts.svelte';
@@ -23,19 +23,19 @@
 		await db.bookmarks.get();
 		isLoading = false;
 	});
+
+	let component;
 </script>
 
 <svelte:window bind:innerWidth />
 
 {#if user}
 	<div class="w-full pb-32 md:pb-0">
-		<div class="sticky top-0 bg-white md:mr-[385px] z-50">
-			<Header />
-		</div>
 		<div class="flex md:mr-[385px] flex-col">
 			<div class="relative z-30">
 				<Toasts />
 			</div>
+			<Sidebar />
 			{#if !isLoading}
 				<slot />
 			{/if}

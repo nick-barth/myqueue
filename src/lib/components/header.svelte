@@ -6,7 +6,6 @@
 	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';
 	import db from '$lib/db';
-	import { goto } from '$app/navigation';
 
 	let user: UserType | null;
 	userStore.subscribe((v) => {

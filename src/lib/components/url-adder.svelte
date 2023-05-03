@@ -57,7 +57,7 @@
 	};
 </script>
 
-<div class="w-full max-w-4xl m-auto mr-[385px] px-4 md:px-8 mb-6">
+<div class="w-full max-w-4xl m-auto mr-[385px] px-4 md:px-8 mb-12">
 	<form on:submit={handleSubmit} class="flex flex-row w-full relative">
 		<input
 			on:paste={handlePaste}
