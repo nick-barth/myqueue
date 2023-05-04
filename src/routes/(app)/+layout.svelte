@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Sidebar from '$lib/components/sidebar.svelte';
+	import HamburgerMenu from '$lib/components/hamburger-menu.svelte';
 	import { fly } from 'svelte/transition';
 	import { currentStore, userStore, readingStore } from '$lib/store';
 	import Toasts from '$lib/components/toasts.svelte';
@@ -35,10 +36,17 @@
 			<div class="relative z-30">
 				<Toasts />
 			</div>
-			<Sidebar />
-			{#if !isLoading}
-				<slot />
-			{/if}
+			<section class="hidden md:flex">
+				<Sidebar />
+			</section>
+			<section class="visible md:hidden">
+				<HamburgerMenu />
+			</section>
+			<main class="mt-0 md:mt-12">
+				{#if !isLoading}
+					<slot />
+				{/if}
+			</main>
 		</div>
 		{#if $currentStore && $currentStore.content && !hidePlayer}
 			<aside
