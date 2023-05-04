@@ -119,6 +119,7 @@
 	};
 
 	const handleAddToQueue = async () => {
+		mixpanel.track('discovery add', { bookmark: bookmark });
 		isGenerating = true;
 		await db.bookmarks.addBookmark(bookmark);
 		isGenerating = false;

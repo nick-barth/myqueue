@@ -8,6 +8,7 @@
 
 	export let icon: C | null = null;
 	export let position: 'left' | 'right' = 'left';
+	export let positionY: 'top' | 'bottom' = 'bottom';
 
 	let isOpen: boolean;
 
@@ -36,7 +37,9 @@
 	{#if isOpen}
 		<div
 			transition:fly={{ y: -10, duration: 200 }}
-			class="absolute -bottom-1 {position === 'left' ? 'left-2' : 'right-2'} translate-y-full z-50"
+			class="absolute {positionY === 'top'
+				? 'top-2  -translate-y-full'
+				: '-bottom-1  translate-y-full'} {position === 'left' ? 'left-2' : 'right-2'} z-50"
 		>
 			<slot />
 		</div>

@@ -16,12 +16,12 @@
 		}, 0) ?? 0;
 </script>
 
-<section class="w-full md:max-w-4xl m-auto md:p-0 relative z-10">
+<section class="relative">
 	<UrlAdder />
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
-		<section class="px-4">
+		<section class="px-4 md:px-10">
 			<h2 class="font-bold font-domine text-4xl mb-4">My Queue</h2>
-			<p class="text-sm">
+			<p class="text-sm mb-2">
 				Stories: {$bookmarkStore.length}/5 • Total listening time: {Math.floor(totalTime / 60)}
 				{Math.floor(totalTime / 60) > 1 ? 'mins' : 'min'}
 			</p>

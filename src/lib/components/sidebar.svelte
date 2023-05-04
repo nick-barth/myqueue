@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
+	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 	import { page } from '$app/stores';
 
 	import { userStore } from '$lib/store';
@@ -40,44 +41,20 @@
 	];
 </script>
 
-<div class="w-full">
-	<div class="grid grid-cols-3 p-4 items-center justify-between">
-		<ContextMenu position="right">
-			<div slot="icon" class="overflow-hidden rounded-full h-10 w-10">
-				{#if user?.user_metadata.avatar_url}
-					<img
-						class="flex items-center justify-center h-10 w-10"
-						src={user.user_metadata.avatar_url}
-						alt="User's profile"
-					/>
-				{/if}
-				{#if !user?.user_metadata.avatar_url}
-					<div class="uppercase h-10 w-10 bg-background flex justify-center items-center">
-						{user?.email?.charAt(0)}
-					</div>
-				{/if}
-			</div>
-			<div class="bg-white border border-gray-200 rounded-lg py-2 justify-items-start text-left">
-				<a
-					href="https://www.myqueue.so/support"
-					target="_blank"
-					class="hover:bg-background px-4 py-2 flex align-center items-center"
-				>
-					Support
-					<div class=" h-4 w-4">
-						<ArrowDiag />
-					</div>
-				</a>
-				<button on:click={handleLogout} class="hover:bg-background w-full px-4 py-2">Logout</button>
-			</div>
-		</ContextMenu>
-	</div>
-
-	<nav class="flex flex-col">
-		<a href="/" class="flex flex-row items-center gap-4 px-4 mb-4 hover:bg-gray950"
-			><img class="h-8 w-8" src="/logos/logo48.png" alt="my queue" /> My Queue</a
-		>
-		<p class="text-lg px-4 mb-2">Add articles to your queue</p>
+<div class="w-full h-[100vh] sticky top-0">
+	<nav class="flex flex-col h-full">
+		<div class="flex border-b border-gray900 mb-2">
+			<a
+				href="/"
+				class="flex flex-row items-center gap-4 px-4 py-4 pb-8 w-full hover:bg-gray950 text-domine font-bold"
+			>
+				<div class="h-8 w-8">
+					<LogoIcon />
+				</div>
+				<div class="pt-2">My Queue</div>
+			</a>
+			<p class="text-lg px-4 mb-2 md:hidden">Add articles to your queue</p>
+		</div>
 		{#each sources as source}
 			<a
 				href={`/discover/${source.source}`}
@@ -88,5 +65,42 @@
 				{source.title}
 			</a>
 		{/each}
+		<div class="flex h-full p-2 flex-col justify-end">
+			<div>
+				<ContextMenu position="left" positionY="top">
+					<div slot="icon" class="overflow-hidden rounded-full h-10 w-10">
+						{#if user?.user_metadata.avatar_url}
+							<img
+								class="flex items-center justify-center h-10 w-10"
+								src={user.user_metadata.avatar_url}
+								alt="User's profile"
+							/>
+						{/if}
+						{#if !user?.user_metadata.avatar_url}
+							<div class="uppercase h-10 w-10 bg-background flex justify-center items-center">
+								{user?.email?.charAt(0)}
+							</div>
+						{/if}
+					</div>
+					<div
+						class="bg-white border border-gray-200 rounded-lg py-2 justify-items-start text-left mt-auto"
+					>
+						<a
+							href="https://www.myqueue.so/support"
+							target="_blank"
+							class="hover:bg-background px-4 py-2 flex align-center items-center"
+						>
+							Support
+							<div class=" h-4 w-4">
+								<ArrowDiag />
+							</div>
+						</a>
+						<button on:click={handleLogout} class="hover:bg-background w-full px-4 py-2"
+							>Logout</button
+						>
+					</div>
+				</ContextMenu>
+			</div>
+		</div>
 	</nav>
 </div>

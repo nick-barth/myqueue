@@ -114,66 +114,8 @@
 </script>
 
 <aside class="h-full">
-	<div class="flex-col h-full justify-between hidden md:flex">
-		<div>
-			<div>
-				{#if bookmark.image}
-					<div
-						style={`background-image: url(${bookmark.image})`}
-						role="img"
-						aria-label="article cover"
-						class="hidden md:flex h-[355px] w-full overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
-					/>
-				{/if}
-				<button
-					class="absolute md:hidden top-6 right-6"
-					on:click={() => currentStore.update((v) => null)}
-				>
-					<CloseButton />
-				</button>
-			</div>
-			<div class="p-6">
-				<h2 class="flex font-bold text-3xl font-domine text-center">
-					{bookmark.title}
-				</h2>
-			</div>
-		</div>
-		<div class="p-6">
-			<PlayerControls {currentTime} {duration} {setNewTime} />
-			<div class="w-full mt-6 flex items-center justify-between">
-				<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
-				<button on:click={handleBackward} title="Skips backwards 15 seconds">
-					<PlayerBackward />
-				</button>
-				<button
-					on:click={handleTogglePlay}
-					title="Toggles play"
-					class="bg-primary hover:bg-gray200 rounded-full h-16 w-16 flex items-center justify-center text-accent"
-				>
-					{#if $pausedStore}
-						<div in:fade={{ duration: 100 }} class="h-6 w-6">
-							<PlayButton />
-						</div>
-					{:else}
-						<div in:fade={{ duration: 100 }} class="h-6 w-6">
-							<PauseButton />
-						</div>
-					{/if}
-				</button>
-				<button on:click={handleForward} title="Skips forwards 15 seconds">
-					<PlayerForward />
-				</button>
-				<button
-					class="h-4 w-4 {infinitePlay ? 'text-primary' : 'text-gray-500'}"
-					on:click={() => (infinitePlay = !infinitePlay)}
-				>
-					<PlayerRepeat />
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="flex h-36 flex-col p-4 md:hidden justify-between">
-		<div class="flex">
+	<div class="flex h-36 flex-col p-4 justify-between">
+		<div class="flex mb-2">
 			{#if bookmark.image}
 				<div
 					style={`background-image: url(${bookmark.image})`}
@@ -202,6 +144,21 @@
 			</button>
 		</div>
 		<PlayerControls {currentTime} {duration} {setNewTime} />
+		<div class="w-full mt-2 flex items-center justify-between">
+			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
+			<button on:click={handleBackward} title="Skips backwards 15 seconds">
+				<PlayerBackward />
+			</button>
+			<button on:click={handleForward} title="Skips forwards 15 seconds">
+				<PlayerForward />
+			</button>
+			<button
+				class="h-4 w-4 {infinitePlay ? 'text-primary' : 'text-gray-500'}"
+				on:click={() => (infinitePlay = !infinitePlay)}
+			>
+				<PlayerRepeat />
+			</button>
+		</div>
 	</div>
 	{#if bookmark.audio}
 		<audio

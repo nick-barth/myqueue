@@ -15,46 +15,37 @@
 		user = v;
 	});
 
-	let hidePlayer = false;
-
-	let innerWidth: number;
-	$: hidePlayer = !!(innerWidth < 943 && $readingStore);
-
 	onMount(async () => {
 		await db.bookmarks.get();
 		isLoading = false;
 	});
-
-	let component;
 </script>
 
-<svelte:window bind:innerWidth />
-
 {#if user}
-	<div class="w-full pb-32 md:pb-0">
-		<div class="flex md:mr-[385px] flex-col">
-			<div class="relative z-30">
-				<Toasts />
-			</div>
-			<section class="hidden md:flex">
+	<div>
+		<Toasts />
+		<div class="grid grid-cols-1 md:grid-cols-6">
+			<section class="hidden md:flex relative col-span-1">
 				<Sidebar />
 			</section>
 			<section class="visible md:hidden">
 				<HamburgerMenu />
 			</section>
-			<main class="mt-0 md:mt-12">
+			<main class="mt-0 md:mt-12 col-span-3">
 				{#if !isLoading}
 					<slot />
 				{/if}
 			</main>
-		</div>
-		{#if $currentStore && $currentStore.content && !hidePlayer}
-			<aside
-				class="md:max-w-[355px] fixed z-50 w-full md:h-full bottom-0 md:top-auto md:left-auto md:right-0 md:bottom-0 bg-accent"
-				transition:fly={{ y: 200, duration: 300 }}
-			>
-				<Player bookmark={$currentStore} />
+			<aside class="relative flex items-end p-4 col-span-2">
+				{#if $currentStore && $currentStore.audio}
+					<div
+						class="h-40 left-0 fixed bottom-0 w-full md:sticky md:bottom-4 bg-accent"
+						transition:fly={{ y: 200, duration: 300 }}
+					>
+						<Player bookmark={$currentStore} />
+					</div>
+				{/if}
 			</aside>
-		{/if}
+		</div>
 	</div>
 {/if}
