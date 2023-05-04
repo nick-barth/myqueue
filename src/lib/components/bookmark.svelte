@@ -2,6 +2,8 @@
 	import LoadingDots from '$lib/components/loading-dots.svelte';
 	import Button from '$lib/components/button.svelte';
 	import PlayButton from '$lib/icons/play-button.svg?component';
+	import PlusIcon from '$lib/icons/plus-icon.svg?component';
+	import Checkmark from '$lib/icons/checkmark.svg?component';
 	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
@@ -22,9 +24,10 @@
 	import mixpanel from 'mixpanel-browser';
 
 	export let bookmark: BookmarkType;
+	export let isDiscovery: Boolean = false;
 
 	let currentlyPlaying = false;
-
+	$: isInQueue = $bookmarkStore && $bookmarkStore.find((b: BookmarkType) => b.url === bookmark.url);
 	$: currentlyPlaying = currentlySelected && !$pausedStore;
 	$: isGenerating = false;
 	$: bookmark;
@@ -114,6 +117,12 @@
 			isGenerating = false;
 		}
 	};
+
+	const handleAddToQueue = async () => {
+		isGenerating = true;
+		await db.bookmarks.addBookmark(bookmark);
+		isGenerating = false;
+	};
 </script>
 
 <li
@@ -151,27 +160,50 @@
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>
 			<div class="flex gap-2">
-				<Button
-					size="sm"
-					variant="secondary"
-					handleClick={handleRead}
-					classes={currentlySelected ? 'bg-gray800' : 'bg-gray950'}
-				>
-					Read
-				</Button>
-				<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}
-					>{#if !isGenerating}
-						<div class="flex items-center gap-2">
-							{#if currentlyPlaying}
-								Playing <div class="h-3 w-3 overflow-hidden"><PauseButton /></div>
+				{#if !isDiscovery}
+					<Button
+						size="sm"
+						variant="secondary"
+						handleClick={handleRead}
+						classes={currentlySelected ? 'bg-gray800' : 'bg-gray950'}
+					>
+						Read
+					</Button>
+					<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}
+						>{#if !isGenerating}
+							<div class="flex items-center gap-2">
+								{#if currentlyPlaying}
+									Playing <div class="h-3 w-3 overflow-hidden"><PauseButton /></div>
+								{:else}
+									Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+								{/if}
+							</div>
+						{:else}
+							Generating <LoadingDots />
+						{/if}
+					</Button>
+				{:else}
+					<Button
+						size="sm"
+						variant={!isInQueue ? 'primary' : 'success'}
+						handleClick={handleAddToQueue}
+					>
+						{#if !isGenerating}
+							{#if !isInQueue}
+								<div class="flex items-center gap-2">
+									Add to Queue
+									<div class="h-6 w-6"><PlusIcon /></div>
+								</div>
 							{:else}
-								Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+								<div class="flex items-center gap-2">
+									Added <div class="w-5 h-5"><Checkmark /></div>
+								</div>
 							{/if}
-						</div>
-					{:else}
-						Generating <LoadingDots />
-					{/if}
-				</Button>
+						{:else}
+							Adding to queue <LoadingDots />
+						{/if}
+					</Button>
+				{/if}
 			</div>
 			<div class="text-sm flex items-center">
 				{#if canDelete}

@@ -7,13 +7,15 @@
 	export let classes: string = '';
 	export let handleClick: () => void = () => {};
 	export let type: 'button' | 'submit' = 'button';
-	export let variant: 'primary' | 'secondary' = 'primary';
+	export let variant: 'primary' | 'secondary' | 'success' = 'primary';
 	export let isDisabled: boolean = false;
 
 	const colours = {
 		primary: 'bg-primary hover:bg-gray200 text-white',
-		secondary: 'bg-background hover:bg-gray800 text-primary'
+		secondary: 'bg-background hover:bg-gray800 text-primary',
+		success: 'bg-success text-text'
 	};
+
 	const sizes = {
 		md: 'h-12 w-full',
 		sm: 'h-10 w-auto'

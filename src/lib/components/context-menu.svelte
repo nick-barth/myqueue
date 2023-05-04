@@ -36,7 +36,7 @@
 	{#if isOpen}
 		<div
 			transition:fly={{ y: -10, duration: 200 }}
-			class="absolute -bottom-1 {position === 'left' ? 'left-2' : 'right-2'} translate-y-full"
+			class="absolute -bottom-1 {position === 'left' ? 'left-2' : 'right-2'} translate-y-full z-50"
 		>
 			<slot />
 		</div>

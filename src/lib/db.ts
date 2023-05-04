@@ -45,6 +45,17 @@ export default {
 				found && currentStore.update((v) => found);
 			}
 		},
+		async addBookmark(bookmark: BookmarkType) {
+			try {
+				const { data, error } = await supabase.from('bookmarks').insert(bookmark).select();
+				if (data) {
+					bookmarkStore.update((v) => {
+						const currentValue = v ? v : [];
+						return [data[0], ...currentValue];
+					});
+				}
+			} catch (e) {}
+		},
 		async remove(bookmark: BookmarkType) {
 			const user = get(userStore);
 			if (!user) {

@@ -19,7 +19,7 @@
 <section class="w-full md:max-w-4xl m-auto md:p-0 relative z-10">
 	<UrlAdder />
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
-		<section class="px-10">
+		<section class="px-4">
 			<h2 class="font-bold font-domine text-4xl mb-4">My Queue</h2>
 			<p class="text-sm">
 				Stories: {$bookmarkStore.length}/5 • Total listening time: {Math.floor(totalTime / 60)}
