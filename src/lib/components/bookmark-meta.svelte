@@ -17,8 +17,10 @@
 	}
 	if (bookmark.published) {
 		const publishDate = parseISO(bookmark.published);
-		const formattedDate = format(publishDate, `do MMMM, yyyy`);
-		meta.push(formattedDate);
+		try {
+			const formattedDate = format(publishDate, `do MMMM, yyyy`);
+			meta.push(formattedDate);
+		} catch {}
 	}
 </script>
 
