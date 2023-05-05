@@ -13,7 +13,6 @@
 
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import PauseButton from '$lib/icons/pause-button.svg?component';
-	import CloseButton from '$lib/icons/close-button.svg?component';
 	import PlayerBackward from '$lib/icons/player-backward.svg?component';
 	import PlayerForward from '$lib/icons/player-forward.svg?component';
 	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
@@ -129,8 +128,9 @@
 			</h2>
 			<button
 				on:click={handleTogglePlay}
+				disabled={!bookmark.audio}
 				title="Toggles play"
-				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent"
+				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent disabled:bg-gray500"
 			>
 				{#if $pausedStore}
 					<div in:fade={{ duration: 100 }} class="h-4 w-4">

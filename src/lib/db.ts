@@ -41,8 +41,7 @@ export default {
 				.order('created_at', { ascending: false });
 			bookmarkStore.set(data);
 			if (data && data.length > 0) {
-				const found = data.find((element) => element.audio);
-				found && currentStore.update((v) => found);
+				currentStore.update((v) => data[0]);
 			}
 		},
 		async addBookmark(bookmark: BookmarkType) {

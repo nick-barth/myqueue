@@ -22,8 +22,8 @@
 </script>
 
 {#if user}
+	<Toasts />
 	<div>
-		<Toasts />
 		<div class="grid grid-cols-1 md:grid-cols-6">
 			<section class="hidden md:flex relative col-span-1">
 				<Sidebar />
@@ -37,7 +37,7 @@
 				{/if}
 			</main>
 			<aside class="relative flex items-end p-4 col-span-2">
-				{#if $currentStore && $currentStore.audio}
+				{#if $currentStore}
 					<div
 						class="h-40 left-0 fixed bottom-0 w-full md:sticky md:bottom-4 bg-accent"
 						transition:fly={{ y: 200, duration: 300 }}

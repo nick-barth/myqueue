@@ -46,7 +46,7 @@
 		<div class="flex border-b border-gray900">
 			<a
 				href="/"
-				class="flex pl-10 flex-row items-center gap-4 py-4 pb-8 w-full hover:bg-gray950 text-domine font-bold"
+				class="flex pl-10 flex-row items-center gap-4 py-4 pb-8 w-full text-domine font-bold"
 			>
 				<div class="h-8 w-8">
 					<LogoIcon />
