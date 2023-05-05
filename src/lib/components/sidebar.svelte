@@ -2,7 +2,6 @@
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
-	import { page } from '$app/stores';
 
 	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';

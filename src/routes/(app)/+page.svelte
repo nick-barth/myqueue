@@ -22,7 +22,9 @@
 		<section class="px-4 md:px-10">
 			<h2 class="font-bold font-domine text-4xl mb-4">My Queue</h2>
 			<p class="text-sm mb-2">
-				Stories: {$bookmarkStore.length}/5 • Total listening time: {Math.floor(totalTime / 60)}
+				Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
+					totalTime / 60
+				)}
 				{Math.floor(totalTime / 60) > 1 ? 'mins' : 'min'}
 			</p>
 		</section>

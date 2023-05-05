@@ -4,6 +4,7 @@
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
 	import Close from '$lib/icons/close.svg?component';
+	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 	import { page } from '$app/stores';
 
 	import { userStore } from '$lib/store';
@@ -99,8 +100,12 @@
 				on:click={() => (isOpen = false)}
 				href="/"
 				class="flex flex-row items-center gap-4 px-4 mb-4 hover:bg-gray950"
-				><img class="h-8 w-8" src="/logos/logo48.png" alt="my queue" /> My Queue</a
 			>
+				<div class="w-6 h-6">
+					<LogoIcon />
+				</div>
+				<div class="mt-2">My Queue</div>
+			</a>
 			<p class="text-lg px-4 mb-2">Add articles to your queue</p>
 			{#each sources as source}
 				<a
