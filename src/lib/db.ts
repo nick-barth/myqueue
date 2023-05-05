@@ -46,8 +46,12 @@ export default {
 			}
 		},
 		async addBookmark(bookmark: BookmarkType) {
+			const user = get(userStore);
 			try {
-				const { data, error } = await supabase.from('bookmarks').insert(bookmark).select();
+				const { data, error } = await supabase
+					.from('bookmarks')
+					.insert({ ...bookmark, user_id: user?.id })
+					.select();
 				if (data) {
 					bookmarkStore.update((v) => {
 						const currentValue = v ? v : [];
