@@ -23,7 +23,7 @@
 
 {#if user}
 	<Toasts />
-	<div>
+	<div class="mb-32 md:mb-0">
 		<div class="grid grid-cols-1 md:grid-cols-6">
 			<section class="hidden md:flex relative col-span-1">
 				<Sidebar />

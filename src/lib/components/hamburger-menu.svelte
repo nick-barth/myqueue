@@ -99,14 +99,14 @@
 			<a
 				on:click={() => (isOpen = false)}
 				href="/"
-				class="flex flex-row items-center gap-4 px-4 mb-4 hover:bg-gray950"
+				class="flex flex-row items-center gap-4 px-4 mb-12 hover:bg-gray950"
 			>
 				<div class="w-6 h-6">
 					<LogoIcon />
 				</div>
 				<div class="mt-2">My Queue</div>
 			</a>
-			<p class="text-lg px-4 py-4 mb-2">Add articles to your queue</p>
+			<p class="text-lg px-4 mb-2 font-semibold">Add articles to your queue</p>
 			{#each sources as source}
 				<a
 					on:click={() => (isOpen = false)}
