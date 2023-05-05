@@ -16,7 +16,7 @@
 		meta.push(`${time} ${unit}`);
 	}
 	if (bookmark.published) {
-		const publishDate = parseISO('2022-06-01T14:42:52+00:00');
+		const publishDate = parseISO(bookmark.published);
 		const formattedDate = format(publishDate, `do MMMM, yyyy`);
 		meta.push(formattedDate);
 	}

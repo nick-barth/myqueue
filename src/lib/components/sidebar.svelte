@@ -52,7 +52,6 @@
 				</div>
 				<div class="pt-2">My Queue</div>
 			</a>
-			<p class="text-lg mb-2 md:hidden">Add articles to your queue</p>
 		</div>
 		{#each sources as source}
 			<a

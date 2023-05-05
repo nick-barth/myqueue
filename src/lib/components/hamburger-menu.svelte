@@ -106,7 +106,7 @@
 				</div>
 				<div class="mt-2">My Queue</div>
 			</a>
-			<p class="text-lg px-4 mb-2">Add articles to your queue</p>
+			<p class="text-lg px-4 py-4 mb-2">Add articles to your queue</p>
 			{#each sources as source}
 				<a
 					on:click={() => (isOpen = false)}
