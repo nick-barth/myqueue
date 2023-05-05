@@ -84,7 +84,7 @@
 
 <section>
 	{#if articles[data.source]}
-		<h2 class="font-bold text-xl md:text-2xl font-domine px-10 mt-10">
+		<h2 class="font-bold text-xl md:text-2xl font-domine px-4 md:px-10">
 			Add trending {sources[data.source]} articles
 		</h2>
 		{#each articles[data.source] as article}

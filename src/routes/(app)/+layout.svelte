@@ -31,7 +31,7 @@
 			<section class="visible md:hidden">
 				<HamburgerMenu />
 			</section>
-			<main class="mt-0 md:mt-6 col-span-3">
+			<main class="mt-0 md:mt-14 col-span-3">
 				{#if !isLoading}
 					<slot />
 				{/if}
