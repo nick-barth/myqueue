@@ -18,10 +18,6 @@
 
 	const sources = [
 		{
-			title: 'Medium',
-			source: 'medium'
-		},
-		{
 			title: 'New York Times',
 			source: 'newyorktimes'
 		},
