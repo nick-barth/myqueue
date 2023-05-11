@@ -117,5 +117,11 @@ export default {
 			}
 			return { data, error };
 		}
+	},
+	discovery: {
+		async get(source: string) {
+			const { data, error } = await supabase.from('discovery').select().eq('publisher', source);
+			return data;
+		}
 	}
 };

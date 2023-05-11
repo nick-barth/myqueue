@@ -19,6 +19,7 @@ export interface Database {
 					language: string | null;
 					user_id: string | null;
 					reader: string | null;
+					publisher: string | null;
 				};
 				Insert: {
 					audio?: string | null;
@@ -35,6 +36,7 @@ export interface Database {
 					language: string | null;
 					user_id?: string | null;
 					reader: string | null;
+					publisher: string | null;
 				};
 				Update: {
 					audio?: string | null;
@@ -50,6 +52,7 @@ export interface Database {
 					url?: string | null;
 					language: string | null;
 					user_id?: string | null;
+					publisher: string | null;
 				};
 			};
 		};
