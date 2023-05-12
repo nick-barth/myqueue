@@ -31,18 +31,6 @@
 
 		try {
 			const res = await db.bookmarks.post(url);
-
-			mixpanel.track('url added succesfully', { response: url });
-			addToast({
-				content: 'Successfully added to queue',
-				type: 'success'
-			});
-		} catch (err) {
-			mixpanel.track('url failed', { url });
-			addToast({
-				content: 'Oops, that did not work, maybe we cannnot read the article',
-				type: 'error'
-			});
 		} finally {
 			isLoading = false;
 			url = '';

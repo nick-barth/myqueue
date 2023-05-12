@@ -92,11 +92,26 @@ export default {
 				body: { user_id: user?.id, url }
 			});
 
-			bookmarkStore.update((v) => {
-				const currentValue = v ? v : [];
-				return [data, ...currentValue];
-			});
-			return { data, error };
+			if (data) {
+				bookmarkStore.update((v) => {
+					const currentValue = v ? v : [];
+					return [data, ...currentValue];
+				});
+				addToast({
+					content: 'Successfully added to queue',
+					type: 'success'
+				});
+
+				mixpanel.track('url added succesfully', { response: url });
+				return { data, error };
+			} else {
+				mixpanel.track('url failed', { url });
+				addToast({
+					content: 'Oops, that did not work, maybe we cannnot read the article',
+					type: 'error'
+				});
+				return false;
+			}
 		}
 	},
 	tts: {
