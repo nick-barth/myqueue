@@ -52,7 +52,7 @@
 		{#each sources as source}
 			<a
 				href={`/discover/${source.source}`}
-				class=" pl-10 list-none py-3 w-full hover:bg-gray950 flex items-center gap-4"
+				class=" pl-10 list-none py-3 w-full hover:bg-gray950 flex items-center gap-4 cursor-pointer"
 			>
 				<img class="h-8 w-8" src="/images/sources/{source.source}.png" alt={source.title} />
 				{source.title}
