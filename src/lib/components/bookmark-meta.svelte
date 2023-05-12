@@ -10,8 +10,8 @@
 	if (bookmark.authors.length > 0) {
 		meta.push(bookmark.authors.join(', '));
 	}
-	if (bookmark.read_time && !noReadingTime) {
-		const time = Math.floor(bookmark.read_time / 60);
+	if (bookmark?.read_time && !noReadingTime) {
+		const time = Math.floor(bookmark?.read_time / 60);
 		const unit = time > 1 ? 'mins' : 'min';
 		meta.push(`${time} ${unit}`);
 	}

@@ -242,7 +242,7 @@
 						</button>
 					</div>
 				</ContextMenu>
-				{#if bookmark.read_time}
+				{#if bookmark && bookmark.read_time}
 					<div class="pl-1">
 						{Math.floor(bookmark.read_time / 60)}
 						{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}

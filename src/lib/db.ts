@@ -94,7 +94,7 @@ export default {
 
 			bookmarkStore.update((v) => {
 				const currentValue = v ? v : [];
-				return [data[0], ...currentValue];
+				return [data, ...currentValue];
 			});
 			return { data, error };
 		}

@@ -9,7 +9,7 @@
 
 	$: totalTime =
 		$bookmarkStore?.reduce((acc, bookmark) => {
-			if (bookmark.read_time) {
+			if (bookmark?.read_time) {
 				return acc + bookmark.read_time;
 			}
 			return acc;
