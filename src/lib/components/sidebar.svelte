@@ -38,7 +38,7 @@
 
 <div class="w-full h-[100vh] sticky top-0 border-r border-gray900 py-10">
 	<nav class="flex flex-col h-full">
-		<div class="flex border-b border-gray900">
+		<div class="flex border-b border-gray900 mb-4">
 			<a
 				href="/"
 				class="flex pl-10 flex-row items-center gap-4 py-4 pb-8 w-full text-domine font-bold"
@@ -81,7 +81,7 @@
 						<a
 							href="https://www.myqueue.so/support"
 							target="_blank"
-							class="hover:bg-background py-2 flex align-center items-center"
+							class="hover:bg-background py-2 px-2 flex align-center items-center"
 						>
 							Support
 							<div class=" h-4 w-4">
