@@ -2,6 +2,12 @@
 	import { fade } from 'svelte/transition';
 	import { currentStore } from '$lib/store';
 	import Reader from '$lib/components/reader.svelte';
+	import { onMount } from 'svelte';
+	import mixpanel from 'mixpanel-browser';
+
+	onMount(async () => {
+		mixpanel.track('Reading', { currentStore: $currentStore });
+	});
 </script>
 
 {#if $currentStore}
