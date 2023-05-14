@@ -2,6 +2,7 @@
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
+	import { sources } from '$lib/constants/sources';
 
 	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';
@@ -15,25 +16,6 @@
 	const handleLogout = async () => {
 		await db.signOut();
 	};
-
-	const sources = [
-		{
-			title: 'New York Times',
-			source: 'newyorktimes'
-		},
-		{
-			title: 'CNN',
-			source: 'cnn'
-		},
-		{
-			title: 'BBC',
-			source: 'bbc'
-		},
-		{
-			title: 'Guardian',
-			source: 'guardian'
-		}
-	];
 </script>
 
 <div class="w-full h-[100vh] sticky top-0 border-r border-gray900 py-10">

@@ -6,6 +6,7 @@
 	import Close from '$lib/icons/close.svg?component';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 	import { page } from '$app/stores';
+	import { sources } from '$lib/constants/sources';
 
 	import { userStore } from '$lib/store';
 	import type { UserType } from '$types/types';
@@ -21,25 +22,6 @@
 	};
 
 	let isOpen = false;
-
-	const sources = [
-		{
-			title: 'New York Times',
-			source: 'newyorktimes'
-		},
-		{
-			title: 'CNN',
-			source: 'cnn'
-		},
-		{
-			title: 'BBC',
-			source: 'bbc'
-		},
-		{
-			title: 'Guardian',
-			source: 'guardian'
-		}
-	];
 </script>
 
 <div class="w-full">

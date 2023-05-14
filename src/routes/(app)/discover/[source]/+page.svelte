@@ -3,10 +3,11 @@
 	export let data;
 
 	const sources = {
-		cnn: 'CNN',
-		bbc: 'BBC',
+		guardian: 'Guardian',
 		newyorktimes: 'New York Times',
-		guardian: 'Guardian'
+		techcrunch: 'TechCrunch',
+		// cnn: 'CNN',
+		bbc: 'BBC'
 	};
 </script>
 
