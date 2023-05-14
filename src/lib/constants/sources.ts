@@ -1,5 +1,9 @@
 export const sources = [
 	{
+		title: 'Medium',
+		source: 'medium'
+	},
+	{
 		title: 'Guardian',
 		source: 'guardian'
 	},
