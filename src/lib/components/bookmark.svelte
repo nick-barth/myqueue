@@ -32,7 +32,7 @@
 	$: isGenerating = false;
 	$: bookmark;
 	$: currentlySelected = $currentStore ? $currentStore.id === bookmark.id : false;
-	$: canDelete = $bookmarkStore && $bookmarkStore.length > 1;
+	$: canDelete = $bookmarkStore && $bookmarkStore.length > 1 && !isDiscovery;
 
 	const handleRemove = async () => {
 		db.bookmarks.remove(bookmark);
