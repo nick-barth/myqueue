@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	import UrlAdder from '$lib/components/url-adder.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import { bookmarkStore } from '$lib/store';
 
@@ -17,11 +16,10 @@
 </script>
 
 <section class="relative">
-	<UrlAdder />
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
-		<section class="px-4 md:px-10">
-			<h2 class="font-bold font-domine text-4xl mb-4">My Queue</h2>
-			<p class="text-sm mb-2">
+		<section class="pt-10 px-4">
+			<h2 class="font-domine font-bold text-2xl">My Queue</h2>
+			<p class="">
 				Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
 					totalTime / 60
 				)}

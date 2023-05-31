@@ -131,41 +131,37 @@
 </script>
 
 <li
-	class="list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 {!currentlySelected
-		? 'bg-white'
-		: 'bg-gray950'}"
+	class="mt-2 list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 bg-white"
 >
-	{#if bookmark.image}
-		<div
-			style={`background-image: url(${bookmark.image})`}
-			role="img"
-			aria-label="article cover"
-			class="hidden md:flex h-24 w-24 overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
-		/>
-	{/if}
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-xl md:text-2xl font-domine mb-4">
+		<h2 class="flex font-bold text-md font-domine mb-4">
+			{bookmark.title}
 			{#if bookmark.image}
-				<div class="md:hidden w-16 h-16 overflow-hidden flex-shrink-0 mr-6">
+				<div class="md:hidden w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
 					<div
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
 						aria-label="article cover"
-						class="flex h-16 w-16 overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
+						class="flex w-20 h-20 overflow-hidden flex-shrink-0 mr-4 bg-cover bg-center"
 					/>
 				</div>
 			{/if}
-			{bookmark.title}
 		</h2>
-		<BookmarkMeta {bookmark} noReadingTime={true} />
-		<p class="line-clamp-2 my-2 leading-7 overflow-hidden">
+		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
 			{bookmark.content}
 		</p>
+		<BookmarkMeta {bookmark} noReadingTime />
 		<div
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>
-			<div class="flex gap-2">
+			<div class="flex gap-2 items-center">
 				{#if !isDiscovery}
+					{#if bookmark && bookmark.read_time}
+						<div class="text-sm">
+							{Math.floor(bookmark.read_time / 60)}
+							{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
+						</div>
+					{/if}
 					<Button
 						size="sm"
 						variant="secondary"
@@ -174,18 +170,14 @@
 					>
 						Read
 					</Button>
-					<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}
-						>{#if !isGenerating}
-							<div class="flex items-center gap-2">
-								{#if currentlyPlaying}
-									Playing <div class="h-3 w-3 overflow-hidden"><PauseButton /></div>
-								{:else}
-									Listen <div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
-								{/if}
-							</div>
-						{:else}
-							Generating <LoadingDots />
-						{/if}
+					<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}>
+						<div class="flex items-center gap-2">
+							{#if currentlyPlaying}
+								<div class="h-3 w-3 overflow-hidden"><PauseButton /></div>
+							{:else}
+								<div class="h-3 w-3 overflow-hidden"><PlayButton /></div>
+							{/if}
+						</div>
 					</Button>
 				{:else}
 					<Button
@@ -246,12 +238,6 @@
 						</button>
 					</div>
 				</ContextMenu>
-				{#if bookmark && bookmark.read_time}
-					<div class="pl-1">
-						{Math.floor(bookmark.read_time / 60)}
-						{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
-					</div>
-				{/if}
 			</div>
 		</div>
 	</div>

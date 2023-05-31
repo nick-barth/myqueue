@@ -25,11 +25,11 @@
 </script>
 
 <aside class="text-sm leading-6 mb-2">
-	{#if bookmark.domain}
-		<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
-	{/if}
 	{#if meta.length > 0}
-		•
 		{meta.join(' • ')}
+	{/if}
+	{#if bookmark.domain}
+		•
+		<a class="underline" href={bookmark.url} target="_blank">Original article</a>
 	{/if}
 </aside>

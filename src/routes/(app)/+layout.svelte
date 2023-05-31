@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Sidebar from '$lib/components/sidebar.svelte';
 	import HamburgerMenu from '$lib/components/hamburger-menu.svelte';
 	import { fly } from 'svelte/transition';
 	import { currentStore, userStore, readingStore } from '$lib/store';
@@ -25,12 +24,6 @@
 	<Toasts />
 	<div class="mb-32 md:mb-0">
 		<div class="grid grid-cols-1 md:grid-cols-6">
-			<section class="hidden md:flex relative col-span-1">
-				<Sidebar />
-			</section>
-			<section class="visible md:hidden">
-				<HamburgerMenu />
-			</section>
 			<main class="mt-0 md:mt-14 col-span-3">
 				{#if !isLoading}
 					<slot />
