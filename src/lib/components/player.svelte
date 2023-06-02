@@ -113,38 +113,32 @@
 </script>
 
 <aside class="h-full">
-	<div class="flex h-36 flex-col p-4 justify-between">
-		<div class="flex mb-2">
-			{#if bookmark.image}
-				<div
-					style={`background-image: url(${bookmark.image})`}
-					role="img"
-					aria-label="article cover"
-					class="h-12 w-12 overflow-hidden flex-shrink-0 mr-4 object-center bg-cover bg-center"
-				/>
-			{/if}
-			<h2 class="flex h-12 font-semibold line-clamp-2 w-full overflow-hidden">
+	<div class="absolute -top-2 w-full px-6">
+		<PlayerControls {currentTime} {duration} {setNewTime} />
+	</div>
+	<div class="flex flex-col p-4 mt-8 justify-between">
+		<div class="flex">
+			<h2 class="flex h-12 font-semibold line-clamp-2 w-full overflow-hidden font-domine">
 				{bookmark.title}
 			</h2>
 			<button
 				on:click={handleTogglePlay}
 				disabled={!bookmark.audio}
 				title="Toggles play"
-				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-8 w-8 flex items-center justify-center text-accent disabled:bg-gray500"
+				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-gray500"
 			>
 				{#if $pausedStore}
-					<div in:fade={{ duration: 100 }} class="h-4 w-4">
+					<div in:fade={{ duration: 100 }} class="w-4 h-4">
 						<PlayButton />
 					</div>
 				{:else}
-					<div in:fade={{ duration: 100 }} class="h-4 w-4">
+					<div in:fade={{ duration: 100 }} class="w-4 h-4">
 						<PauseButton />
 					</div>
 				{/if}
 			</button>
 		</div>
-		<PlayerControls {currentTime} {duration} {setNewTime} />
-		<div class="w-full mt-2 flex items-center justify-between">
+		<!-- <div class="w-full mt-2 flex items-center justify-between">
 			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
 			<button on:click={handleBackward} title="Skips backwards 15 seconds">
 				<PlayerBackward />
@@ -158,7 +152,7 @@
 			>
 				<PlayerRepeat />
 			</button>
-		</div>
+		</div> -->
 	</div>
 	{#if bookmark.audio}
 		<audio

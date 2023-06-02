@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HamburgerMenu from '$lib/components/hamburger-menu.svelte';
+	import DiscoveryBar from '$lib/components/discovery-bar.svelte';
 	import { fly } from 'svelte/transition';
 	import { currentStore, userStore, readingStore } from '$lib/store';
 	import Toasts from '$lib/components/toasts.svelte';
@@ -22,7 +22,7 @@
 
 {#if user}
 	<Toasts />
-	<div class="mb-32 md:mb-0">
+	<div class="mb-80">
 		<div class="grid grid-cols-1 md:grid-cols-6">
 			<main class="mt-0 md:mt-14 col-span-3">
 				{#if !isLoading}
@@ -32,7 +32,13 @@
 			<aside class="relative flex items-end p-4 col-span-2">
 				{#if $currentStore}
 					<div
-						class="h-40 left-0 fixed bottom-0 w-full md:sticky md:bottom-4 bg-accent"
+						class="left-0 fixed h-28 bottom-28 w-full bg-white"
+						transition:fly={{ y: 200, duration: 300 }}
+					>
+						<DiscoveryBar />
+					</div>
+					<div
+						class="left-0 fixed h-28 bottom-0 w-full bg-accent"
 						transition:fly={{ y: 200, duration: 300 }}
 					>
 						<Player bookmark={$currentStore} />
