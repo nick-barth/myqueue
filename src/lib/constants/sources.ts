@@ -12,8 +12,8 @@ export const sources = [
 		source: 'techcrunch'
 	},
 	{
-		title: 'New York Times',
-		source: 'newyorktimes'
+		title: 'NYT',
+		source: 'nyt'
 	},
 	{
 		title: 'CNN',
