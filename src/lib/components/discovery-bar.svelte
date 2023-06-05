@@ -5,8 +5,8 @@
 	console.log($page);
 </script>
 
-<aside class="flex w-full overflow-scroll h-full items-center">
-	<a href={`/`} class="list-none px-4 flex flex-col text-sm items-center flex-shrink-0">
+<aside class="flex w-full overflow-scroll h-full items-center max-w-7xl m-auto justify-center">
+	<a href={`/`} class="list-none px-2 flex flex-col text-sm items-center flex-shrink-0">
 		<img
 			class="h-[60px] w-[60px] rounded-full flex-shrink-0 border-4 border-solid border-white {$page
 				.url.pathname === '/' && 'shadow-[0_0px_0px_2px_black]'}"
@@ -17,7 +17,7 @@
 	</a>
 	<a
 		href={`/add-url`}
-		class="list-none px-4 flex flex-col text-sm items-center flex-shrink-0
+		class="list-none px-2 flex flex-col text-sm items-center flex-shrink-0
 {$page.url.pathname === `/add-url` && 'bg-gray950'}"
 	>
 		<img
@@ -31,7 +31,7 @@
 	{#each sources as source}
 		<a
 			href={`/discover/${source.source}`}
-			class="list-none px-4 flex flex-col text-sm items-center flex-shrink-0"
+			class="list-none px-2 flex flex-col text-sm items-center flex-shrink-0"
 		>
 			<img
 				class="h-[60px] w-[60px] rounded-full flex-shrink-0 border-4 border-solid border-white {$page

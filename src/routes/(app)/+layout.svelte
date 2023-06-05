@@ -23,8 +23,8 @@
 {#if user}
 	<Toasts />
 	<div class="mb-80">
-		<div class="grid grid-cols-1 md:grid-cols-6">
-			<main class="mt-0 md:mt-14 col-span-3">
+		<div class="">
+			<main class="max-w-7xl m-auto">
 				{#if !isLoading}
 					<slot />
 				{/if}
