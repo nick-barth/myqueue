@@ -17,6 +17,7 @@ export const audioStore = writable<HTMLAudioElement | null>(null);
 bookmarkStore.subscribe((value) => {
 	if (value && value.length === 0) {
 		bookmarkStore.update((v) => [Welcome]);
+		currentStore.update((v) => Welcome);
 	}
 });
 

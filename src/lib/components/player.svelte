@@ -112,33 +112,31 @@
 	}
 </script>
 
-<aside class="h-28">
-	<div class="max-w-7xl relative m-auto px-6 h-full">
+<aside class="flex px-6">
+	<div class="max-w-7xl relative m-auto">
 		<div class="absolute -top-2 w-full">
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 		</div>
-		<div class="flex flex-col p-4 mt-8 justify-between">
-			<div class="flex">
-				<h2 class="flex h-12 font-semibold line-clamp-2 w-full overflow-hidden font-domine">
-					{bookmark.title}
-				</h2>
-				<button
-					on:click={handleTogglePlay}
-					disabled={!bookmark.audio}
-					title="Toggles play"
-					class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-gray500"
-				>
-					{#if $pausedStore}
-						<div in:fade={{ duration: 100 }} class="w-4 h-4">
-							<PlayButton />
-						</div>
-					{:else}
-						<div in:fade={{ duration: 100 }} class="w-4 h-4">
-							<PauseButton />
-						</div>
-					{/if}
-				</button>
-			</div>
+		<div class="flex p-4 mt-8 justify-between items-center gap-4">
+			<h2 class="flex font-semibold h-12 items-center line-clamp-2 w-full overflow-hidden font-domine">
+				{bookmark.title}
+			</h2>
+			<button
+				on:click={handleTogglePlay}
+				disabled={!bookmark.audio}
+				title="Toggles play"
+				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-gray500"
+			>
+				{#if $pausedStore}
+					<div in:fade={{ duration: 100 }} class="w-4 h-4">
+						<PlayButton />
+					</div>
+				{:else}
+					<div in:fade={{ duration: 100 }} class="w-4 h-4">
+						<PauseButton />
+					</div>
+				{/if}
+			</button>
 			<!-- <div class="w-full mt-2 flex items-center justify-between">
 			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
 			<button on:click={handleBackward} title="Skips backwards 15 seconds">
