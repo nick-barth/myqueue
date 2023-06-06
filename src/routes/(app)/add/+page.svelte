@@ -1,6 +1,7 @@
 <script lang="ts">
+	import UrlAdder from "$lib/components/url-adder.svelte";
 </script>
 
 <section class="relative">
-    u what mate ?
+    <UrlAdder />
 </section>
