@@ -2,5 +2,5 @@
 </script>
 
 <section class="relative">
-    u what mate
+    u what mate ?
 </section>
