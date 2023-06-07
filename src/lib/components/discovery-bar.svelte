@@ -16,13 +16,13 @@
 		My Queue
 	</a>
 	<a
-		href={`/add-url`}
+		href={`/add`}
 		class="list-none px-2 flex flex-col text-sm items-center flex-shrink-0
-{$page.url.pathname === `/add-url` && 'bg-gray950'}"
+{$page.url.pathname === `/add` && 'bg-gray950'}"
 	>
 		<img
 			class="h-[60px] w-[60px] rounded-full flex-shrink-0 border-4 border-solid border-white {$page
-				.url.pathname === 'add-url' && 'shadow-[0_0px_0px_2px_black]'}"
+				.url.pathname === 'add' && 'shadow-[0_0px_0px_2px_black]'}"
 			src="/images/sources/add-url.png"
 			alt="add url"
 		/>

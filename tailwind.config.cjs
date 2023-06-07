@@ -12,7 +12,7 @@ module.exports = {
 			},
 			colors: {
 				white: '#ffffff',
-				accent: '#C1EBFF',
+				accent: '#C4E2FC',
 				accent2: '#D8BBFE',
 				primary: '#181818',
 				primary2: '#363636',
