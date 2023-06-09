@@ -17,8 +17,8 @@
 	};
 
 	const sizes = {
-		md: 'h-12 w-full',
-		sm: 'h-10 w-auto'
+		md: 'h-12',
+		sm: 'h-10'
 	};
 </script>
 

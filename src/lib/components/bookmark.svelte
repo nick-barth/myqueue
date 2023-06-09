@@ -134,10 +134,10 @@
 	class="mt-2 list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 bg-white"
 >
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-md font-domine mb-4">
+		<h2 class="flex font-bold text-md font-domine gap-4 justify-between">
 			{bookmark.title}
 			{#if bookmark.image}
-				<div class="md:hidden w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
+				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
 					<div
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
@@ -147,7 +147,7 @@
 				</div>
 			{/if}
 		</h2>
-		<p class="line-clamp-4 my-2 leading-7 overflow-hidden">
+		<p class="line-clamp-4 my-2 leading-7 overflow-hidden pr-24">
 			{bookmark.content}
 		</p>
 		<BookmarkMeta {bookmark} noReadingTime />
@@ -170,7 +170,12 @@
 					>
 						Read
 					</Button>
-					<Button size="sm" handleClick={handlePlay} isPartyMode={isGenerating || currentlyPlaying}>
+					<Button
+						size="sm"
+						classes="w-10"
+						handleClick={handlePlay}
+						isPartyMode={isGenerating || currentlyPlaying}
+					>
 						<div class="flex items-center gap-2">
 							{#if currentlyPlaying}
 								<div class="h-3 w-3 overflow-hidden"><PauseButton /></div>

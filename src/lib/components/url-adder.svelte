@@ -61,8 +61,8 @@
 				type="submit"
 				disabled={isLoading}
 				class="{!isLoading
-					? 'w-10'
-					: 'w-full'} bg-accent transition-all duration-150 rounded-primary h-10 w-10 flex gap-2 items-center justify-center"
+					? 'w-10 bg-accent'
+					: 'w-full bg-success'} transition-all duration-150 rounded-primary h-10 w-10 flex gap-2 items-center justify-center"
 				>{#if !isLoading}
 					<div class="h-6 w-6 text-primary">
 						<PlusIcon />

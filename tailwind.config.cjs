@@ -19,7 +19,7 @@ module.exports = {
 				primary3: '#545454',
 				background: '#F4F4F4',
 				error: '#ef4444',
-				success: '#A8DDA6',
+				success: '#A0E99D',
 
 				//gray
 				gray100: '#181818',
