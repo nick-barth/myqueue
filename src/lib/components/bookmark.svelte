@@ -187,22 +187,24 @@
 				{:else}
 					<Button
 						size="sm"
-						variant={!isInQueue ? 'primary' : 'success'}
+						variant={!isInQueue ? 'accent' : 'success'}
+						classes="w-10 h-10"
 						handleClick={handleAddToQueue}
 					>
 						{#if !isGenerating}
 							{#if !isInQueue}
 								<div class="flex items-center gap-2">
-									Add to Queue
 									<div class="h-6 w-6"><PlusIcon /></div>
 								</div>
 							{:else}
 								<div class="flex items-center gap-2">
-									Added <div class="w-5 h-5"><Checkmark /></div>
+									<div class="h-6 w-6"><Checkmark /></div>
 								</div>
 							{/if}
 						{:else}
-							Adding to queue <LoadingDots />
+							<div class="flex items-center gap-2">
+								<LoadingDots />
+							</div>
 						{/if}
 					</Button>
 				{/if}
