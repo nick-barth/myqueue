@@ -11,8 +11,6 @@
 		medium: 'Medium',
 		bbc: 'BBC'
 	};
-
-	console.log(data);
 </script>
 
 <div>
