@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Avatar from '$lib/components/avatar.svelte';
+	import Avatar from '$lib/components/avatar-circle.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	export let data: any;
 
