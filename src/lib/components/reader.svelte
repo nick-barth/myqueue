@@ -19,9 +19,9 @@
 	});
 </script>
 
-<section class="flex w-full items-center flex-col mb-16 px-4 md:px-0 bg-white pt-20">
+<section class="flex w-full items-center flex-col mb-16 bg-white p-8 pt-20">
 	<div class="max-w-2xl">
-		<div class="fixed left-0 right-0 top-0 bg-white p-4">
+		<div class="fixed left-0 right-0 top-0 bg-white p-4 pl-8">
 			<Button variant="secondary" size="sm" handleClick={handleBack}
 				><span class="h-3 w-3"><Arrow /></span>Back</Button
 			>
