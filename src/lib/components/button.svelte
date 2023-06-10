@@ -13,7 +13,7 @@
 	const colours = {
 		primary: 'bg-primary hover:bg-gray200 text-white',
 		accent: 'bg-accent text-primary',
-		secondary: 'bg-background hover:bg-gray800 text-primary',
+		secondary: ' bg-gray-300 hover:bg-gray800 text-primary',
 		success: 'bg-success text-text'
 	};
 
