@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import Bookmark from '$lib/components/bookmark.svelte';
-	import Avatar from '$lib/components/avatar.svelte';
+	import Avatar from '$lib/components/avatar-circle.svelte';
 	import { bookmarkStore } from '$lib/store';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 

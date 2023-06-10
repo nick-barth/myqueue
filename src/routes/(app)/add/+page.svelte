@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PlusIcon from '$lib/icons/plus-icon.svg?component';
-	import Avatar from '$lib/components/Avatar.svelte';
+	import Avatar from '$lib/components/avatar-circle.svelte';
 	import UrlAdder from '$lib/components/url-adder.svelte';
 </script>
 
