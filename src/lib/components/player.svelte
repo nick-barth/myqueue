@@ -118,7 +118,9 @@
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 		</div>
 		<div class="flex p-4 mt-8 justify-between items-center gap-4">
-			<h2 class="flex font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-domine">
+			<h2
+				class="flex font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-domine"
+			>
 				{bookmark.title}
 			</h2>
 			<button
@@ -137,6 +139,7 @@
 					</div>
 				{/if}
 			</button>
+			<!-- replace when working -->
 			<!-- <div class="w-full mt-2 flex items-center justify-between">
 			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
 			<button on:click={handleBackward} title="Skips backwards 15 seconds">
