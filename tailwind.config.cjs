@@ -20,6 +20,7 @@ module.exports = {
 				background: '#F4F4F4',
 				error: '#ef4444',
 				success: '#A0E99D',
+				warning: '#FFBB59',
 
 				//gray
 				gray100: '#181818',
