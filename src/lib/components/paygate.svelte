@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { clickOutside } from '$lib/directives/clickAway';
 	import { paygateStore } from '$lib/store';
-	import { PUBLIC_STRIPE_CHECKOUT } from '$env/static/public';
+	import db from '$lib/db';
 
 	let isPaygateShown: 'article-limit' | null;
 	paygateStore.subscribe((v) => {
@@ -31,8 +31,11 @@
 			Or upgrade to
 			<span class="font-bold">My Queue Plus</span> and add an unlimited number of articles in your queue.
 		</div>
-		<a class="bg-primary text-center rounded-primary text-warning p-4" href={PUBLIC_STRIPE_CHECKOUT}
-			>Subscribe for €8,99 / month</a
+		<button
+			class="bg-primary text-center rounded-primary text-warning p-4"
+			on:click={db.billing.createCustomerId}
 		>
+			Subscribe for €8,99 / month
+		</button>
 	</div>
 </div>

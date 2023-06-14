@@ -148,7 +148,7 @@ export default {
 		}
 	},
 	billing: {
-		async createCustomerId(source: string) {
+		async createCustomerId() {
 			const user = get(userStore);
 			if (!user) {
 				return;
