@@ -24,7 +24,7 @@
 	<Toasts />
 	<div class="mb-80">
 		<div class="">
-			<main class="max-w-2xl m-auto">
+			<main class="max-w-2xl m-auto w-full">
 				{#if !isLoading}
 					<slot />
 				{/if}

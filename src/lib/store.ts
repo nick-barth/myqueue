@@ -13,6 +13,7 @@ export const pausedStore = writable<boolean>(true);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
+export const planStore = writable<'premium' | null>(null);
 
 bookmarkStore.subscribe((value) => {
 	if (value && value.length === 0) {

@@ -13,7 +13,7 @@ export const sources = [
 	},
 	{
 		title: 'NYT',
-		source: 'nyt'
+		source: 'newyorktimes'
 	},
 	{
 		title: 'CNN',

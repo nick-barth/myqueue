@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	import type { UserType } from '$types/types';
 	import { onMount } from 'svelte';
-	import { supabase } from '$lib/db';
+	import db, { supabase } from '$lib/db';
 	import { PUBLIC_MIXPANEL_KEY, PUBLIC_TITLE } from '$env/static/public';
 
 	import mixpanel from 'mixpanel-browser';
@@ -23,6 +23,7 @@
 				userStore.set(data.session.user);
 				mixpanel.identify(data.session.user.id);
 				mixpanel.people.set({ $email: data.session.user.email });
+				db.billing.getUserPlan();
 			} else {
 				if (!$page.url.pathname.includes('/sign')) {
 					goto('/signin');

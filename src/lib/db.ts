@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { get } from 'svelte/store';
-import { userStore, bookmarkStore, currentStore, addToast } from '$lib/store';
+import { userStore, bookmarkStore, currentStore, addToast, planStore } from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
@@ -137,6 +137,32 @@ export default {
 		async get(source: string) {
 			const { data, error } = await supabase.from('discovery').select().eq('publisher', source);
 			return data;
+		}
+	},
+	billing: {
+		async createCustomerId(source: string) {
+			const user = get(userStore);
+			if (!user) {
+				return;
+			}
+			const { data, error } = await supabase.functions.invoke('stripe-create-checkout', {
+				body: {
+					type: 'create_stripe_checkout',
+					id: user.id,
+					email: user.email
+				}
+			});
+			window.open(data.url);
+		},
+		async getUserPlan() {
+			const user = get(userStore);
+			if (!user) {
+				return;
+			}
+			const { data, error } = await supabase.from('profiles').select().eq('id', user.id);
+			if (data[0]) {
+				planStore.set(data[0].plan);
+			}
 		}
 	}
 };

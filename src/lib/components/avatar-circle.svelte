@@ -43,6 +43,9 @@
 					<ArrowDiag />
 				</div>
 			</a>
+			<a href="/billing" class="hover:bg-background px-4 py-2 flex align-center items-center">
+				Billing
+			</a>
 			<button on:click={handleLogout} class="hover:bg-background w-full px-4 py-2">Logout</button>
 		</div>
 	</ContextMenu>
