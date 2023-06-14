@@ -5,7 +5,7 @@
 
 	const sources = {
 		guardian: 'Guardian',
-		nyt: 'New York Times',
+		newyorktimes: 'New York Times',
 		techcrunch: 'TechCrunch',
 		cnn: 'CNN',
 		medium: 'Medium',
