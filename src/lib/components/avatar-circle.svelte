@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import ArrowDiag from '$lib/icons/arrow-diag.svg?component';
-
-	import { userStore } from '$lib/store';
+	import { userStore, planStore } from '$lib/store';
 	import type { UserType } from '$types/types';
 	import db from '$lib/db';
+	import { PUBLIC_STRIPE_CUSTOMER_PORTAL } from '$env/static/public';
 
 	let user: UserType | null;
 	userStore.subscribe((v) => {
@@ -43,10 +43,14 @@
 					<ArrowDiag />
 				</div>
 			</a>
-			<a href="/billing" class="hover:bg-background px-4 py-2 flex align-center items-center">
-				Billing
-			</a>
-			<button on:click={handleLogout} class="hover:bg-background w-full px-4 py-2">Logout</button>
+			{#if $planStore}
+				<a href={PUBLIC_STRIPE_CUSTOMER_PORTAL} class="hover:bg-background px-4 py-2 flex">
+					Billing
+				</a>
+			{/if}
+			<button on:click={handleLogout} class="hover:bg-background w-full ml-0 px-4 py-2 flex"
+				>Logout</button
+			>
 		</div>
 	</ContextMenu>
 </div>

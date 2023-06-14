@@ -1,7 +1,8 @@
 <script lang="ts">
 	import DiscoveryBar from '$lib/components/discovery-bar.svelte';
+	import Paygate from '$lib/components/paygate.svelte';
 	import { fly } from 'svelte/transition';
-	import { currentStore, userStore, readingStore } from '$lib/store';
+	import { currentStore, userStore, readingStore, paygateStore } from '$lib/store';
 	import Toasts from '$lib/components/toasts.svelte';
 	import type { UserType } from '$types/types';
 	import Player from '$lib/components/player.svelte';
@@ -13,6 +14,10 @@
 	userStore.subscribe((v) => {
 		user = v;
 	});
+	let isPaygateShown: 'article-limit' | null;
+	paygateStore.subscribe((v) => {
+		isPaygateShown = v;
+	});
 
 	onMount(async () => {
 		await db.bookmarks.get();
@@ -21,10 +26,13 @@
 </script>
 
 {#if user}
+	{#if isPaygateShown}
+		<Paygate />
+	{/if}
 	<Toasts />
 	<div class="mb-80">
 		<div class="">
-			<main class="max-w-2xl m-auto w-full">
+			<main class={`max-w-2xl m-auto w-full`}>
 				{#if !isLoading}
 					<slot />
 				{/if}

@@ -113,7 +113,7 @@
 </script>
 
 <aside class="flex px-6">
-	<div class="max-w-2xl relative m-auto">
+	<div class="max-w-2xl relative m-auto w-full">
 		<div class="absolute -top-2 w-full">
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 		</div>
