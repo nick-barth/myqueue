@@ -82,6 +82,7 @@ export default {
 					}
 					return filteredBookmarks;
 				});
+				mixpanel.track('aticle removed');
 			} catch {
 				addToast({ type: 'error', content: 'Uh oh, something went wrong!' });
 			}
