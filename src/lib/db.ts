@@ -168,7 +168,7 @@ export default {
 				return;
 			}
 			const { data, error } = await supabase.from('profiles').select().eq('id', user.id);
-			if (data[0]) {
+			if (data[0] && data[0].plan) {
 				planStore.set(data[0].plan);
 			}
 		}
