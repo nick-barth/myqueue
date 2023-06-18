@@ -6,8 +6,9 @@
 	import Toasts from '$lib/components/toasts.svelte';
 	import type { UserType } from '$types/types';
 	import Player from '$lib/components/player.svelte';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import db from '$lib/db';
+	import { onMount } from 'svelte';
 
 	let isLoading = true;
 	let user: UserType | null = null;
@@ -23,6 +24,7 @@
 		await db.bookmarks.get();
 		isLoading = false;
 	});
+	$: hasWiteBg = $page.url.pathname.includes('/read');
 </script>
 
 {#if user}
@@ -30,7 +32,7 @@
 		<Paygate />
 	{/if}
 	<Toasts />
-	<div class="mb-80">
+	<div class={`mb-80 ${hasWiteBg ? 'bg-white' : 'bg-gray950'}`}>
 		<div class="">
 			<main class={`max-w-2xl m-auto w-full`}>
 				{#if !isLoading}
