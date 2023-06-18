@@ -32,7 +32,7 @@
 			<div class="px-2">
 				<span class=" font-bold"
 					>You have reached the maximum of 5 articles you can add with your free account.</span
-				>Delete articles before you can add new ones.
+				> Delete articles before you can add new ones.
 			</div>
 			<div class="px-2">
 				Or upgrade to
