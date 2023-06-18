@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,18 +38,3 @@
 	margin-bottom: 12px;
 }
 
-@font-face {
-	font-family: 'Frank Ruhl Libre';
-	src: url('../static/fonts/FrankRuhlLibre-Medium.ttf');
-}
-@font-face {
-	font-family: 'Frank Ruhl Libre';
-	src: url('../static/fonts/FrankRuhlLibre-Bold.ttf');
-}
-@font-face {
-	font-family: 'Frank Ruhl Libre';
-	src: url('../static/fonts/FrankRuhlLibre-Regular.ttf');
-}@font-face {
-	font-family: 'Frank Ruhl Libre';
-	src: url('../static/fonts/FrankRuhlLibre-SemiBold.ttf');
-}

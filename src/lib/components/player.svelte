@@ -119,7 +119,7 @@
 		</div>
 		<div class="flex p-4 mt-8 justify-between items-center gap-4">
 			<h2
-				class="flex font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-FrankRhulLibre"
+				class="flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank"
 			>
 				{bookmark.title}
 			</h2>

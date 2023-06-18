@@ -16,7 +16,7 @@
 <div>
 	<div class="flex justify-between px-2 pt-10">
 		<div>
-			<h2 class="font-bold text-xl font-FrankRhulLibre">
+			<h2 class="font-bold text-xl font-frank">
 				{sources[data.source]}
 			</h2>
 			<p>Today</p>

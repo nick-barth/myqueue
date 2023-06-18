@@ -7,7 +7,7 @@
 </script>
 
 {#if $toastsStore}
-	<section class="fixed bottom-40 right-4 md:top-8 md:right-8 max-w-4xl z-50">
+	<section class="fixed bottom-12 left-1/2 -translate-x-1/2 max-w-4xl z-50 w-full px-4">
 		{#each $toastsStore as toast (toast.id)}
 			<article
 				animate:flip={{ duration: 300, easing: quartInOut }}

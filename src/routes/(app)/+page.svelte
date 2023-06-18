@@ -25,7 +25,7 @@
 					<LogoIcon />
 				</div>
 				<div>
-					<h2 class="font-FrankRhulLibre font-bold text-2xl">My Queue</h2>
+					<h2 class="font-frank font-bold text-2xl">My Queue</h2>
 					<p class="text-sm">
 						Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
 							totalTime / 60

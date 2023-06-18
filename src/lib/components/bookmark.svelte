@@ -134,7 +134,7 @@
 	class="mt-2 list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 bg-white"
 >
 	<div class="w-full flex flex-col">
-		<div class="flex flex-row-reverse">
+		<div class="flex flex-row-reverse gap-2">
 			{#if bookmark.image}
 				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
 					<div
@@ -147,11 +147,11 @@
 			{/if}
 			<div>
 				<h2
-					class="flex font-bold text-lg leading-6 md:text-xl md:leading-7 font-FrankRhulLibre gap-4 justify-between"
+					class="flex font-bold text-xl leading-6 md:text-xl md:leading-7 font-frank gap-4 justify-between"
 				>
 					{bookmark.title}
 				</h2>
-				<p class="line-clamp-4 my-2 leading-5 overflow-hidden">
+				<p class="line-clamp-4 my-2 leading-5 overflow-hidden text-sm">
 					{bookmark.content}
 				</p>
 				<BookmarkMeta {bookmark} noReadingTime />
@@ -168,14 +168,13 @@
 							{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
 						</div>
 					{/if}
-					<Button
-						size="sm"
-						variant="secondary"
-						handleClick={handleRead}
-						classes={currentlySelected ? 'bg-gray800' : 'bg-gray950'}
+					<button
+						on:click={handleRead}
+						class={`
+						rounded-primary text-primary text-sm font-semibold px-4 py-2 bg-gray950`}
 					>
 						Read
-					</Button>
+					</button>
 					<Button
 						size="sm"
 						classes="w-10"
@@ -208,7 +207,7 @@
 								</div>
 							{/if}
 						{:else}
-							<div class="flex items-center gap-2">
+							<div class="flex items-center gap-2 text-primary">
 								<LoadingDots />
 							</div>
 						{/if}

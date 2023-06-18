@@ -1,7 +1,7 @@
 <div class="flex gap-1 flex-row-reverse">
-	<div class="dot bg-white" />
-	<div class="dot bg-white" />
-	<div class="dot bg-white" />
+	<div class="dot bg-primary" />
+	<div class="dot bg-primary" />
+	<div class="dot bg-primary" />
 </div>
 
 <style>
