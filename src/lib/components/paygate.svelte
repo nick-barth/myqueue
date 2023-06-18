@@ -21,7 +21,7 @@
 <div class="w-full fixed top-0 bottom-0 z-50 backdrop-blur-sm">
 	<div
 		use:clickOutside={handleClickOutside}
-		class="bg-warning max-w-2xl fixed w-full left-1/2 -translate-x-1/2 rounded-md bottom-12 p-12 flex gap-4 px-4"
+		class="bg-warning max-w-2xl fixed left-4 right-4 md:w-full md:left-1/2 md:-translate-x-1/2 rounded-md bottom-12 p-6 md:p-12 flex gap-4"
 	>
 		<div>
 			<div class="h-8 w-8">

@@ -26,7 +26,7 @@
 </script>
 
 {#if user}
-	{#if isPaygateShown}
+	{#if true}
 		<Paygate />
 	{/if}
 	<Toasts />
