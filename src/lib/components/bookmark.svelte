@@ -6,6 +6,7 @@
 	import Checkmark from '$lib/icons/checkmark.svg?component';
 	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import Share from '$lib/icons/share.svg?component';
+	import Trash from '$lib/icons/trash.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import BookmarkMeta from '$lib/components/bookmark-meta.svelte';
 
@@ -163,7 +164,7 @@
 			<div class="flex gap-2 items-center">
 				{#if !isDiscovery}
 					{#if bookmark && bookmark.read_time}
-						<div class="text-sm">
+						<div class="text-sm mr-4">
 							{Math.floor(bookmark.read_time / 60)}
 							{Math.floor(bookmark.read_time / 60) > 1 ? 'mins' : 'min'}
 						</div>
@@ -215,13 +216,14 @@
 				{/if}
 			</div>
 			<div class="text-sm flex items-center">
-				{#if canDelete}
-					<ContextMenu>
-						<div class="bg-white border border-gray-200 rounded-lg py-2">
-							<button on:click={handleRemove} class="hover:bg-background px-4 py-2">Delete</button>
-						</div>
-					</ContextMenu>
-				{/if}
+				<button
+					on:click={handleRemove}
+					class=" transition-colors hover:bg-gray800 rounded-full p-2"
+				>
+					<div class="h-6 w-6">
+						<Trash />
+					</div>
+				</button>
 				<ContextMenu icon={Share}>
 					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
 						<button

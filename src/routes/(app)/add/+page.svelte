@@ -21,7 +21,7 @@
 			<div><Avatar /></div>
 		</div>
 	</div>
-	<div class="bg-white w-full p-4 flex flex-col gap-4">
+	<div class="bg-white w-full p-4 flex flex-col gap-4 mb-8">
 		<h2 class="font-frank font-bold">Paste a url</h2>
 		<UrlAdder />
 	</div>

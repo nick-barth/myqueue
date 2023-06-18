@@ -18,7 +18,7 @@
 	if (bookmark.published) {
 		const publishDate = parseISO(bookmark.published);
 		try {
-			const formattedDate = format(publishDate, `do MMMM, yyyy`);
+			const formattedDate = format(publishDate, `MMMM do, yyyy`);
 			meta.push(formattedDate);
 		} catch {}
 	}
@@ -26,10 +26,10 @@
 
 <aside class="text-xs leading-6 mb-2">
 	{#if meta.length > 0}
-		{meta.join(' • ')}
+		{meta.join('  •  ')}
 	{/if}
 	{#if bookmark.domain}
-		•
+		•{'  '}
 		<a class="underline" href={bookmark.url} target="_blank">Original article</a>
 	{/if}
 </aside>
