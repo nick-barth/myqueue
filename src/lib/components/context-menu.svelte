@@ -38,7 +38,7 @@
 		<div
 			transition:fly={{ y: -10, duration: 200 }}
 			class="absolute {positionY === 'top'
-				? 'top-2  -translate-y-full'
+				? '-top-2  -translate-y-full'
 				: '-bottom-1  translate-y-full'} {position === 'left' ? 'left-2' : 'right-2'} z-50"
 		>
 			<slot />

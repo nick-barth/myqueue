@@ -12,14 +12,15 @@ module.exports = {
 			},
 			colors: {
 				white: '#ffffff',
-				accent: '#C1EBFF',
+				accent: '#C4E2FC',
 				accent2: '#D8BBFE',
 				primary: '#181818',
 				primary2: '#363636',
 				primary3: '#545454',
 				background: '#F4F4F4',
 				error: '#ef4444',
-				success: '#A8DDA6',
+				success: '#A0E99D',
+				warning: '#FFBB59',
 
 				//gray
 				gray100: '#181818',

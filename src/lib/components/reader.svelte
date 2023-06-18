@@ -19,11 +19,15 @@
 	});
 </script>
 
-<section class="flex w-full items-center flex-col mb-16 px-4 md:px-0">
+<section class="flex w-full items-center flex-col mb-16 bg-white p-8 pt-20">
 	<div class="max-w-2xl">
-		<Button variant="secondary" size="sm" classes="mb-8" handleClick={handleBack}
-			><span class="h-3 w-3"><Arrow /></span>Back</Button
-		>
+		<div class="fixed left-0 right-0 top-0 bg-white p-4 pl-8 flex justify-center">
+			<div class="max-w-2xl w-full">
+				<Button variant="secondary" size="sm" handleClick={handleBack}
+					><span class="h-3 w-3"><Arrow /></span>Back</Button
+				>
+			</div>
+		</div>
 		<p class="text-primary2 mb-4"><BookmarkMeta {bookmark} noReadingTime={true} /></p>
 		<h1 class="text-4xl font-bold mb-8 font-domine">{bookmark.title}</h1>
 		<article class="read text-lg leading-7">{@html bookmark.reader}</article>

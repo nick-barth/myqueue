@@ -10,8 +10,8 @@
 	if (bookmark.authors.length > 0) {
 		meta.push(bookmark.authors.join(', '));
 	}
-	if (bookmark.read_time && !noReadingTime) {
-		const time = Math.floor(bookmark.read_time / 60);
+	if (bookmark?.read_time && !noReadingTime) {
+		const time = Math.floor(bookmark?.read_time / 60);
 		const unit = time > 1 ? 'mins' : 'min';
 		meta.push(`${time} ${unit}`);
 	}
@@ -24,12 +24,12 @@
 	}
 </script>
 
-<aside class="text-sm leading-6 mb-2">
-	{#if bookmark.domain}
-		<a class="underline" href={bookmark.url} target="_blank">{bookmark.domain}</a>
-	{/if}
+<aside class="text-sm leading-6 mb-2 pr-24">
 	{#if meta.length > 0}
-		•
 		{meta.join(' • ')}
+	{/if}
+	{#if bookmark.domain}
+		•
+		<a class="underline" href={bookmark.url} target="_blank">Original article</a>
 	{/if}
 </aside>

@@ -13,10 +13,13 @@ export const pausedStore = writable<boolean>(true);
 export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
+export const planStore = writable<'premium' | null>(null);
+export const paygateStore = writable<'article-limit' | null>(null);
 
 bookmarkStore.subscribe((value) => {
 	if (value && value.length === 0) {
 		bookmarkStore.update((v) => [Welcome]);
+		currentStore.update((v) => Welcome);
 	}
 });
 

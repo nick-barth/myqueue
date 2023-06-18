@@ -6,22 +6,18 @@
 </script>
 
 <div class="w-full p-4">
-	<div class="w-full flex justify-end items-center gap-2 pr-8 mt-8">
-		{#if $page.url.pathname.includes('signup')}
-			<p class="text-sm">I already have an account</p>
-			<Button size="sm" variant="secondary" classes="w-auto">
-				<a href="/signin">Sign in</a>
-			</Button>
-		{:else}
-			<p class="text-sm">I don't have an account</p>
-			<Button size="sm" variant="secondary" classes="w-auto">
-				<a href="/signup">Sign up</a>
-			</Button>
-		{/if}
-	</div>
 	<section class="flex flex-col justify-center items-center mb-16">
 		<div class="w-44 mb-6" title="My queue logo"><LogoWithText /></div>
 		<h2 class="font-bold text-2xl font-domine">Listen to your favorite articles</h2>
 	</section>
 	<slot />
+	<div class="flex flex-col justify-center items-center mt-10">
+		{#if $page.url.pathname.includes('signup')}
+			<p class="text-sm">I already have an account</p>
+			<a href="/signin" class="underline">Sign in</a>
+		{:else}
+			<p class="text-sm">I don't have an account</p>
+			<a href="/signup" class="underline">Sign up</a>
+		{/if}
+	</div>
 </div>

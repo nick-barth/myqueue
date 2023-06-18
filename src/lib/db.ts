@@ -1,10 +1,18 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, FunctionsHttpError } from '@supabase/supabase-js';
 import { get } from 'svelte/store';
-import { userStore, bookmarkStore, currentStore, addToast } from '$lib/store';
+import {
+	userStore,
+	bookmarkStore,
+	currentStore,
+	addToast,
+	planStore,
+	paygateStore
+} from '$lib/store';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
 import mixpanel from 'mixpanel-browser';
+import { paygateStore } from './store';
 
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
@@ -89,15 +97,40 @@ export default {
 		},
 		async post(url: string) {
 			const user = get(userStore);
-			const { data, error } = await supabase.functions.invoke('parse', {
+			const res = await supabase.functions.invoke('parse', {
 				body: { user_id: user?.id, url }
 			});
 
-			bookmarkStore.update((v) => {
-				const currentValue = v ? v : [];
-				return [data[0], ...currentValue];
-			});
-			return { data, error };
+			const { data, error } = res;
+
+			if (error instanceof FunctionsHttpError) {
+				const errorMessage = await error.context.json();
+				if (errorMessage.error == 'TOO_MANY_ARTICLES') {
+					paygateStore.set('article-limit');
+					return;
+				}
+			}
+
+			if (data) {
+				bookmarkStore.update((v) => {
+					const currentValue = v ? v : [];
+					return [data, ...currentValue];
+				});
+				addToast({
+					content: 'Successfully added to queue',
+					type: 'success'
+				});
+
+				mixpanel.track('url added succesfully', { response: url });
+				return { data, error };
+			} else {
+				mixpanel.track('url failed', { url });
+				addToast({
+					content: 'Oops, that did not work, maybe we cannnot read the article',
+					type: 'error'
+				});
+				return false;
+			}
 		}
 	},
 	tts: {
@@ -106,17 +139,39 @@ export default {
 				body: bookmark
 			});
 
-			if (data === 'TOO_MANY_FILES') {
-				mixpanel.track('full of generated files');
-				addToast({
-					timeout: 20000,
-					type: 'info',
-					content:
-						'It’s fantastic to see you’re expanding your queue. However, servers and generating audio content cost money and there is currently a limitation of generated audio with your free plan. We will soon offer upgrades, but until then you have to delete a story before you can add a new one.'
-				});
-				return { error: data };
-			}
 			return { data, error };
+		}
+	},
+	discovery: {
+		async get(source: string) {
+			const { data, error } = await supabase.from('discovery').select().eq('publisher', source);
+			return data;
+		}
+	},
+	billing: {
+		async createCustomerId() {
+			const user = get(userStore);
+			if (!user) {
+				return;
+			}
+			const { data, error } = await supabase.functions.invoke('stripe-create-checkout', {
+				body: {
+					type: 'create_stripe_checkout',
+					id: user.id,
+					email: user.email
+				}
+			});
+			window.open(data.url);
+		},
+		async getUserPlan() {
+			const user = get(userStore);
+			if (!user) {
+				return;
+			}
+			const { data, error } = await supabase.from('profiles').select().eq('id', user.id);
+			if (data[0] && data[0].plan) {
+				planStore.set(data[0].plan);
+			}
 		}
 	}
 };

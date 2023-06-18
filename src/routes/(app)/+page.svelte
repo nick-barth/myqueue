@@ -1,33 +1,43 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	import UrlAdder from '$lib/components/url-adder.svelte';
 	import Bookmark from '$lib/components/bookmark.svelte';
+	import Avatar from '$lib/components/avatar-circle.svelte';
 	import { bookmarkStore } from '$lib/store';
+	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 
 	let totalTime: number = 0;
 
 	$: totalTime =
 		$bookmarkStore?.reduce((acc, bookmark) => {
-			if (bookmark.read_time) {
+			if (bookmark?.read_time) {
 				return acc + bookmark.read_time;
 			}
 			return acc;
 		}, 0) ?? 0;
 </script>
 
-<section class="relative">
-	<UrlAdder />
+<section class="relative pt-10">
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
-		<section class="px-4 md:px-10">
-			<h2 class="font-bold font-domine text-4xl mb-4">My Queue</h2>
-			<p class="text-sm mb-2">
-				Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
-					totalTime / 60
-				)}
-				{Math.floor(totalTime / 60) > 1 ? 'mins' : 'min'}
-			</p>
-		</section>
+		<div class="flex justify-between px-2">
+			<div class="flex items-center gap-2">
+				<div class="w-14">
+					<LogoIcon />
+				</div>
+				<div>
+					<h2 class="font-domine font-bold text-2xl">My Queue</h2>
+					<p class="">
+						Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
+							totalTime / 60
+						)}
+						{Math.floor(totalTime / 60) > 1 ? 'mins' : 'min'}
+					</p>
+				</div>
+			</div>
+			<div class="relative">
+				<Avatar />
+			</div>
+		</div>
 		{#each $bookmarkStore as bookmark (bookmark.id)}
 			<div animate:flip={{ duration: 300 }} in:fade={{ duration: 300 }}>
 				<Bookmark {bookmark} />

@@ -4,6 +4,7 @@
 
 @layer base {
 	html {
+		background-color: #f4f4f4;
 		font-family: 'Source Sans Pro', sans-serif;
 	}
 	* {

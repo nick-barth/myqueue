@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Sparkle from '$lib/icons/sparkle.svg?component';
-	import { addToast } from '$lib/store';
+	import PlusIcon from '$lib/icons/plus-icon.svg?component';
 	import db from '$lib/db';
 	import mixpanel from 'mixpanel-browser';
 
@@ -9,7 +8,7 @@
 	let isLoading: boolean;
 
 	$: error;
-	$: isLoading;
+	$: isLoading = false;
 
 	const handleSubmit = async () => {
 		if (isLoading) {
@@ -31,18 +30,6 @@
 
 		try {
 			const res = await db.bookmarks.post(url);
-
-			mixpanel.track('url added succesfully', { response: url });
-			addToast({
-				content: 'Successfully added to queue',
-				type: 'success'
-			});
-		} catch (err) {
-			mixpanel.track('url failed', { url });
-			addToast({
-				content: 'Oops, that did not work, maybe we cannnot read the article',
-				type: 'error'
-			});
 		} finally {
 			isLoading = false;
 			url = '';
@@ -57,7 +44,7 @@
 	};
 </script>
 
-<div class="w-full max-w-4xl m-auto mr-[385px] px-4 md:px-8 mb-12">
+<div class="w-full">
 	<form on:submit={handleSubmit} class="flex flex-row w-full relative">
 		<input
 			on:paste={handlePaste}
@@ -73,15 +60,16 @@
 			<button
 				type="submit"
 				disabled={isLoading}
-				class="{isLoading
-					? 'gradient-animation'
-					: 'bg-accent2'} transition-all duration-150 rounded-primary h-10 flex gap-2 items-center justify-center px-4 w-full"
+				class="{!isLoading
+					? 'w-10 bg-accent'
+					: 'w-full bg-success'} transition-all duration-150 rounded-primary h-10 w-10 flex gap-2 items-center justify-center"
 				>{#if !isLoading}
-					Save & listen
+					<div class="h-6 w-6 text-primary">
+						<PlusIcon />
+					</div>
 				{:else}
-					Generating audio story
+					<div class="absolute">Generating audio story</div>
 				{/if}
-				<div class="h-6 w-6"><Sparkle /></div>
 			</button>
 		</div>
 	</form>
