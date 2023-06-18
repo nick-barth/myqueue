@@ -12,6 +12,19 @@
 	}
 }
 
+@layer utilities {
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	.no-scrollbar {
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+	}
+}
+
+
 .read div h2 {
 	font-size: 18px;
 	font-weight: bold;
@@ -21,4 +34,20 @@
 
 .read div p {
 	margin-bottom: 12px;
+}
+
+@font-face {
+	font-family: 'Frank Ruhl Libre';
+	src: url('../static/fonts/FrankRuhlLibre-Medium.ttf');
+}
+@font-face {
+	font-family: 'Frank Ruhl Libre';
+	src: url('../static/fonts/FrankRuhlLibre-Bold.ttf');
+}
+@font-face {
+	font-family: 'Frank Ruhl Libre';
+	src: url('../static/fonts/FrankRuhlLibre-Regular.ttf');
+}@font-face {
+	font-family: 'Frank Ruhl Libre';
+	src: url('../static/fonts/FrankRuhlLibre-SemiBold.ttf');
 }

@@ -4,7 +4,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				domine: ['"Domine"', 'serif'],
+				domine: ['"FrankRuhlLibre"', 'serif'],
 				source: ['"Source Sans Pro"', 'sans-serif']
 			},
 			screens: {

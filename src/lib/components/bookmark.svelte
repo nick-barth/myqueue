@@ -134,8 +134,7 @@
 	class="mt-2 list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 bg-white"
 >
 	<div class="w-full flex flex-col">
-		<h2 class="flex font-bold text-md font-domine gap-4 justify-between">
-			{bookmark.title}
+		<div class="flex flex-row-reverse">
 			{#if bookmark.image}
 				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
 					<div
@@ -146,11 +145,18 @@
 					/>
 				</div>
 			{/if}
-		</h2>
-		<p class="line-clamp-4 my-2 leading-7 overflow-hidden pr-24">
-			{bookmark.content}
-		</p>
-		<BookmarkMeta {bookmark} noReadingTime />
+			<div>
+				<h2
+					class="flex font-bold text-lg leading-6 md:text-xl md:leading-7 font-FrankRhulLibre gap-4 justify-between"
+				>
+					{bookmark.title}
+				</h2>
+				<p class="line-clamp-4 my-2 leading-5 overflow-hidden">
+					{bookmark.content}
+				</p>
+				<BookmarkMeta {bookmark} noReadingTime />
+			</div>
+		</div>
 		<div
 			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
 		>

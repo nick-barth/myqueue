@@ -40,7 +40,7 @@
 			<aside class="relative flex items-end p-4 col-span-2">
 				{#if $currentStore}
 					<div
-						class="left-0 fixed h-28 bottom-28 w-full bg-white"
+						class="left-0 fixed h-28 bottom-28 w-full bg-white shadow-2xl"
 						transition:fly={{ y: 200, duration: 300 }}
 					>
 						<DiscoveryBar />

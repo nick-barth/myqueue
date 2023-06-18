@@ -14,7 +14,7 @@
 							<PlusIcon />
 						</div>
 					</div>
-					<h2 class="font-domine text-xl font-bold">Add</h2>
+					<h2 class="font-FrankRhulLibre text-xl font-bold">Add</h2>
 				</div>
 				<p class="text-sm">Add a story manually</p>
 			</div>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="bg-white w-full p-4 flex flex-col gap-4">
-		<h2 class="font-domine font-bold">Paste a url</h2>
+		<h2 class="font-FrankRhulLibre font-bold">Paste a url</h2>
 		<UrlAdder />
 	</div>
 </section>

@@ -21,12 +21,12 @@
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
 		<div class="flex justify-between px-2">
 			<div class="flex items-center gap-2">
-				<div class="w-14">
+				<div class="w-11 h-14">
 					<LogoIcon />
 				</div>
 				<div>
-					<h2 class="font-domine font-bold text-2xl">My Queue</h2>
-					<p class="">
+					<h2 class="font-FrankRhulLibre font-bold text-2xl">My Queue</h2>
+					<p class="text-sm">
 						Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
 							totalTime / 60
 						)}

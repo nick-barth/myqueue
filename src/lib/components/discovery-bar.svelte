@@ -3,7 +3,9 @@
 	import { page } from '$app/stores';
 </script>
 
-<aside class="flex w-full overflow-scroll h-full items-center max-w-2xl m-auto md:justify-center">
+<aside
+	class="flex w-full overflow-scroll h-full items-center max-w-2xl m-auto md:justify-center no-scrollbar"
+>
 	<a href={`/`} class="list-none px-2 flex flex-col text-sm items-center flex-shrink-0">
 		<img
 			class="h-[60px] w-[60px] rounded-full flex-shrink-0 border-4 border-solid border-white {$page
