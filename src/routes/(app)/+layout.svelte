@@ -32,7 +32,7 @@
 		<Paygate />
 	{/if}
 	<Toasts />
-	<div class={`mb-80 ${hasWiteBg ? 'bg-white' : 'bg-gray950'}`}>
+	<div class={`pb-80 ${hasWiteBg ? 'bg-white' : 'bg-gray950'}`}>
 		<div class="">
 			<main class={`max-w-2xl m-auto w-full`}>
 				{#if !isLoading}
