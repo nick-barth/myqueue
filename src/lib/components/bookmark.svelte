@@ -220,7 +220,7 @@
 					</Button>
 				{/if}
 			</div>
-			<div class="text-sm flex items-center">
+			<div class="text-sm flex items-center -ml-[10px]">
 				<button
 					on:click={handleRemove}
 					class=" transition-colors hover:bg-background rounded-full p-2"

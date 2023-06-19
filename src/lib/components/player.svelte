@@ -110,37 +110,42 @@
 			]
 		});
 	}
+
+	let isExpanded = false;
 </script>
 
-<aside class="flex px-6">
-	<div class="max-w-2xl relative m-auto w-full">
-		<div class="absolute -top-2 w-full">
-			<PlayerControls {currentTime} {duration} {setNewTime} />
-		</div>
-		<div class="flex pt-4 mt-8 justify-between items-center gap-4">
-			<h2
-				class="flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank"
-			>
-				{bookmark.title}
-			</h2>
-			<button
-				on:click={handleTogglePlay}
-				disabled={!bookmark.audio}
-				title="Toggles play"
-				class="bg-primary self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-backgroundDark"
-			>
-				{#if $pausedStore}
-					<div in:fade={{ duration: 100 }} class="w-4 h-4">
-						<PlayButton />
-					</div>
-				{:else}
-					<div in:fade={{ duration: 100 }} class="w-4 h-4">
-						<PauseButton />
-					</div>
-				{/if}
-			</button>
-			<!-- replace when working -->
-			<!-- <div class="w-full mt-2 flex items-center justify-between">
+<div
+	class={`left-0 fixed ${isExpanded ? 'h-56' : 'h-28'} transition-all bottom-0 w-full bg-accent`}
+>
+	<aside class="flex px-6">
+		<div class="max-w-2xl relative m-auto w-full">
+			<div class="absolute -top-2 w-full">
+				<PlayerControls {currentTime} {duration} {setNewTime} />
+			</div>
+			<div class="flex pt-4 mt-8 justify-between items-center gap-4">
+				<h2
+					class="flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank"
+				>
+					{bookmark.title}
+				</h2>
+				<button
+					on:click={handleTogglePlay}
+					disabled={!bookmark.audio}
+					title="Toggles play"
+					class="bg-primary self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-backgroundDark"
+				>
+					{#if $pausedStore}
+						<div in:fade={{ duration: 100 }} class="w-4 h-4">
+							<PlayButton />
+						</div>
+					{:else}
+						<div in:fade={{ duration: 100 }} class="w-4 h-4">
+							<PauseButton />
+						</div>
+					{/if}
+				</button>
+				<!-- replace when working -->
+				<!-- <div class="w-full mt-2 flex items-center justify-between">
 			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
 			<button on:click={handleBackward} title="Skips backwards 15 seconds">
 				<PlayerBackward />
@@ -155,22 +160,23 @@
 				<PlayerRepeat />
 			</button>
 		</div> -->
+			</div>
+			{#if bookmark.audio}
+				<audio
+					autoplay={false}
+					class="hidden"
+					bind:volume
+					bind:duration
+					bind:currentTime
+					bind:paused={$pausedStore}
+					bind:playbackRate
+					on:ended={handleEnded}
+					src={bookmark.audio.includes('/public_audio/')
+						? bookmark.audio
+						: `${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+					bind:this={$audioStore}
+				/>
+			{/if}
 		</div>
-		{#if bookmark.audio}
-			<audio
-				autoplay={false}
-				class="hidden"
-				bind:volume
-				bind:duration
-				bind:currentTime
-				bind:paused={$pausedStore}
-				bind:playbackRate
-				on:ended={handleEnded}
-				src={bookmark.audio.includes('/public_audio/')
-					? bookmark.audio
-					: `${PUBLIC_STORAGE_URL}${bookmark.audio}`}
-				bind:this={$audioStore}
-			/>
-		{/if}
-	</div>
-</aside>
+	</aside>
+</div>

@@ -47,12 +47,7 @@
 					>
 						<DiscoveryBar />
 					</div>
-					<div
-						class="left-0 fixed h-28 bottom-0 w-full bg-accent"
-						transition:fly={{ y: 200, duration: 300 }}
-					>
-						<Player bookmark={$currentStore} />
-					</div>
+					<Player bookmark={$currentStore} />
 				{/if}
 			</aside>
 		</div>
