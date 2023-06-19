@@ -30,6 +30,7 @@
 	class=" 
         {colours[variant]} 
         {sizes[size]}
+		text-sm
         transition-all duration-150
         rounded-primary flex gap-2 items-center justify-center px-4
         disabled:bg-gray800
