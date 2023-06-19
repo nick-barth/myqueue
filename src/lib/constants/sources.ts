@@ -1,26 +1,32 @@
 export const sources = [
 	{
 		title: 'Medium',
-		source: 'medium'
+		source: 'medium',
+		domain: 'medium.com'
 	},
 	{
 		title: 'Guardian',
-		source: 'guardian'
+		source: 'guardian',
+		domain: 'theguardian.com'
 	},
 	{
 		title: 'TechCrunch',
-		source: 'techcrunch'
+		source: 'techcrunch',
+		domain: 'techcrunch.com'
 	},
 	{
 		title: 'NYT',
-		source: 'newyorktimes'
+		source: 'newyorktimes',
+		domain: 'nytimes.com'
 	},
 	{
 		title: 'CNN',
-		source: 'cnn'
+		source: 'cnn',
+		domain: 'cnn.com'
 	},
 	{
 		title: 'BBC',
-		source: 'bbc'
+		source: 'bbc',
+		domain: 'bbc.co.uk'
 	}
 ];

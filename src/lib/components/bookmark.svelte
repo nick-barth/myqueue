@@ -23,6 +23,7 @@
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
 	import mixpanel from 'mixpanel-browser';
+	import { sources } from '$lib/constants/sources';
 
 	export let bookmark: BookmarkType;
 	export let isDiscovery: Boolean = false;
@@ -119,11 +120,22 @@
 		}
 	};
 
+	const getBookmarkDomain = () => {
+		const domain = bookmark.domain;
+		if (!domain) {
+			return null;
+		}
+		const sourceDomains = sources.map((s: any) => s.domain);
+		const source = sourceDomains.find((s: any) => domain.includes(s));
+		return source;
+	};
+
+	$: bookmarkDomain = getBookmarkDomain();
+
 	const handleAddToQueue = async () => {
 		if (!bookmark.url) {
 			return;
 		}
-
 		mixpanel.track('discovery add', { bookmark: bookmark });
 		isGenerating = true;
 		await db.bookmarks.post(bookmark.url);
