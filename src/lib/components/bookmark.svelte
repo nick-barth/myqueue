@@ -170,7 +170,7 @@
 					<button
 						on:click={handleRead}
 						class={`
-						rounded-primary text-primary text-sm font-semibold px-4 py-2 bg-gray950 h-10`}
+						rounded-primary text-primary text-sm px-4 py-2 bg-background h-10`}
 					>
 						Read
 					</button>
@@ -211,7 +211,7 @@
 			<div class="text-sm flex items-center">
 				<button
 					on:click={handleRemove}
-					class=" transition-colors hover:bg-gray800 rounded-full p-2"
+					class=" transition-colors hover:bg-background rounded-full p-2"
 				>
 					<div class="h-6 w-6">
 						<Trash />

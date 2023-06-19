@@ -50,7 +50,7 @@
 			on:paste={handlePaste}
 			bind:value={url}
 			placeholder="Paste a URL"
-			class="w-full h-12 pl-6 rounded-primary pr-24 outline-none bg-gray900"
+			class="w-full h-12 pl-6 rounded-primary pr-24 outline-none bg-background"
 		/>
 		<div
 			class="absolute top-1 right-1 transition-all duration-300 {isLoading

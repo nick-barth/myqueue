@@ -127,7 +127,7 @@
 				on:click={handleTogglePlay}
 				disabled={!bookmark.audio}
 				title="Toggles play"
-				class="bg-primary hover:bg-gray200 self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-gray500"
+				class="bg-primary self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-backgroundDark"
 			>
 				{#if $pausedStore}
 					<div in:fade={{ duration: 100 }} class="w-4 h-4">

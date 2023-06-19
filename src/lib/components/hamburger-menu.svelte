@@ -77,7 +77,7 @@
 			<a
 				on:click={() => (isOpen = false)}
 				href="/"
-				class="flex flex-row items-center gap-4 px-4 mb-12 hover:bg-gray950"
+				class="flex flex-row items-center gap-4 px-4 mb-12 hover:bg-background"
 			>
 				<div class="w-6 h-6">
 					<LogoIcon />
@@ -89,8 +89,8 @@
 				<a
 					on:click={() => (isOpen = false)}
 					href={`/discover/${source.source}`}
-					class=" list-none py-3 w-full hover:bg-gray950 px-4 flex items-center gap-4
-                    {$page.params.source === source.source && 'bg-gray950'}"
+					class=" list-none py-3 w-full hover:bg-background px-4 flex items-center gap-4
+                    {$page.params.source === source.source && 'bg-background'}"
 				>
 					<img class="h-8 w-8" src="/images/sources/{source.source}.png" alt={source.title} />
 					{source.title}

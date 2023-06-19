@@ -11,9 +11,9 @@
 	export let isDisabled: boolean = false;
 
 	const colours = {
-		primary: 'bg-primary hover:bg-gray200 text-white',
+		primary: 'bg-primary  text-white',
 		accent: 'bg-accent text-primary',
-		secondary: ' bg-gray-300 hover:bg-gray800 text-primary',
+		secondary: ' bg-gray-300  text-primary',
 		success: 'bg-success text-text'
 	};
 
@@ -33,7 +33,6 @@
 		text-sm
         transition-all duration-150
         rounded-primary flex gap-2 items-center justify-center px-4
-        disabled:bg-gray800
         {classes}
         {isPartyMode && 'gradient-animation '}
         "

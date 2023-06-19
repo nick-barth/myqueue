@@ -28,7 +28,7 @@
 	{#if $$slots.icon}
 		<slot name="icon" />
 	{:else}
-		<div class=" transition-colors hover:bg-gray800 rounded-full p-2">
+		<div class=" transition-colors hover:bg-background rounded-full p-2">
 			<div class="h-6 w-6">
 				{#if icon} <svelte:component this={icon} /> {:else}<KebabMenu />{/if}
 			</div>
