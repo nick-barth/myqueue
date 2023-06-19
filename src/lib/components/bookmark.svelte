@@ -135,7 +135,7 @@
 	class="mt-2 list-none transition-colors ease-in-out duration-150 md:flex md:flex-row p-6 bg-white"
 >
 	<div class="w-full flex flex-col">
-		<div class="flex flex-row-reverse gap-2">
+		<div class="flex flex-row-reverse gap-4">
 			{#if bookmark.image}
 				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
 					<div

@@ -13,7 +13,7 @@
 	const colours = {
 		primary: 'bg-primary  text-white',
 		accent: 'bg-accent text-primary',
-		secondary: ' bg-gray-300  text-primary',
+		secondary: 'bg-background  text-primary',
 		success: 'bg-success text-text'
 	};
 
