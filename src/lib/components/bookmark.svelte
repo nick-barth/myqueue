@@ -121,6 +121,7 @@
 	};
 	let bookmarkDomain: any;
 
+	// Wtf fix this, and figure out how to do big computed properties in svelte
 	$: {
 		if (!bookmark.domain) {
 			bookmarkDomain = null;
