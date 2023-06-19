@@ -119,18 +119,21 @@
 			isGenerating = false;
 		}
 	};
+	let bookmarkDomain: any;
 
-	const getBookmarkDomain = () => {
-		const domain = bookmark.domain;
-		if (!domain) {
-			return null;
+	$: {
+		if (!bookmark.domain) {
+			bookmarkDomain = null;
+		} else {
+			const domain = bookmark.domain;
+			const source = sources.find((s: any) => domain.includes(s.domain));
+			if (!source) {
+				bookmarkDomain = null;
+			} else {
+				bookmarkDomain = source.source;
+			}
 		}
-		const sourceDomains = sources.map((s: any) => s.domain);
-		const source = sourceDomains.find((s: any) => domain.includes(s));
-		return source;
-	};
-
-	$: bookmarkDomain = getBookmarkDomain();
+	}
 
 	const handleAddToQueue = async () => {
 		if (!bookmark.url) {
@@ -147,6 +150,13 @@
 	class="mt-2 list-none transition-colors ease-in-out duration-150 md:flex md:flex-row p-6 bg-white"
 >
 	<div class="w-full flex flex-col">
+		{#if bookmarkDomain}
+			<img
+				src={`/images/sources/banners/${bookmarkDomain}.png`}
+				alt={bookmarkDomain}
+				class="mb-2 w-32 h-18"
+			/>
+		{/if}
 		<div class="flex flex-row-reverse gap-4">
 			{#if bookmark.image}
 				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
