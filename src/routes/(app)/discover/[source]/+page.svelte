@@ -16,10 +16,10 @@
 <div>
 	<div class="flex justify-between px-2 pt-10">
 		<div>
-			<h2 class="font-bold text-2xl leading-6 font-frank">
+			<h2 class="font-bold text-2xl leading-6 font-frank mb-1">
 				{sources[data.source]}
 			</h2>
-			<p class="text-sm">Today</p>
+			<p class="text-sm pl-0.5">Today</p>
 		</div>
 		<div class="relative">
 			<Avatar />
