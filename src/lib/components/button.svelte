@@ -31,7 +31,7 @@
         {colours[variant]} 
         {sizes[size]}
         transition-all duration-150
-        rounded-primary flex gap-2 items-center justify-center px-4 font-semibold
+        rounded-primary flex gap-2 items-center justify-center px-4
         disabled:bg-gray800
         {classes}
         {isPartyMode && 'gradient-animation '}
