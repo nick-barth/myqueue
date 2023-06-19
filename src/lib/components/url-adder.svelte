@@ -2,6 +2,7 @@
 	import PlusIcon from '$lib/icons/plus-icon.svg?component';
 	import db from '$lib/db';
 	import mixpanel from 'mixpanel-browser';
+	import LoadingDots from './loading-dots.svelte';
 
 	let error: string | null;
 	let url: string;
@@ -62,13 +63,13 @@
 				disabled={isLoading}
 				class="{!isLoading
 					? 'w-10 bg-accent'
-					: 'w-full bg-success'} transition-all duration-150 rounded-primary h-10 w-10 flex gap-2 items-center justify-center"
+					: 'w-full gradient-animation'} transition-all duration-150 rounded-primary h-10 w-10 flex gap-2 items-center justify-center"
 				>{#if !isLoading}
 					<div class="h-6 w-6 text-primary">
 						<PlusIcon />
 					</div>
 				{:else}
-					<div class="absolute">Generating audio story</div>
+					<div class="absolute flex items-center gap-2">Generating audio story <LoadingDots /></div>
 				{/if}
 			</button>
 		</div>
@@ -117,7 +118,7 @@
 		}
 	}
 	.gradient-animation {
-		background: linear-gradient(90deg, #c1ebff, #d8bbfe);
+		background: linear-gradient(90deg, #c4e2fc, #a0e99d);
 		background-size: 400% 400%;
 
 		-webkit-animation: gradient 1.5s ease infinite;
