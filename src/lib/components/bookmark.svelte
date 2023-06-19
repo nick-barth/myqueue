@@ -132,7 +132,7 @@
 </script>
 
 <li
-	class="mt-2 list-none px-4 transition-colors ease-in-out duration-150 md:flex md:flex-row md:px-10 pt-10 bg-white"
+	class="mt-2 list-none transition-colors ease-in-out duration-150 md:flex md:flex-row p-6 bg-white"
 >
 	<div class="w-full flex flex-col">
 		<div class="flex flex-row-reverse gap-2">
@@ -148,7 +148,7 @@
 			{/if}
 			<div>
 				<h2
-					class="flex font-bold text-xl leading-6 md:text-xl md:leading-7 font-frank gap-4 justify-between"
+					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank gap-4 justify-between"
 				>
 					{bookmark.title}
 				</h2>
@@ -158,9 +158,7 @@
 				<BookmarkMeta {bookmark} noReadingTime />
 			</div>
 		</div>
-		<div
-			class="flex w-full pb-8 py-6 border-b border-b-background items-center flex-row-reverse justify-between"
-		>
+		<div class="flex w-ful items-center flex-row-reverse justify-between">
 			<div class="flex gap-2 items-center">
 				{#if !isDiscovery}
 					{#if bookmark && bookmark.read_time}
@@ -172,16 +170,11 @@
 					<button
 						on:click={handleRead}
 						class={`
-						rounded-primary text-primary text-sm font-semibold px-4 py-2 bg-gray950`}
+						rounded-primary text-primary text-sm font-semibold px-4 py-2 bg-gray950 h-10`}
 					>
 						Read
 					</button>
-					<Button
-						size="sm"
-						classes="w-10"
-						handleClick={handlePlay}
-						isPartyMode={isGenerating || currentlyPlaying}
-					>
+					<Button size="sm" classes="w-10" handleClick={handlePlay}>
 						<div class="flex items-center gap-2">
 							{#if currentlyPlaying}
 								<div class="h-3 w-3 overflow-hidden"><PauseButton /></div>

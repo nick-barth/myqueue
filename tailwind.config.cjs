@@ -31,7 +31,7 @@ module.exports = {
 				gray600: '#a3a3a3',
 				gray700: '#bababa',
 				gray800: '#D1D1D1',
-				gray900: '#e8e8e8',
+				gray900: '#EEEEEE',
 				gray950: '#f4f4f4'
 			},
 			borderRadius: {

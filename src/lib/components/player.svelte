@@ -117,7 +117,7 @@
 		<div class="absolute -top-2 w-full">
 			<PlayerControls {currentTime} {duration} {setNewTime} />
 		</div>
-		<div class="flex p-4 mt-8 justify-between items-center gap-4">
+		<div class="flex pt-4 mt-8 justify-between items-center gap-4">
 			<h2
 				class="flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank"
 			>

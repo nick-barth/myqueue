@@ -24,7 +24,7 @@
 	}
 </script>
 
-<aside class="text-xs leading-6 mb-2">
+<aside class="text-xs leading-[18px] mb-2">
 	{#if meta.length > 0}
 		{meta.join('  •  ')}
 	{/if}
