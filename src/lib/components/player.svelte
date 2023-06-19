@@ -11,6 +11,7 @@
 
 	import PlayerControls from '$lib/components/player-controls.svelte';
 
+	import DoubleUpArrow from '$lib/icons/double-up-arrow.svg?component';
 	import PlayButton from '$lib/icons/play-button.svg?component';
 	import PauseButton from '$lib/icons/pause-button.svg?component';
 	import PlayerBackward from '$lib/icons/player-backward.svg?component';
@@ -117,49 +118,80 @@
 <div
 	class={`left-0 fixed ${isExpanded ? 'h-56' : 'h-28'} transition-all bottom-0 w-full bg-accent`}
 >
-	<aside class="flex px-6">
-		<div class="max-w-2xl relative m-auto w-full">
+	<aside class="flex px-6 h-full">
+		<div class="max-w-2xl relative m-auto w-full h-full">
+			<button
+				class={`h-6 w-6 absolute left-1/2 -translate-x-1/2 top-2 z-50 ${
+					isExpanded && 'rotate-180'
+				}`}
+				on:click={() => (isExpanded = !isExpanded)}><DoubleUpArrow /></button
+			>
 			<div class="absolute -top-2 w-full">
 				<PlayerControls {currentTime} {duration} {setNewTime} />
 			</div>
-			<div class="flex pt-4 mt-8 justify-between items-center gap-4">
-				<h2
-					class="flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank"
-				>
-					{bookmark.title}
-				</h2>
-				<button
-					on:click={handleTogglePlay}
-					disabled={!bookmark.audio}
-					title="Toggles play"
-					class="bg-primary self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-backgroundDark"
-				>
-					{#if $pausedStore}
-						<div in:fade={{ duration: 100 }} class="w-4 h-4">
-							<PlayButton />
-						</div>
-					{:else}
-						<div in:fade={{ duration: 100 }} class="w-4 h-4">
-							<PauseButton />
-						</div>
+			<div class="flex flex-col justify-between h-full">
+				<div class="flex pt-4 mt-8 justify-between items-center gap-4">
+					<h2
+						class={`flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
+							isExpanded && 'justify-center mt-4'
+						}`}
+					>
+						{bookmark.title}
+					</h2>
+					{#if !isExpanded}
+						<button
+							on:click={handleTogglePlay}
+							disabled={!bookmark.audio}
+							title="Toggles play"
+							class="bg-primary self-end flex-shrink-0 rounded-full h-10 w-10 flex items-center justify-center text-accent disabled:bg-backgroundDark"
+						>
+							{#if $pausedStore}
+								<div in:fade={{ duration: 100 }} class="w-4 h-4">
+									<PlayButton />
+								</div>
+							{:else}
+								<div in:fade={{ duration: 100 }} class="w-4 h-4">
+									<PauseButton />
+								</div>
+							{/if}
+						</button>
 					{/if}
-				</button>
-				<!-- replace when working -->
-				<!-- <div class="w-full mt-2 flex items-center justify-between">
-			<button on:click={handlePlayBackClick} class="text-sm w-4"> {currentSpeedLabel} </button>
-			<button on:click={handleBackward} title="Skips backwards 15 seconds">
-				<PlayerBackward />
-			</button>
-			<button on:click={handleForward} title="Skips forwards 15 seconds">
-				<PlayerForward />
-			</button>
-			<button
-				class="h-4 w-4 {infinitePlay ? 'text-primary' : 'text-gray-500'}"
-				on:click={() => (infinitePlay = !infinitePlay)}
-			>
-				<PlayerRepeat />
-			</button>
-		</div> -->
+				</div>
+				{#if isExpanded}
+					<div class="w-full mb-4 flex items-center justify-between">
+						<button on:click={handlePlayBackClick} class="text-sm w-4">
+							{currentSpeedLabel}
+						</button>
+						<button on:click={handleBackward} title="Skips backwards 15 seconds">
+							<PlayerBackward />
+						</button>
+						<button
+							on:click={handleTogglePlay}
+							disabled={!bookmark.audio}
+							title="Toggles play"
+							class="bg-primary self-end flex-shrink-0 rounded-full h-14 w-14 flex items-center justify-center text-accent disabled:bg-backgroundDark"
+						>
+							{#if $pausedStore}
+								<div in:fade={{ duration: 100 }} class="w-4 h-4">
+									<PlayButton />
+								</div>
+							{:else}
+								<div in:fade={{ duration: 100 }} class="w-4 h-4">
+									<PauseButton />
+								</div>
+							{/if}
+						</button>
+						<button on:click={handleForward} title="Skips forwards 15 seconds">
+							<PlayerForward />
+						</button>
+						<button
+							class="h-4 w-4 {infinitePlay ? 'text-primary' : 'text-gray-500'}"
+							on:click={() => (infinitePlay = !infinitePlay)}
+						>
+							<PlayerRepeat />
+						</button>
+					</div>
+				{/if}
 			</div>
 			{#if bookmark.audio}
 				<audio
