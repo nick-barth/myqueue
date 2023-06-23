@@ -50,14 +50,14 @@
 
 	<form class="flex gap-4 flex-col" use:form>
 		<input
-			class="h-12 gap-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
+			class="h-12 mb-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
 			name="email"
 			type="email"
 			placeholder="Email"
 			required
 		/>
 		<input
-			class="h-12 gap-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
+			class="h-12 mb-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
 			name="password"
 			type="password"
 			placeholder="Password"

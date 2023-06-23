@@ -5,6 +5,8 @@
 	import db from '$lib/db';
 	import { createForm } from 'felte';
 
+	import { PUBLIC_STRIPE_CUSTOMER_PORTAL } from '$env/static/public';
+
 	import { validator } from '@felte/validator-zod';
 	import * as zod from 'zod';
 
@@ -48,19 +50,21 @@
 			</span>
 			Sign up with google
 		</button>
+		absolutely eat my poo
+		{PUBLIC_STRIPE_CUSTOMER_PORTAL}
 
 		<span class="flex self-center my-4 text-sm"> OR </span>
 
 		<form class="flex gap-4 flex-col" use:form>
 			<input
-				class="h-12 gap-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
+				class="h-12 mb-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
 				name="email"
 				type="email"
 				placeholder="Email"
 				required
 			/>
 			<input
-				class="h-12 gap-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
+				class="h-12 mb-2 pl-4 w-full flex justify-center items-center text-primary rounded-primary border border-gray-300 bg-background"
 				name="password"
 				type="password"
 				placeholder="Password"
