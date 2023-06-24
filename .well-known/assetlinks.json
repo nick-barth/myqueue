@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "so.play.myqueue",
+                 "sha256_cert_fingerprints": ["54:43:9D:6D:46:F5:1F:C3:EC:AD:D0:01:38:75:F0:06:79:F0:61:73:B3:6B:93:5D:01:81:A1:68:F7:19:7F:35"] }
+  }]
