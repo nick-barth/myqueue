@@ -7,10 +7,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 const config: CapacitorConfig = {
 	appId: 'so.play.myqueue',
 	appName: 'My Queue',
-	webDir: 'build',
-	server: {
-		androidScheme: 'https'
-	}
+	webDir: 'build'
 };
 
 export default config;

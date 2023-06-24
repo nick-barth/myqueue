@@ -7,9 +7,7 @@
 	import { onMount } from 'svelte';
 	import db, { supabase } from '$lib/db';
 	import { PUBLIC_MIXPANEL_KEY, PUBLIC_TITLE } from '$env/static/public';
-
-	import { App, URLOpenListenerEvent } from '@capacitor/app';
-
+	import { App, type URLOpenListenerEvent } from '@capacitor/app';
 	import mixpanel from 'mixpanel-browser';
 
 	mixpanel.init(PUBLIC_MIXPANEL_KEY);
@@ -19,15 +17,11 @@
 		user = v;
 	});
 
-	App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-		// Example url: https://beerswift.app/tabs/tab2
-		// slug = /tabs/tab2
-		const slug = event.url.split('.app').pop();
+	App.addListener('appUrlOpen', function (event: URLOpenListenerEvent) {
+		const slug = event.url.split('.so').pop();
 		if (slug) {
-			history.push(slug);
+			goto(slug);
 		}
-		// If no match, do nothing - let regular routing
-		// logic take over
 	});
 
 	onMount(() => {
