@@ -106,6 +106,7 @@ export default {
 			if (error instanceof FunctionsHttpError) {
 				const errorMessage = await error.context.json();
 				if (errorMessage.error == 'TOO_MANY_ARTICLES') {
+					mixpanel.track('article limit hit', { response: url });
 					paygateStore.set('article-limit');
 					return;
 				}
