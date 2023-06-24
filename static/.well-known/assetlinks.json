@@ -1,25 +1,5 @@
 [{
     "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "so.play.myqueue",
-      "sha256_cert_fingerprints":
-      ["C0:E4:EA:8A:C6:B6:F1:C5:20:E1:2F:07:5F:9F:C8:CB:41:1D:E9:74:45:73:A0:E1:BF:1A:34:8D:E4:37:DE:0F"]
-    }
-  },
-  {
-    "relation": ["delegate_permission/common.get_login_creds"],
-    "target": {
-      "namespace": "web",
-      "site": "https://play.myqueue.so"
-    }
-  },
-  {
-    "relation": ["delegate_permission/common.get_login_creds"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "so.play.myqueue",
-      "sha256_cert_fingerprints":
-      ["C0:E4:EA:8A:C6:B6:F1:C5:20:E1:2F:07:5F:9F:C8:CB:41:1D:E9:74:45:73:A0:E1:BF:1A:34:8D:E4:37:DE:0F"]
-    }
+    "target" : { "namespace": "android_app", "package_name": "so.play.myqueue",
+                 "sha256_cert_fingerprints": ["F9:62:BF:BD:75:5A:FE:CC:8F:38:88:56:33:BF:82:B0:A5:F1:36:50:EB:78:58:9B:1A:25:57:C6:C6:7C:7C:DB"] }
   }]
