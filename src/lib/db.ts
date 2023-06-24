@@ -13,6 +13,7 @@ import type { Database } from '$types/supabase';
 import type { BookmarkType } from '$types/types';
 import mixpanel from 'mixpanel-browser';
 import { paygateStore } from './store';
+import { Capacitor } from '@capacitor/core';
 
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
@@ -21,8 +22,6 @@ export default {
 		const res = await supabase.auth.signInWithOAuth({
 			provider: 'google'
 		});
-
-		return res;
 	},
 	async signUp(email: string, password: string) {
 		const res = await supabase.auth.signUp({
