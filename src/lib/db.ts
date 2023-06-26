@@ -20,10 +20,7 @@ export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPAB
 export default {
 	async signInWithGoogle() {
 		const res = await supabase.auth.signInWithOAuth({
-			provider: 'google',
-			options: {
-				redirectTo: 'so.play.myqueue://auth'
-			}
+			provider: 'google'
 		});
 	},
 	async signUp(email: string, password: string) {
