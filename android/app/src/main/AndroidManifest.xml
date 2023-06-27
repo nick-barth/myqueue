@@ -21,7 +21,7 @@
 			android:launchMode="singleTask"
 			android:exported="true"
 		>
-			<tools:validation testUrl="http://play.myqueue.so" />
+			<tools:validation testUrl="https://play.myqueue.so" />
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
