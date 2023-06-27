@@ -1,14 +1,5 @@
-[
-    {
-       "relation":[
-          "delegate_permission/common.handle_all_urls"
-       ],
-       "target":{
-          "namespace":"android_app",
-          "package_name":"so.myqueue.play",
-          "sha256_cert_fingerprints":[
-             "7A:0F:54:71:A9:CC:EE:95:4F:19:DF:7A:0D:F6:00:E7:CE:D4:49:32:63:55:CF:67:7E:61:39:59:C0:A5:72:7F"
-          ]
-       }
-    }
- ]
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "so.myqueue.play",
+                 "sha256_cert_fingerprints": ["F9:62:BF:BD:75:5A:FE:CC:8F:38:88:56:33:BF:82:B0:A5:F1:36:50:EB:78:58:9B:1A:25:57:C6:C6:7C:7C:DB"] }
+  }]
