@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import db, { supabase } from '$lib/db';
 	import { PUBLIC_MIXPANEL_KEY, PUBLIC_TITLE } from '$env/static/public';
+	import { App, type URLOpenListenerEvent } from '@capacitor/app';
 
 	import mixpanel from 'mixpanel-browser';
 
@@ -38,6 +39,19 @@
 			} else if (event == 'SIGNED_OUT') {
 				userStore.set(null);
 				goto('/signin');
+			}
+		});
+
+		App.addListener('appUrlOpen', function (event: URLOpenListenerEvent) {
+			// Example url: https://beerswift.app/tabs/tabs2
+			// slug = /tabs/tabs2
+			const slug = event.url.split('.app').pop();
+
+			// We only push to the route if there is a slug present
+			if (slug) {
+				router.push({
+					path: slug
+				});
 			}
 		});
 	});
