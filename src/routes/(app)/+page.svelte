@@ -20,8 +20,8 @@
 <section class="relative pt-10">
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
 		<div class="flex justify-between px-6 mb-4">
-			<div class="flex items-center gap-2">
-				<div class="w-11 h-14">
+			<div class="flex items-center">
+				<div class="w-11 h-14 mr-2">
 					<LogoIcon />
 				</div>
 				<div>
