@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
-	import {
-		currentStore,
-		audioStore,
-		pausedStore,
-		handleTogglePlay,
-		bookmarkStore
-	} from '$lib/store';
+	import { currentStore, audioStore, pausedStore, bookmarkStore } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
+	import { MediaSession } from '@jofr/capacitor-media-session';
 	import PlayerControls from '$lib/components/player-controls.svelte';
 
 	import DoubleUpArrow from '$lib/icons/double-up-arrow.svg?component';
@@ -19,6 +14,11 @@
 	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
 
 	import type { BookmarkType } from '$types/types';
+	import { get } from 'svelte/store';
+	import mixpanel from 'mixpanel-browser';
+	import { onMount } from 'svelte';
+
+	import { handleTogglePlay } from '../utils/media-service';
 
 	export let bookmark: BookmarkType;
 
@@ -28,6 +28,53 @@
 	let playbackRate: number = 1;
 	let currentSpeedLabel: string = '1x';
 	let infinitePlay: boolean = true;
+
+	const getMetaData = () => {
+		return {
+			title: bookmark.title || 'My Queue',
+			artist: bookmark.domain || 'My Queue',
+			artwork: [
+				{
+					src: bookmark.image || '',
+					sizes: '96x96',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '128x128',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '192x192',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '256x256',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '384x384',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '512x512',
+					type: 'image/png'
+				}
+			]
+		};
+	};
+
+	const updateMediaPlayer = () => {
+		MediaSession.setPositionState({
+			position: currentTime,
+			duration: duration,
+			playbackRate: playbackRate
+		});
+	};
 
 	const handleEnded = () => {
 		if ($bookmarkStore && $bookmarkStore?.length > 1) {
@@ -47,6 +94,7 @@
 		} else {
 			currentTime = currentTime - 15;
 		}
+		updateMediaPlayer();
 	};
 	const handleForward = () => {
 		if (currentTime + 15 > duration) {
@@ -54,10 +102,12 @@
 		} else {
 			currentTime = currentTime + 15;
 		}
+		updateMediaPlayer();
 	};
 
 	const setNewTime = (newTime: number) => {
 		currentTime = newTime;
+		updateMediaPlayer();
 	};
 
 	const handlePlayBackClick = () => {
@@ -71,10 +121,30 @@
 			playbackRate = 1;
 			currentSpeedLabel = '1x';
 		}
+		updateMediaPlayer();
 	};
 
 	if ('mediaSession' in navigator) {
-		navigator.mediaSession.metadata = new MediaMetadata({
+		const newMetaData = new MediaMetadata(getMetaData());
+		navigator.mediaSession.metadata = newMetaData;
+		MediaSession.setMetadata(getMetaData());
+	}
+
+	onMount(() => {
+		if ($audioStore) {
+			$audioStore.addEventListener('durationchange', updateMediaPlayer);
+			$audioStore.addEventListener('seeked', updateMediaPlayer);
+			$audioStore.addEventListener('ratechange', updateMediaPlayer);
+			$audioStore.addEventListener('play', updateMediaPlayer);
+			$audioStore.addEventListener('pause', updateMediaPlayer);
+			MediaSession.setMetadata(getMetaData());
+		}
+	});
+
+	let isExpanded = false;
+
+	$: {
+		MediaSession.setMetadata({
 			title: bookmark.title || 'My Queue',
 			artist: bookmark.domain || 'My Queue',
 			artwork: [
@@ -112,7 +182,31 @@
 		});
 	}
 
-	let isExpanded = false;
+	MediaSession.setActionHandler({ action: 'play' }, () => {
+		handleTogglePlay();
+	});
+
+	MediaSession.setActionHandler({ action: 'pause' }, () => {
+		handleTogglePlay();
+	});
+
+	MediaSession.setActionHandler({ action: 'seekto' }, (details) => {
+		if (details?.seekTime) {
+			currentTime = details?.seekTime;
+		}
+	});
+
+	MediaSession.setActionHandler({ action: 'seekforward' }, (details) => {
+		handleForward();
+	});
+
+	MediaSession.setActionHandler({ action: 'seekbackward' }, (details) => {
+		handleBackward();
+	});
+
+	MediaSession.setActionHandler({ action: 'stop' }, () => {
+		handleTogglePlay();
+	});
 </script>
 
 <div

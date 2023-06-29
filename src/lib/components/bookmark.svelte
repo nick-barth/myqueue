@@ -9,21 +9,16 @@
 	import Trash from '$lib/icons/trash.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import BookmarkMeta from '$lib/components/bookmark-meta.svelte';
+	import { MediaSession } from '@jofr/capacitor-media-session';
 
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import {
-		currentStore,
-		addToast,
-		audioStore,
-		pausedStore,
-		handleTogglePlay,
-		bookmarkStore
-	} from '$lib/store';
+	import { currentStore, addToast, audioStore, pausedStore, bookmarkStore } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
 	import mixpanel from 'mixpanel-browser';
 	import { sources } from '$lib/constants/sources';
+	import { handleTogglePlay } from '../utils/media-service';
 
 	export let bookmark: BookmarkType;
 	export let isDiscovery: Boolean = false;
@@ -45,7 +40,7 @@
 		goto('/read');
 	};
 
-	export const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
+	const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
 		if (!bookmark.url) {
 			return;
 		}
@@ -81,6 +76,7 @@
 				currentStore.update((v) => bookmark);
 				setTimeout(() => {
 					$audioStore?.play();
+					MediaSession.setPlaybackState({ playbackState: 'playing' });
 				}, 40);
 			}
 		} else {
