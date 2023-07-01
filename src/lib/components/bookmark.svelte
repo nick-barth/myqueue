@@ -18,7 +18,6 @@
 	import { get } from 'svelte/store';
 	import mixpanel from 'mixpanel-browser';
 	import { sources } from '$lib/constants/sources';
-	import { handleTogglePlay } from '../utils/media-service';
 
 	export let bookmark: BookmarkType;
 	export let isDiscovery: Boolean = false;
@@ -71,7 +70,9 @@
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			if (currentlyPlaying) {
-				handleTogglePlay();
+				pausedStore.update((v) => true);
+				$audioStore?.pause();
+				MediaSession.setPlaybackState({ playbackState: 'paused' });
 			} else {
 				currentStore.update((v) => bookmark);
 				setTimeout(() => {
