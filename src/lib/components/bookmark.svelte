@@ -9,17 +9,11 @@
 	import Trash from '$lib/icons/trash.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import BookmarkMeta from '$lib/components/bookmark-meta.svelte';
+	import { MediaSession } from '@jofr/capacitor-media-session';
 
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import {
-		currentStore,
-		addToast,
-		audioStore,
-		pausedStore,
-		handleTogglePlay,
-		bookmarkStore
-	} from '$lib/store';
+	import { currentStore, addToast, audioStore, pausedStore, bookmarkStore } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
 	import mixpanel from 'mixpanel-browser';
@@ -45,7 +39,7 @@
 		goto('/read');
 	};
 
-	export const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
+	const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
 		if (!bookmark.url) {
 			return;
 		}
@@ -76,11 +70,14 @@
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			if (currentlyPlaying) {
-				handleTogglePlay();
+				pausedStore.update((v) => true);
+				$audioStore?.pause();
+				MediaSession.setPlaybackState({ playbackState: 'paused' });
 			} else {
 				currentStore.update((v) => bookmark);
 				setTimeout(() => {
 					$audioStore?.play();
+					MediaSession.setPlaybackState({ playbackState: 'playing' });
 				}, 40);
 			}
 		} else {
@@ -158,9 +155,9 @@
 				class="mb-2 w-32 h-18"
 			/>
 		{/if}
-		<div class="flex flex-row-reverse gap-4">
+		<div class="flex flex-row-reverse">
 			{#if bookmark.image}
-				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
+				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md ml-4">
 					<div
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
@@ -171,7 +168,7 @@
 			{/if}
 			<div>
 				<h2
-					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank gap-4 justify-between"
+					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank justify-between"
 				>
 					{bookmark.title}
 				</h2>
@@ -182,7 +179,7 @@
 			</div>
 		</div>
 		<div class="flex w-ful items-center flex-row-reverse justify-between">
-			<div class="flex gap-2 items-center">
+			<div class="flex items-center">
 				{#if !isDiscovery}
 					{#if bookmark && bookmark.read_time}
 						<div class="text-sm mr-4">
@@ -193,7 +190,7 @@
 					<button
 						on:click={handleRead}
 						class={`
-						rounded-primary text-primary text-sm px-4 py-2 bg-background h-10`}
+						rounded-primary text-primary text-sm px-4 py-2 bg-background h-10 mr-4`}
 					>
 						Read
 					</button>
