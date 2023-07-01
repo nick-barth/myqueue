@@ -45,14 +45,11 @@
 			class="h-12 gap-2 w-full flex justify-center items-center text-primary font-semibold rounded-primary border border-primary"
 			on:click={handleGoogleLogin}
 		>
-			<span class="h-6 w-6">
+			<span class="h-6 w-6 mr-2">
 				<GoogleG />
 			</span>
 			Sign up with google
 		</button>
-		absolutely eat my poo
-		{PUBLIC_STRIPE_CUSTOMER_PORTAL}
-
 		<span class="flex self-center my-4 text-sm"> OR </span>
 
 		<form class="flex gap-4 flex-col" use:form>
