@@ -12,11 +12,7 @@ const config: CapacitorConfig = {
 	},
 	appId: 'so.play.myqueue',
 	appName: 'My Queue',
-	webDir: 'build',
-	server: {
-		url: 'http://192.168.1.87:5173/',
-		cleartext: true
-	}
+	webDir: 'build'
 };
 
 export default config;
