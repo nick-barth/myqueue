@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "9AWBZ8ZJT7.so.play.myqueue",
+        "paths": ["*"]
+      }
+    ]
+  }
+}
