@@ -15,6 +15,7 @@
 
 	import type { BookmarkType } from '$types/types';
 	import { onDestroy, onMount } from 'svelte';
+	import { Capacitor } from '@capacitor/core';
 
 	export let bookmark: BookmarkType;
 
@@ -136,6 +137,7 @@
 		const newMetaData = new MediaMetadata(getMetaData());
 		navigator.mediaSession.metadata = newMetaData;
 		MediaSession.setMetadata(getMetaData());
+		console.log('doing it');
 	}
 
 	let isExpanded = false;
@@ -180,44 +182,65 @@
 		updateMediaPlayer();
 	}
 
-	MediaSession.setActionHandler({ action: 'play' }, () => {
-		pausedStore.update((v) => false);
-		MediaSession.setPlaybackState({ playbackState: 'playing' });
-		updateMediaPlayer();
-	});
+	if (Capacitor.getPlatform() === 'android') {
+		MediaSession.setActionHandler({ action: 'play' }, () => {
+			pausedStore.update((v) => false);
+			MediaSession.setPlaybackState({ playbackState: 'playing' });
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'pause' }, () => {
-		pausedStore.update((v) => true);
-		MediaSession.setPlaybackState({ playbackState: 'paused' });
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'pause' }, () => {
+			pausedStore.update((v) => true);
+			MediaSession.setPlaybackState({ playbackState: 'paused' });
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'seekto' }, (details) => {
-		if (details?.seekTime) {
-			currentTime = details?.seekTime;
-		}
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'seekto' }, (details) => {
+			if (details?.seekTime) {
+				currentTime = details?.seekTime;
+			}
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'seekforward' }, (details) => {
-		handleForward();
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'seekforward' }, (details) => {
+			handleForward();
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'seekbackward' }, (details) => {
-		handleBackward();
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'seekbackward' }, (details) => {
+			handleBackward();
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'nexttrack' }, (details) => {
-		handleNextTrack();
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'nexttrack' }, (details) => {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
 
-	MediaSession.setActionHandler({ action: 'previoustrack' }, (details) => {
-		handlePreviousTrack();
-		updateMediaPlayer();
-	});
+		MediaSession.setActionHandler({ action: 'previoustrack' }, (details) => {
+			handlePreviousTrack();
+			updateMediaPlayer();
+		});
+	} else {
+		navigator.mediaSession.setActionHandler('play', function () {
+			pausedStore.update((v) => false);
+			MediaSession.setPlaybackState({ playbackState: 'playing' });
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('pause', function () {
+			pausedStore.update((v) => true);
+			MediaSession.setPlaybackState({ playbackState: 'paused' });
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('previoustrack', function () {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('nexttrack', function () {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
+	}
 
 	const setNewTrack = (index: number) => {
 		const nextBookmark = $bookmarkStore[index];
