@@ -14,7 +14,7 @@
 </script>
 
 <div>
-	<div class="flex justify-between px-2 pt-10">
+	<div class="flex justify-between px-2">
 		<div>
 			<h2 class="font-bold text-2xl leading-6 font-frank mb-1">
 				{sources[data.source]}

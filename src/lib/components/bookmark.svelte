@@ -166,13 +166,13 @@
 					/>
 				</div>
 			{/if}
-			<div>
+			<div class="flex flex-col w-full">
 				<h2
 					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank justify-between"
 				>
 					{bookmark.title}
 				</h2>
-				<p class="line-clamp-4 my-2 leading-5 overflow-hidden text-sm">
+				<p class="line-clamp-4 my-2 leading-5 overflow-hidden text-sm breakword">
 					{bookmark.content}
 				</p>
 				<BookmarkMeta {bookmark} noReadingTime />
@@ -269,3 +269,9 @@
 		</div>
 	</div>
 </li>
+
+<style>
+	.breakword {
+		word-break: break-word;
+	}
+</style>

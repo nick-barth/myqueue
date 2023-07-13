@@ -14,7 +14,7 @@ export const userStore = writable<UserType | null>();
 export const toastsStore = writable<ToastType[]>([]);
 export const audioStore = writable<HTMLAudioElement | null>(null);
 export const planStore = writable<'premium' | null>(null);
-export const paygateStore = writable<'article-limit' | null>(null);
+export const paygateStore = writable<'article-limit' | null>('article-limit');
 
 bookmarkStore.subscribe((value) => {
 	if (value && value.length === 0) {

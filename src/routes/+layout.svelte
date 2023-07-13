@@ -10,6 +10,7 @@
 	import mixpanel from 'mixpanel-browser';
 	import { App } from '@capacitor/app';
 	import type { URLOpenListenerEvent } from '@capacitor/app';
+	import { Capacitor } from '@capacitor/core';
 
 	mixpanel.init(PUBLIC_MIXPANEL_KEY);
 
@@ -55,10 +56,16 @@
 			}
 		});
 	});
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 </script>
 
 <svelte:head>
 	<title>{PUBLIC_TITLE}</title>
 </svelte:head>
 
-<slot />
+<main class={`bg-background ${isIos ? 'pt-20' : 'pt-10'}`}>
+	<slot />
+</main>

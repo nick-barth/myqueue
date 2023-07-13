@@ -6,7 +6,7 @@
 
 <section class="relative">
 	<div class="bg-background">
-		<div class="flex justify-between pt-10 pb-2 px-6">
+		<div class="flex justify-between pb-2 px-6">
 			<div>
 				<div class="flex gap-2 pb-2">
 					<div class="h-7 w-7 bg-primary text-white rounded-full flex items-center justify-center">
