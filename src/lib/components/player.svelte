@@ -137,7 +137,6 @@
 		const newMetaData = new MediaMetadata(getMetaData());
 		navigator.mediaSession.metadata = newMetaData;
 		MediaSession.setMetadata(getMetaData());
-		console.log('doing it');
 	}
 
 	let isExpanded = false;
