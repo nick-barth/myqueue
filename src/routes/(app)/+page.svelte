@@ -5,8 +5,14 @@
 	import Avatar from '$lib/components/avatar-circle.svelte';
 	import { bookmarkStore } from '$lib/store';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
+	import { Capacitor } from '@capacitor/core';
 
 	let totalTime: number = 0;
+	let isIos = false;
+
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 
 	$: totalTime =
 		$bookmarkStore?.reduce((acc, bookmark) => {
@@ -17,7 +23,7 @@
 		}, 0) ?? 0;
 </script>
 
-<section class="relative pt-10">
+<section class={`relative ${isIos ? 'pt-20' : 'pt-10'}`}>
 	{#if $bookmarkStore && $bookmarkStore.length > 0}
 		<div class="flex justify-between px-6 mb-4">
 			<div class="flex items-center">
