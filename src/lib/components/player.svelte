@@ -316,7 +316,7 @@
 			<div class="flex flex-col justify-between h-full">
 				<div class="flex pt-4 mt-8 justify-between items-center gap-4">
 					<h2
-						class={`flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
+						class={`flex text-sm leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
 							isExpanded && 'justify-center mt-4'
 						}`}
 					>

@@ -14,7 +14,7 @@
 							<PlusIcon />
 						</div>
 					</div>
-					<h2 class="font-frank text-xl font-bold">Add</h2>
+					<h2 class="font-frank text-2xl leading-7 font-bold">Add</h2>
 				</div>
 				<p class="text-sm">Add a story manually</p>
 			</div>

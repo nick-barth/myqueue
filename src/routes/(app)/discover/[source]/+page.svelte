@@ -14,12 +14,12 @@
 </script>
 
 <div>
-	<div class="flex justify-between px-2">
+	<div class="flex justify-between px-6">
 		<div>
 			<h2 class="font-bold text-2xl leading-6 font-frank mb-1">
 				{sources[data.source]}
 			</h2>
-			<p class="text-sm pl-0.5">Today</p>
+			<p class="text-sm pl-0.5">Latest news</p>
 		</div>
 		<div class="relative">
 			<Avatar />

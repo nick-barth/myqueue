@@ -228,43 +228,47 @@
 					</Button>
 				{/if}
 			</div>
-			<div class="text-sm flex items-center -ml-[10px]">
-				<button
-					on:click={handleRemove}
-					class=" transition-colors hover:bg-background rounded-full p-2"
-				>
-					<div class="h-6 w-6">
-						<Trash />
+			<div class="text-sm -ml-[10px]">
+				{#if !isDiscovery}
+					<div class="flex items-center">
+						<button
+							on:click={handleRemove}
+							class=" transition-colors hover:bg-background rounded-full p-2"
+						>
+							<div class="h-6 w-6">
+								<Trash />
+							</div>
+						</button>
+						<ContextMenu icon={Share}>
+							<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
+								<button
+									on:click={() => handleCopyLink('clipboard')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Copy link
+								</button>
+								<button
+									on:click={() => handleCopyLink('twitter')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on Twitter
+								</button>
+								<button
+									on:click={() => handleCopyLink('facebook')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on Facebook
+								</button>
+								<button
+									on:click={() => handleCopyLink('linkedin')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on LinkedIn
+								</button>
+							</div>
+						</ContextMenu>
 					</div>
-				</button>
-				<ContextMenu icon={Share}>
-					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
-						<button
-							on:click={() => handleCopyLink('clipboard')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Copy link
-						</button>
-						<button
-							on:click={() => handleCopyLink('twitter')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on Twitter
-						</button>
-						<button
-							on:click={() => handleCopyLink('facebook')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on Facebook
-						</button>
-						<button
-							on:click={() => handleCopyLink('linkedin')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on LinkedIn
-						</button>
-					</div>
-				</ContextMenu>
+				{/if}
 			</div>
 		</div>
 	</div>

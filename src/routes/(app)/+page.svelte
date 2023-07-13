@@ -3,7 +3,7 @@
 	import { flip } from 'svelte/animate';
 	import Bookmark from '$lib/components/bookmark.svelte';
 	import Avatar from '$lib/components/avatar-circle.svelte';
-	import { bookmarkStore } from '$lib/store';
+	import { bookmarkStore, planStore } from '$lib/store';
 	import LogoIcon from '$lib/icons/logo-icon.svg?component';
 
 	let totalTime: number = 0;
@@ -26,10 +26,9 @@
 				</div>
 				<div>
 					<h2 class="font-frank font-bold text-2xl">My Queue</h2>
-					<p class="text-sm">
-						Stories: {$bookmarkStore.length}/5 <span class="px-1">•</span> Total listening time: {Math.floor(
-							totalTime / 60
-						)}
+					<p class="text-xs">
+						Stories: {$bookmarkStore.length}{#if !$planStore} /5{/if} <span class="px-1">•</span>
+						Total listening time: {Math.floor(totalTime / 60)}
 						{Math.floor(totalTime / 60) > 1 ? 'mins' : 'min'}
 					</p>
 				</div>
