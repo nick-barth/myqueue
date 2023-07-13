@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="w-full p-4">
+<div class="w-full p-4 bg-white -mt-10">
 	<section class="flex flex-col justify-center items-center mb-16">
 		<div class="w-44 mb-6" title="My queue logo"><LogoWithText /></div>
 		<h2 class="font-bold text-2xl font-frank">Listen to your favorite articles</h2>
