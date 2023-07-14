@@ -18,9 +18,18 @@
 	onMount(() => {
 		document.body.scrollIntoView();
 	});
+
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 </script>
 
-<section class="flex w-full items-center flex-col mb-16 bg-white p-4 pt-10 -mt-10">
+<section
+	class={`flex w-full items-center flex-col mb-16 bg-white p-4 ${
+		isIos ? '-mt-20 pt-20' : '-mt-10 pt-10'
+	}`}
+>
 	<div class="max-w-2xl">
 		<p class="mb-4"><BookmarkMeta {bookmark} noReadingTime={true} /></p>
 		<h1 class=" text-2xl leading-7 font-bold mb-8 font-frank">{bookmark.title}</h1>
