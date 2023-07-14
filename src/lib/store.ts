@@ -23,15 +23,6 @@ bookmarkStore.subscribe((value) => {
 	}
 });
 
-export const handleTogglePlay = () => {
-	if (get(pausedStore)) {
-		pausedStore.update((v) => false);
-	} else {
-		mixpanel.track('play audio');
-		pausedStore.update((v) => true);
-	}
-};
-
 interface ToastType {
 	id?: number;
 	content: string;

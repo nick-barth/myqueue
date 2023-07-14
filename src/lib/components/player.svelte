@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { PUBLIC_STORAGE_URL } from '$env/static/public';
-	import {
-		currentStore,
-		audioStore,
-		pausedStore,
-		handleTogglePlay,
-		bookmarkStore
-	} from '$lib/store';
+	import { currentStore, audioStore, pausedStore, bookmarkStore } from '$lib/store';
 	import { fade } from 'svelte/transition';
 
+	import { MediaSession } from '@jofr/capacitor-media-session';
 	import PlayerControls from '$lib/components/player-controls.svelte';
 
 	import DoubleUpArrow from '$lib/icons/double-up-arrow.svg?component';
@@ -19,15 +14,76 @@
 	import PlayerRepeat from '$lib/icons/player-repeat.svg?component';
 
 	import type { BookmarkType } from '$types/types';
+	import { onDestroy, onMount } from 'svelte';
+	import { Capacitor } from '@capacitor/core';
 
 	export let bookmark: BookmarkType;
 
 	let currentTime: number;
-	let duration: number;
+	let duration: number = 0;
 	let volume: number;
 	let playbackRate: number = 1;
 	let currentSpeedLabel: string = '1x';
 	let infinitePlay: boolean = true;
+
+	export function handleTogglePlay() {
+		if ($pausedStore) {
+			$audioStore?.play();
+			pausedStore.update((v) => false);
+			MediaSession.setPlaybackState({ playbackState: 'playing' });
+		} else {
+			$audioStore?.pause();
+			pausedStore.update((v) => true);
+			MediaSession.setPlaybackState({ playbackState: 'paused' });
+		}
+	}
+
+	const getMetaData = () => {
+		return {
+			title: bookmark.title || 'My Queue',
+			artist: bookmark.domain || 'My Queue',
+			artwork: [
+				{
+					src: bookmark.image || '',
+					sizes: '96x96',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '128x128',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '192x192',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '256x256',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '384x384',
+					type: 'image/png'
+				},
+				{
+					src: bookmark.image || '',
+					sizes: '512x512',
+					type: 'image/png'
+				}
+			]
+		};
+	};
+
+	const updateMediaPlayer = () => {
+		MediaSession.setPositionState({
+			position: currentTime,
+			duration: duration,
+			playbackRate: playbackRate
+		});
+	};
 
 	const handleEnded = () => {
 		if ($bookmarkStore && $bookmarkStore?.length > 1) {
@@ -47,6 +103,7 @@
 		} else {
 			currentTime = currentTime - 15;
 		}
+		updateMediaPlayer();
 	};
 	const handleForward = () => {
 		if (currentTime + 15 > duration) {
@@ -54,10 +111,12 @@
 		} else {
 			currentTime = currentTime + 15;
 		}
+		updateMediaPlayer();
 	};
 
 	const setNewTime = (newTime: number) => {
 		currentTime = newTime;
+		updateMediaPlayer();
 	};
 
 	const handlePlayBackClick = () => {
@@ -71,10 +130,19 @@
 			playbackRate = 1;
 			currentSpeedLabel = '1x';
 		}
+		updateMediaPlayer();
 	};
 
 	if ('mediaSession' in navigator) {
-		navigator.mediaSession.metadata = new MediaMetadata({
+		const newMetaData = new MediaMetadata(getMetaData());
+		navigator.mediaSession.metadata = newMetaData;
+		MediaSession.setMetadata(getMetaData());
+	}
+
+	let isExpanded = false;
+
+	$: {
+		MediaSession.setMetadata({
 			title: bookmark.title || 'My Queue',
 			artist: bookmark.domain || 'My Queue',
 			artwork: [
@@ -110,9 +178,124 @@
 				}
 			]
 		});
+		updateMediaPlayer();
 	}
 
-	let isExpanded = false;
+	if (Capacitor.getPlatform() === 'android') {
+		MediaSession.setActionHandler({ action: 'play' }, () => {
+			pausedStore.update((v) => false);
+			MediaSession.setPlaybackState({ playbackState: 'playing' });
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'pause' }, () => {
+			pausedStore.update((v) => true);
+			MediaSession.setPlaybackState({ playbackState: 'paused' });
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'seekto' }, (details) => {
+			if (details?.seekTime) {
+				currentTime = details?.seekTime;
+			}
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'seekforward' }, (details) => {
+			handleForward();
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'seekbackward' }, (details) => {
+			handleBackward();
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'nexttrack' }, (details) => {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
+
+		MediaSession.setActionHandler({ action: 'previoustrack' }, (details) => {
+			handlePreviousTrack();
+			updateMediaPlayer();
+		});
+	} else {
+		navigator.mediaSession.setActionHandler('play', function () {
+			pausedStore.update((v) => false);
+			MediaSession.setPlaybackState({ playbackState: 'playing' });
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('pause', function () {
+			pausedStore.update((v) => true);
+			MediaSession.setPlaybackState({ playbackState: 'paused' });
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('previoustrack', function () {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
+		navigator.mediaSession.setActionHandler('nexttrack', function () {
+			handleNextTrack();
+			updateMediaPlayer();
+		});
+	}
+
+	const setNewTrack = (index: number) => {
+		const nextBookmark = $bookmarkStore[index];
+		currentStore.update((v) => nextBookmark);
+		currentTime = 0;
+		updateMediaPlayer();
+		setTimeout(() => {
+			$audioStore?.play();
+		}, 30);
+	};
+
+	const handleNextTrack = () => {
+		const currentIndex = $bookmarkStore?.findIndex((b) => bookmark.id === b.id);
+		if (currentIndex === $bookmarkStore.length - 1) {
+			console.log('it does');
+			setNewTrack(0);
+			return;
+		}
+		if (currentIndex >= 0) {
+			console.log($bookmarkStore);
+			if ($bookmarkStore && $bookmarkStore.length > 0) {
+				setNewTrack(currentIndex + 1);
+			}
+		}
+	};
+
+	const handlePreviousTrack = () => {
+		const currentIndex = $bookmarkStore?.findIndex((b) => bookmark.id === b.id);
+		if (currentIndex === 0) {
+			setNewTrack($bookmarkStore.length - 1);
+			return;
+		}
+		const storeLength = $bookmarkStore?.length || 0;
+		if (currentIndex && currentIndex < storeLength) {
+			if ($bookmarkStore && $bookmarkStore.length > 0) {
+				setNewTrack(currentIndex - 1);
+			}
+		}
+	};
+
+	const handleTimeUpdate = (e: any) => {
+		updateMediaPlayer();
+	};
+	let audioSrc = '';
+	$: {
+		if (bookmark?.audio) {
+			audioSrc = bookmark?.audio.includes('/public_audio/')
+				? bookmark.audio
+				: `${PUBLIC_STORAGE_URL}${bookmark.audio}`;
+		}
+	}
+
+	const handleOnLoad = () => {
+		currentTime = 0;
+		updateMediaPlayer();
+	};
 </script>
 
 <div
@@ -130,9 +313,9 @@
 				<PlayerControls {currentTime} {duration} {setNewTime} />
 			</div>
 			<div class="flex flex-col justify-between h-full">
-				<div class="flex pt-4 mt-8 justify-between items-center gap-4">
+				<div class="flex pt-2 mt-8 justify-between items-center gap-2">
 					<h2
-						class={`flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
+						class={`flex text-sm leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
 							isExpanded && 'justify-center mt-4'
 						}`}
 					>
@@ -199,13 +382,13 @@
 					class="hidden"
 					bind:volume
 					bind:duration
-					bind:currentTime
 					bind:paused={$pausedStore}
 					bind:playbackRate
+					bind:currentTime
 					on:ended={handleEnded}
-					src={bookmark.audio.includes('/public_audio/')
-						? bookmark.audio
-						: `${PUBLIC_STORAGE_URL}${bookmark.audio}`}
+					on:timeupdate={handleTimeUpdate}
+					src={audioSrc}
+					on:load={handleOnLoad}
 					bind:this={$audioStore}
 				/>
 			{/if}

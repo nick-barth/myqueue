@@ -1,0 +1,40 @@
+PODS:
+  - Capacitor (5.1.0):
+    - CapacitorCordova
+  - CapacitorApp (5.0.3):
+    - Capacitor
+  - CapacitorBrowser (5.0.6):
+    - Capacitor
+  - CapacitorCordova (5.1.0)
+  - CapgoNativeAudio (6.0.13):
+    - Capacitor
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapgoNativeAudio (from `../../node_modules/@capgo/native-audio`)"
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../node_modules/@capacitor/app"
+  CapacitorBrowser:
+    :path: "../../node_modules/@capacitor/browser"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapgoNativeAudio:
+    :path: "../../node_modules/@capgo/native-audio"
+
+SPEC CHECKSUMS:
+  Capacitor: 8dc4a61c44f6644fe4e0b61ad01ff175f9b538e5
+  CapacitorApp: 7a5dec8b33573707164b293475d5c89ba684364a
+  CapacitorBrowser: 6192948e0ce804fd72aaf77f4114a3ad2e08c760
+  CapacitorCordova: 5984fa700842461518ecd320905c7f19ecdd590b
+  CapgoNativeAudio: 3cf6582984eacc721801be7e4c2abb5de7060fdb
+
+PODFILE CHECKSUM: 21da0a1fa7eff2fcd3ff77a43da6fc144cba28f0
+
+COCOAPODS: 1.12.1

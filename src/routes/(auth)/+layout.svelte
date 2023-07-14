@@ -3,9 +3,15 @@
 	import Button from '$lib/components/button.svelte';
 	import LogoWithText from '$lib/icons/logo-with-text.svg?component';
 	import { page } from '$app/stores';
+	import { Capacitor } from '@capacitor/core';
+
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 </script>
 
-<div class="w-full p-4">
+<div class={`w-full p-4 bg-white ${isIos ? '-mt-20 pt-20' : 'pt-10 -mt-10'}`}>
 	<section class="flex flex-col justify-center items-center mb-16">
 		<div class="w-44 mb-6" title="My queue logo"><LogoWithText /></div>
 		<h2 class="font-bold text-2xl font-frank">Listen to your favorite articles</h2>

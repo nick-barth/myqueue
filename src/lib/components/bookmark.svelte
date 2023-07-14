@@ -9,17 +9,11 @@
 	import Trash from '$lib/icons/trash.svg?component';
 	import ContextMenu from '$lib/components/context-menu.svelte';
 	import BookmarkMeta from '$lib/components/bookmark-meta.svelte';
+	import { MediaSession } from '@jofr/capacitor-media-session';
 
 	import db from '$lib/db';
 	import type { BookmarkType } from '$types/types';
-	import {
-		currentStore,
-		addToast,
-		audioStore,
-		pausedStore,
-		handleTogglePlay,
-		bookmarkStore
-	} from '$lib/store';
+	import { currentStore, addToast, audioStore, pausedStore, bookmarkStore } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
 	import mixpanel from 'mixpanel-browser';
@@ -45,7 +39,7 @@
 		goto('/read');
 	};
 
-	export const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
+	const handleCopyLink = async (type: 'clipboard' | 'twitter' | 'facebook' | 'linkedin') => {
 		if (!bookmark.url) {
 			return;
 		}
@@ -76,11 +70,14 @@
 	const handlePlay = async () => {
 		if (bookmark.audio) {
 			if (currentlyPlaying) {
-				handleTogglePlay();
+				pausedStore.update((v) => true);
+				$audioStore?.pause();
+				MediaSession.setPlaybackState({ playbackState: 'paused' });
 			} else {
 				currentStore.update((v) => bookmark);
 				setTimeout(() => {
 					$audioStore?.play();
+					MediaSession.setPlaybackState({ playbackState: 'playing' });
 				}, 40);
 			}
 		} else {
@@ -158,9 +155,9 @@
 				class="mb-2 w-32 h-18"
 			/>
 		{/if}
-		<div class="flex flex-row-reverse gap-4">
+		<div class="flex flex-row-reverse">
 			{#if bookmark.image}
-				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md">
+				<div class="w-20 h-20 overflow-hidden flex-shrink-0 rounded-md ml-4">
 					<div
 						style={`background-image: url(${bookmark.image})`}
 						role="img"
@@ -169,20 +166,20 @@
 					/>
 				</div>
 			{/if}
-			<div>
+			<div class="flex flex-col w-full">
 				<h2
-					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank gap-4 justify-between"
+					class="flex font-bold text-lg md:text-xl leading-6 md:leading-7 font-frank justify-between"
 				>
 					{bookmark.title}
 				</h2>
-				<p class="line-clamp-4 my-2 leading-5 overflow-hidden text-sm">
+				<p class="line-clamp-4 my-2 leading-5 overflow-hidden text-sm breakword">
 					{bookmark.content}
 				</p>
 				<BookmarkMeta {bookmark} noReadingTime />
 			</div>
 		</div>
 		<div class="flex w-ful items-center flex-row-reverse justify-between">
-			<div class="flex gap-2 items-center">
+			<div class="flex items-center">
 				{#if !isDiscovery}
 					{#if bookmark && bookmark.read_time}
 						<div class="text-sm mr-4">
@@ -193,7 +190,7 @@
 					<button
 						on:click={handleRead}
 						class={`
-						rounded-primary text-primary text-sm px-4 py-2 bg-background h-10`}
+						rounded-primary text-primary text-sm px-4 py-2 bg-background h-10 mr-4`}
 					>
 						Read
 					</button>
@@ -231,44 +228,54 @@
 					</Button>
 				{/if}
 			</div>
-			<div class="text-sm flex items-center -ml-[10px]">
-				<button
-					on:click={handleRemove}
-					class=" transition-colors hover:bg-background rounded-full p-2"
-				>
-					<div class="h-6 w-6">
-						<Trash />
+			<div class="text-sm -ml-[10px]">
+				{#if !isDiscovery}
+					<div class="flex items-center">
+						<button
+							on:click={handleRemove}
+							class=" transition-colors hover:bg-background rounded-full p-2"
+						>
+							<div class="h-6 w-6">
+								<Trash />
+							</div>
+						</button>
+						<ContextMenu icon={Share}>
+							<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
+								<button
+									on:click={() => handleCopyLink('clipboard')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Copy link
+								</button>
+								<button
+									on:click={() => handleCopyLink('twitter')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on Twitter
+								</button>
+								<button
+									on:click={() => handleCopyLink('facebook')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on Facebook
+								</button>
+								<button
+									on:click={() => handleCopyLink('linkedin')}
+									class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
+								>
+									Share on LinkedIn
+								</button>
+							</div>
+						</ContextMenu>
 					</div>
-				</button>
-				<ContextMenu icon={Share}>
-					<div class="bg-white border border-gray-200 rounded-lg py-2 whitespace-nowrap">
-						<button
-							on:click={() => handleCopyLink('clipboard')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Copy link
-						</button>
-						<button
-							on:click={() => handleCopyLink('twitter')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on Twitter
-						</button>
-						<button
-							on:click={() => handleCopyLink('facebook')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on Facebook
-						</button>
-						<button
-							on:click={() => handleCopyLink('linkedin')}
-							class="hover:bg-background px-4 flex py-2 flex-nowrap w-full"
-						>
-							Share on LinkedIn
-						</button>
-					</div>
-				</ContextMenu>
+				{/if}
 			</div>
 		</div>
 	</div>
 </li>
+
+<style>
+	.breakword {
+		word-break: break-word;
+	}
+</style>

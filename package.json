@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"update-types": "npx supabase gen types typescript --project-id 'paddechpmdutxepollwl' --schema public > types/supabase.ts",
@@ -13,8 +13,10 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@capacitor/assets": "^2.0.4",
 		"@poppanator/sveltekit-svg": "^3.0.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.5.0",
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.28.0",
@@ -31,11 +33,20 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@capacitor/android": "^5.1.0",
+		"@capacitor/app": "^5.0.3",
+		"@capacitor/browser": "^5.0.6",
+		"@capacitor/cli": "^5.0.5",
+		"@capacitor/core": "^5.0.5",
+		"@capacitor/ios": "^5.1.0",
+		"@capgo/native-audio": "^6.0.13",
 		"@felte/validator-zod": "^1.0.13",
+		"@jofr/capacitor-media-session": "^3.0.0",
 		"@supabase/auth-helpers-sveltekit": "^0.9.0",
 		"@supabase/supabase-js": "^2.12.1",
 		"@types/mixpanel-browser": "^2.38.1",
 		"date-fns": "^2.29.3",
+		"dotenv": "^16.3.1",
 		"felte": "^1.2.7",
 		"mixpanel-browser": "^2.46.0",
 		"zod": "^3.21.4"

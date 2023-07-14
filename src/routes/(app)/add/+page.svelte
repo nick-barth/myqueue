@@ -6,7 +6,7 @@
 
 <section class="relative">
 	<div class="bg-background">
-		<div class="flex justify-between pt-10 pb-2 px-6">
+		<div class="flex justify-between pb-2 px-6">
 			<div>
 				<div class="flex gap-2 pb-2">
 					<div class="h-7 w-7 bg-primary text-white rounded-full flex items-center justify-center">
@@ -14,7 +14,7 @@
 							<PlusIcon />
 						</div>
 					</div>
-					<h2 class="font-frank text-xl font-bold">Add</h2>
+					<h2 class="font-frank text-2xl leading-7 font-bold">Add</h2>
 				</div>
 				<p class="text-sm">Add a story manually</p>
 			</div>

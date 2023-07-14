@@ -14,6 +14,9 @@ import type { BookmarkType } from '$types/types';
 import mixpanel from 'mixpanel-browser';
 import { paygateStore } from './store';
 
+import { Browser } from '@capacitor/browser';
+import { Capacitor } from '@capacitor/core';
+
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
 export default {
@@ -21,8 +24,6 @@ export default {
 		const res = await supabase.auth.signInWithOAuth({
 			provider: 'google'
 		});
-
-		return res;
 	},
 	async signUp(email: string, password: string) {
 		const res = await supabase.auth.signUp({
@@ -162,7 +163,11 @@ export default {
 					email: user.email
 				}
 			});
-			window.open(data.url);
+			if (Capacitor.getPlatform() !== 'native') {
+				await Browser.open({ url: data.url });
+			} else {
+				window.open(data.url);
+			}
 		},
 		async getUserPlan() {
 			const user = get(userStore);
