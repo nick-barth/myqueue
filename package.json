@@ -44,6 +44,7 @@
 		"@jofr/capacitor-media-session": "^3.0.0",
 		"@supabase/auth-helpers-sveltekit": "^0.9.0",
 		"@supabase/supabase-js": "^2.12.1",
+		"@sveltejs/adapter-vercel": "^3.0.2",
 		"@types/mixpanel-browser": "^2.38.1",
 		"date-fns": "^2.29.3",
 		"dotenv": "^16.3.1",
