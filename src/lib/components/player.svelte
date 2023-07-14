@@ -78,6 +78,8 @@
 	};
 
 	const updateMediaPlayer = () => {
+		const newMetaData = new MediaMetadata(getMetaData());
+		navigator.mediaSession.metadata = newMetaData;
 		MediaSession.setPositionState({
 			position: currentTime,
 			duration: duration,

@@ -27,7 +27,7 @@
 				/>
 			{/if}
 			{#if !user?.user_metadata.avatar_url}
-				<div class="uppercase h-10 w-10 bg-background flex justify-center items-center">
+				<div class="uppercase h-10 w-10 bg-[#c8c8c8] flex justify-center items-center">
 					{user?.email?.charAt(0)}
 				</div>
 			{/if}
