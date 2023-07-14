@@ -4,10 +4,21 @@
 	import { quartInOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+
+	import { Capacitor } from '@capacitor/core';
+
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 </script>
 
 {#if $toastsStore}
-	<section class="fixed top-8 left-1/2 -translate-x-1/2 max-w-4xl z-50 w-full px-4">
+	<section
+		class={`fixed ${
+			isIos ? 'top-16' : 'top-8'
+		} left-1/2 -translate-x-1/2 max-w-4xl z-50 w-full px-4`}
+	>
 		{#each $toastsStore as toast (toast.id)}
 			<article
 				animate:flip={{ duration: 300, easing: quartInOut }}
