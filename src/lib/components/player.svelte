@@ -313,9 +313,9 @@
 				<PlayerControls {currentTime} {duration} {setNewTime} />
 			</div>
 			<div class="flex flex-col justify-between h-full">
-				<div class="flex pt-2 mt-8 justify-between items-center gap-2">
+				<div class="flex mt-8 justify-between items-center gap-2">
 					<h2
-						class={`flex text-sm leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
+						class={`flex text-lg leading-6 font-semibold h-12 md:items-center line-clamp-2 w-full overflow-hidden font-frank ${
 							isExpanded && 'justify-center mt-4'
 						}`}
 					>
@@ -341,7 +341,7 @@
 					{/if}
 				</div>
 				{#if isExpanded}
-					<div class="w-full mb-4 flex items-center justify-between">
+					<div class="w-full mb-10 flex items-center justify-between">
 						<button on:click={handlePlayBackClick} class="text-sm w-4">
 							{currentSpeedLabel}
 						</button>
