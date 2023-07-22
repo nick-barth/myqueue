@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@capacitor-community/apple-sign-in": "^5.0.0",
 		"@capacitor/android": "^5.1.0",
 		"@capacitor/app": "^5.0.3",
 		"@capacitor/browser": "^5.0.6",

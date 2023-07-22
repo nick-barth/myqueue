@@ -39,7 +39,7 @@
 >
 	<slot />
 	{#if isLoading}
-		<LoadingDots />
+		<LoadingDots white={true} />
 	{/if}
 </button>
 

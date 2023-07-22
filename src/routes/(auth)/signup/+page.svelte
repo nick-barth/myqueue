@@ -2,13 +2,16 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/button.svelte';
 	import GoogleG from '$lib/icons/google-g.svg?component';
-	import db from '$lib/db';
+	import db, { supabase } from '$lib/db';
+	import Apple from '$lib/icons/apple.svg?component';
 	import { createForm } from 'felte';
-
-	import { PUBLIC_STRIPE_CUSTOMER_PORTAL } from '$env/static/public';
 
 	import { validator } from '@felte/validator-zod';
 	import * as zod from 'zod';
+	import {
+		SignInWithApple,
+		type SignInWithAppleResponse
+	} from '@capacitor-community/apple-sign-in';
 
 	let isLoading = false;
 	let hasSignedUp = false;
@@ -34,6 +37,42 @@
 		}
 	});
 
+	const sha256 = async (message: string) => {
+		// encode as UTF-8
+		const msgBuffer = new TextEncoder().encode(message);
+
+		// hash the message
+		const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+		// convert ArrayBuffer to Array
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+		// convert bytes to hex string
+		const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+		return hashHex;
+	};
+
+	const handleAppleLogin = async () => {
+		const nonce = 'nonce';
+		const hashedNonceHex = await sha256(nonce); // see next function
+
+		let options = {
+			clientId: 'so.play.myqueue',
+			redirectURI: 'https://play.myqueue.so/',
+			scopes: 'email name',
+			state: '12345',
+			nonce: hashedNonceHex
+		};
+
+		const result: SignInWithAppleResponse = await SignInWithApple.authorize(options);
+		const res = await supabase.auth.signInWithIdToken({
+			provider: 'apple',
+			token: result.response.identityToken,
+			nonce: nonce
+		});
+		goto('/');
+	};
+
 	const handleGoogleLogin = async () => {
 		const res = await db.signInWithGoogle();
 	};
@@ -42,7 +81,16 @@
 <section class="max-w-[448px] w-full flex m-auto justify-center flex-col">
 	{#if !hasSignedUp}
 		<button
-			class="h-12 gap-2 w-full flex justify-center items-center text-primary font-semibold rounded-primary border border-primary"
+			class="h-12 gap-2 mb-4 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
+			on:click={handleAppleLogin}
+		>
+			<span class="h-6 w-6 mr-2 flex flex-end">
+				<Apple />
+			</span>
+			Continue with Apple
+		</button>
+		<button
+			class="h-12 gap-2 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
 			on:click={handleGoogleLogin}
 		>
 			<span class="h-6 w-6 mr-2">

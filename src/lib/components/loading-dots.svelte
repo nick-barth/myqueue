@@ -1,7 +1,11 @@
+<script>
+	export let white = false;
+</script>
+
 <div class="flex gap-1 flex-row-reverse">
-	<div class="dot bg-primary" />
-	<div class="dot bg-primary" />
-	<div class="dot bg-primary" />
+	<div class={`dot ${white ? 'bg-white' : 'bg-primary'}`} />
+	<div class={`dot ${white ? 'bg-white' : 'bg-primary'}`} />
+	<div class={`dot ${white ? 'bg-white' : 'bg-primary'}`} />
 </div>
 
 <style>

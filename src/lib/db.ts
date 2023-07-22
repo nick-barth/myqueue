@@ -20,6 +20,11 @@ import { Capacitor } from '@capacitor/core';
 export const supabase = createClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY);
 
 export default {
+	async signInWithApple() {
+		const { data, error } = await supabase.auth.signInWithOAuth({
+			provider: 'apple'
+		});
+	},
 	async signInWithGoogle() {
 		const res = await supabase.auth.signInWithOAuth({
 			provider: 'google'
@@ -38,6 +43,17 @@ export default {
 			password
 		});
 		return res;
+	},
+	async deleteAccount() {
+		const user = get(userStore);
+		if (!user) {
+			return;
+		}
+		const { data, error } = await supabase.functions.invoke('delete-user', {
+			body: {
+				id: user.id
+			}
+		});
 	},
 	async signOut() {
 		const res = await supabase.auth.signOut();

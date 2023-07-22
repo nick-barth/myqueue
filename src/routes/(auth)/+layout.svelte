@@ -14,7 +14,7 @@
 <div class={`w-full p-4 bg-white ${isIos ? '-mt-20 pt-20' : 'pt-10 -mt-10'}`}>
 	<section class="flex flex-col justify-center items-center mb-16">
 		<div class="w-44 mb-6" title="My queue logo"><LogoWithText /></div>
-		<h2 class="font-bold text-2xl font-frank">Listen to your favorite articles</h2>
+		<h2 class="font-bold text-2xl font-frank">Listen to articles</h2>
 	</section>
 	<slot />
 	<div class="flex flex-col justify-center items-center mt-10">

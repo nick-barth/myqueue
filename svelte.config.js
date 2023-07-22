@@ -12,7 +12,7 @@ const sources = {
 };
 
 const discovers = Object.keys(sources).map((key) => `/discover/${key}`)
-const routes = ['/signup', '/', '/add', '/read', '/signin', '/signin', ...discovers];
+const routes = ['/signup', '/', '/add', '/read', '/signin', '/settings', '/signin', ...discovers];
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
