@@ -11,6 +11,7 @@
 
 	import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 	import type { SignInWithAppleResponse } from '@capacitor-community/apple-sign-in';
+	import { Capacitor } from '@capacitor/core';
 
 	const schema = zod.object({
 		email: zod.string().email().nonempty(),
@@ -73,18 +74,25 @@
 	const handleGoogleLogin = async () => {
 		const res = await db.signInWithGoogle();
 	};
+
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 </script>
 
 <section class="max-w-[448px] w-full flex m-auto justify-center flex-col">
-	<button
-		class="h-12 gap-2 mb-4 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
-		on:click={handleAppleLogin}
-	>
-		<span class="h-6 w-6 mr-2 flex flex-end">
-			<Apple />
-		</span>
-		Continue with Apple
-	</button>
+	{#if isIos}
+		<button
+			class="h-12 gap-2 mb-4 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
+			on:click={handleAppleLogin}
+		>
+			<span class="h-6 w-6 mr-2 flex flex-end">
+				<Apple />
+			</span>
+			Continue with Apple
+		</button>
+	{/if}
 	<button
 		class="h-12 gap-2 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
 		on:click={handleGoogleLogin}
