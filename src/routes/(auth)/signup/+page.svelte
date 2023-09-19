@@ -12,6 +12,8 @@
 		SignInWithApple,
 		type SignInWithAppleResponse
 	} from '@capacitor-community/apple-sign-in';
+	import { Capacitor } from '@capacitor/core';
+	import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 	let isLoading = false;
 	let hasSignedUp = false;
@@ -72,23 +74,40 @@
 		});
 		goto('/');
 	};
+	let isIos = false;
+	if (Capacitor.getPlatform() === 'ios') {
+		isIos = true;
+	}
 
 	const handleGoogleLogin = async () => {
-		const res = await db.signInWithGoogle();
+		if (isIos) {
+			const res = await GoogleAuth.signIn();
+			const result = await supabase.auth.signInWithIdToken({
+				provider: 'google',
+				token: res.authentication.idToken,
+				access_token: res.authentication.accessToken,
+				nonce: 'nonce'
+			});
+			goto('/');
+		} else {
+			const res = await db.signInWithGoogle();
+		}
 	};
 </script>
 
 <section class="max-w-[448px] w-full flex m-auto justify-center flex-col">
 	{#if !hasSignedUp}
-		<button
-			class="h-12 gap-2 mb-4 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
-			on:click={handleAppleLogin}
-		>
-			<span class="h-6 w-6 mr-2 flex flex-end">
-				<Apple />
-			</span>
-			Continue with Apple
-		</button>
+		{#if isIos}
+			<button
+				class="h-12 gap-2 mb-4 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
+				on:click={handleAppleLogin}
+			>
+				<span class="h-6 w-6 mr-2 flex flex-end">
+					<Apple />
+				</span>
+				Continue with Apple
+			</button>
+		{/if}
 		<button
 			class="h-12 gap-2 w-full flex justify-center items-center text-primary rounded-primary border border-primary"
 			on:click={handleGoogleLogin}

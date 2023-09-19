@@ -13,6 +13,9 @@
 	import type { SignInWithAppleResponse } from '@capacitor-community/apple-sign-in';
 	import { Capacitor } from '@capacitor/core';
 
+	import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+	import { onMount } from 'svelte';
+
 	const schema = zod.object({
 		email: zod.string().email().nonempty(),
 		password: zod.string().nonempty().min(6)
@@ -72,13 +75,32 @@
 	};
 
 	const handleGoogleLogin = async () => {
-		const res = await db.signInWithGoogle();
+		if (isIos) {
+			const res = await GoogleAuth.signIn();
+			const result = await supabase.auth.signInWithIdToken({
+				provider: 'google',
+				token: res.authentication.idToken,
+				access_token: res.authentication.accessToken
+			});
+			console.log(result);
+			goto('/');
+		} else {
+			const res = await db.signInWithGoogle();
+		}
 	};
 
 	let isIos = false;
 	if (Capacitor.getPlatform() === 'ios') {
 		isIos = true;
 	}
+
+	// onMount(() => {
+	// 	GoogleAuth.initialize({
+	// 		clientId: '831091108438-hihvt9nrfbd8qke8sfhru1tog8gsoggs.apps.googleusercontent.com',
+	// 		scopes: ['profile', 'email'],
+	// 		grantOfflineAccess: true
+	// 	});
+	// });
 </script>
 
 <section class="max-w-[448px] w-full flex m-auto justify-center flex-col">

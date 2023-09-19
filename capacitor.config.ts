@@ -8,6 +8,11 @@ const config: CapacitorConfig = {
 	plugins: {
 		CapacitorCookies: {
 			enabled: true
+		},
+		GoogleAuth: {
+			scopes: ['profile', 'email'],
+			serverClientId: '831091108438-hihvt9nrfbd8qke8sfhru1tog8gsoggs.apps.googleusercontent.com',
+			forceCodeForRefreshToken: true
 		}
 	},
 	appId: 'so.play.myqueue',

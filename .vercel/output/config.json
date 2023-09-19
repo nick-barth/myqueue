@@ -1,0 +1,177 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/signup",
+			"dest": "/signup/"
+		},
+		{
+			"src": "/signup/",
+			"status": 308,
+			"headers": {
+				"Location": "/signup"
+			}
+		},
+		{
+			"src": "/add",
+			"dest": "/add/"
+		},
+		{
+			"src": "/add/",
+			"status": 308,
+			"headers": {
+				"Location": "/add"
+			}
+		},
+		{
+			"src": "/read",
+			"dest": "/read/"
+		},
+		{
+			"src": "/read/",
+			"status": 308,
+			"headers": {
+				"Location": "/read"
+			}
+		},
+		{
+			"src": "/signin",
+			"dest": "/signin/"
+		},
+		{
+			"src": "/signin/",
+			"status": 308,
+			"headers": {
+				"Location": "/signin"
+			}
+		},
+		{
+			"src": "/settings",
+			"dest": "/settings/"
+		},
+		{
+			"src": "/settings/",
+			"status": 308,
+			"headers": {
+				"Location": "/settings"
+			}
+		},
+		{
+			"src": "/discover/guardian",
+			"dest": "/discover/guardian/"
+		},
+		{
+			"src": "/discover/guardian/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/guardian"
+			}
+		},
+		{
+			"src": "/discover/newyorktimes",
+			"dest": "/discover/newyorktimes/"
+		},
+		{
+			"src": "/discover/newyorktimes/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/newyorktimes"
+			}
+		},
+		{
+			"src": "/discover/techcrunch",
+			"dest": "/discover/techcrunch/"
+		},
+		{
+			"src": "/discover/techcrunch/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/techcrunch"
+			}
+		},
+		{
+			"src": "/discover/cnn",
+			"dest": "/discover/cnn/"
+		},
+		{
+			"src": "/discover/cnn/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/cnn"
+			}
+		},
+		{
+			"src": "/discover/medium",
+			"dest": "/discover/medium/"
+		},
+		{
+			"src": "/discover/medium/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/medium"
+			}
+		},
+		{
+			"src": "/discover/bbc",
+			"dest": "/discover/bbc/"
+		},
+		{
+			"src": "/discover/bbc/",
+			"status": 308,
+			"headers": {
+				"Location": "/discover/bbc"
+			}
+		},
+		{
+			"src": "/_app/immutable/.+",
+			"headers": {
+				"cache-control": "public, immutable, max-age=31536000"
+			}
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "/.*",
+			"dest": "/fn"
+		}
+	],
+	"overrides": {
+		"signup.html": {
+			"path": "signup"
+		},
+		"index.html": {
+			"path": ""
+		},
+		"add.html": {
+			"path": "add"
+		},
+		"read.html": {
+			"path": "read"
+		},
+		"signin.html": {
+			"path": "signin"
+		},
+		"settings.html": {
+			"path": "settings"
+		},
+		"discover/guardian.html": {
+			"path": "discover/guardian"
+		},
+		"discover/newyorktimes.html": {
+			"path": "discover/newyorktimes"
+		},
+		"discover/techcrunch.html": {
+			"path": "discover/techcrunch"
+		},
+		"discover/cnn.html": {
+			"path": "discover/cnn"
+		},
+		"discover/medium.html": {
+			"path": "discover/medium"
+		},
+		"discover/bbc.html": {
+			"path": "discover/bbc"
+		}
+	}
+}

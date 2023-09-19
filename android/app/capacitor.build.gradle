@@ -13,6 +13,7 @@ dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-browser')
     implementation project(':capgo-native-audio')
+    implementation project(':codetrix-studio-capacitor-google-auth')
     implementation project(':jofr-capacitor-media-session')
 
 }
